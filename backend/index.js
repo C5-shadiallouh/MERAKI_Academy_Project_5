@@ -14,7 +14,7 @@ app.use(cors());
 // router middleware
 app.use("/login",loginRouter)
 app.use("/register",registerRouter)
-app.use("/roles",registerRouter)
+app.use("/roles",roleRouter)
 
 const PORT = process.env.PORT || 5000;
 
