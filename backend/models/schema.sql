@@ -55,3 +55,4 @@ CREATE TABLE cart (
     FOREIGN KEY (user_id) REFERENCES users(id),
     PRIMARY KEY (id)
 );
+
