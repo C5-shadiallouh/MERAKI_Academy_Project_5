@@ -4,12 +4,13 @@ const cors = require("cors");
 require("./models/db");
 const app = express();
 //routers
-
+const registerRouter = require("./routes/register");
 //built-in middleware
 app.use(express.json());
 app.use(cors());
 
 // router middleware
+app.use("/register", registerRouter);
 
 const PORT = process.env.PORT || 5000;
 
