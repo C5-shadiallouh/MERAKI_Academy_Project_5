@@ -4,7 +4,7 @@ const bcrypt = require ("bcrypt")
 
 const saltRounds = 10;
 
-const register = (req,res) => {
+const register = async(req,res) => {
 const {firstName, lastName, age, city, email, password, role_id} = req.body;
 
 const encryptedPassword = await bcrypt.hash(password, saltRounds);
