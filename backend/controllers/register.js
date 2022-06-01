@@ -21,7 +21,7 @@ const data = [
 ];
 connection.query(query, data, (err, result) => {
   if (err) {
-    res.status(409).json({
+    return res.status(409).json({
       success: false,
       massage: "The email already exists",
       err
