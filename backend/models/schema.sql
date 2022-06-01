@@ -1,3 +1,4 @@
+DROP DATABASE project5;
 CREATE DATABASE project5;
 USE project5;
 CREATE TABLE roles (
@@ -46,12 +47,19 @@ CREATE TABLE meals(
     FOREIGN KEY (category_id) REFERENCES category(id),
     PRIMARY KEY (id)
 );
-
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT NOT NULL,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    PRIMARY KEY (id)
+);
 CREATE TABLE cart (
     id INT AUTO_INCREMENT NOT NULL,
     meal_id INT NOT NULL,
     user_id INT NOT NULL,
+    order_id INT NOT NULL,
     FOREIGN KEY (meal_id) REFERENCES meals(id),
     FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (order_id) REFERENCES orders(id),
     PRIMARY KEY (id)
 );
