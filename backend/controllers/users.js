@@ -65,5 +65,17 @@ const updateUsersSettings = (req,res) => {
       }
     });
 }
+const deleteUserById = (req,res)=>{
+  const id =req.params.id
+  const query ="UPDATE users SET is_deleted = 1 WHERE id =?"
+  const data = [id]
+  connection.query(query,data,(err,result)=>{
+    if(err)
+    {return res.json(500)}
+    res.json({success:true,
+    message:"User Deleted Successfully",
+  result})
+  })
+}
 
-module.exports = {getAllUsers,updateUsersSettings} ; 
+module.exports = {getAllUsers,updateUsersSettings,deleteUserById} ; 
