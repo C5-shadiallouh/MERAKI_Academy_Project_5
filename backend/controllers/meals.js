@@ -141,10 +141,37 @@ const gitMealById = (req, res) => {
   });
 };
 
+
+const getMealByCategory = (req,res) => {
+  const category = req.query.category;
+
+  const query = `SELECT * FROM meals INNER JOIN category ON meals.category_id=category.id  WHERE meals.is_deleted=0 AND category.category_name=?;`;
+  const data = [category];
+
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      res.status(500).json({ err });
+    }
+    if (result.length) {
+      res.status(200).json({
+        success: true,
+        massage: `All the meals for the category: ${category_id}`,
+        result: result,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        massage: `The category: ${category_id} has no meals`,
+      });
+    }
+  });
+}
+
 module.exports = {
   addMeal,
   getAllMeal,
   updateMealById,
   deleteMealById,
   gitMealById,
+  getMealByCategory
 };
