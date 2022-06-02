@@ -1,17 +1,11 @@
-const express = require("express")
+const express = require("express");
 
-const {addmeal}=require(`../controllers/meals`)
+const { addMeal,getAllMeal } = require(`../controllers/meals`);
 
-const mealsRouter = express.Router()
+const mealsRouter = express.Router();
 
+mealsRouter.post(`/addmeal`, addMeal);
 
+mealsRouter.get(`/`,getAllMeal)
 
-mealsRouter.post(`/addmeal`,addmeal)
-
-
-
-
-
-
-
-module.exports = mealsRouter
+module.exports = mealsRouter;
