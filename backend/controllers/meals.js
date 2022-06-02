@@ -155,13 +155,13 @@ const getMealByCategory = (req,res) => {
     if (result.length) {
       res.status(200).json({
         success: true,
-        massage: `All the meals for the category: ${category_id}`,
+        massage: `All the meals for the category: ${category}`,
         result: result,
       });
     } else {
       res.status(404).json({
         success: false,
-        massage: `The category: ${category_id} has no meals`,
+        massage: `The category: ${category} has no meals`,
       });
     }
   });

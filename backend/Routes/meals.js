@@ -9,7 +9,8 @@ mealsRouter.post(`/addcategory`, addCategory);
 mealsRouter.get(`/`,getAllMeal)
 mealsRouter.put("/update/:id", updateMealById)
 mealsRouter.delete("/delete/:id", deleteMealById)
+mealsRouter.get("/category", getMealByCategory)
 mealsRouter.get("/:id", gitMealById)
-mealsRouter.get("/", getMealByCategory)
+
 
 module.exports = mealsRouter;
