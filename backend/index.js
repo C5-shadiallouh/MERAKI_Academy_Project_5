@@ -7,6 +7,8 @@ const app = express();
 const loginRouter = require("./routes/login")
 const registerRouter = require("./Routes/register")
 const roleRouter=require("./Routes/role")
+const mealsRouter = require("./Routes/meals")
+
 //built-in middleware
 app.use(express.json());
 app.use(cors());
@@ -15,6 +17,7 @@ app.use(cors());
 app.use("/login",loginRouter)
 app.use("/register",registerRouter)
 app.use("/roles",roleRouter)
+app.use("/meals",mealsRouter)
 
 const PORT = process.env.PORT || 5000;
 
