@@ -9,6 +9,7 @@ const registerRouter = require("./Routes/register")
 const roleRouter=require("./Routes/role")
 const mealsRouter = require("./Routes/meals")
 const usersRouter = require("./Routes/users")
+const cartRouter=require(`./Routes/cart`)
 
 //built-in middleware
 app.use(express.json());
@@ -20,7 +21,7 @@ app.use("/register",registerRouter)
 app.use("/roles",roleRouter)
 app.use("/meals",mealsRouter)
 app.use("/users", usersRouter)
-
+app.use(`/cart`,cartRouter)
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
