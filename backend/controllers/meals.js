@@ -88,10 +88,41 @@ const updateMealById = (req,res) => {
     });
   };
 
+  const deleteMealById = (req,res) => {
+    const id = req.params.id;
+
+    const query = `UPDATE meals SET is_deleted=1 WHERE id=?;`;
+  
+    const data = [id];
+  
+    connection.query(query, data, (err, result) => {
+      if (err) {
+        return res.status(500).json({
+          success: false,
+          massage: "Server Error",
+          err: err,
+        });
+      }
+      if (!result.changedRows) {
+        return res.status(404).json({
+          success: false,
+          massage: `The meal: ${id} is not found`,
+          err: err,
+        });
+      }
+      res.status(200).json({
+        success: true,
+        massage: `Succeeded to delete meal with id: ${id}`,
+        result: result,
+      });
+    });
+  }
+
 
 
 module.exports = {
   addMeal,
   getAllMeal,
   updateMealById,
+  deleteMealById
 };
