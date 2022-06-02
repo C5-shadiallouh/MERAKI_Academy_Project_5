@@ -1,3 +1,4 @@
+DROP DATABASE project5;
 CREATE DATABASE project5;
 USE project5;
 CREATE TABLE roles (
@@ -8,6 +9,8 @@ PRIMARY KEY (id)
 CREATE TABLE permissions (
 id INT AUTO_INCREMENT NOT NULL,
 permission VARCHAR(255) NOT NULL,
+is_deleted TINYINT DEFAULT 0,
+
 PRIMARY KEY (id)
 );
 CREATE TABLE users(
@@ -29,11 +32,13 @@ CREATE TABLE role_permission (
    permissions_id INT NOT NULL,
    FOREIGN KEY (role_id) REFERENCES roles(id),
    FOREIGN KEY (permissions_id) REFERENCES permissions(id),
+   is_deleted TINYINT DEFAULT 0,
    PRIMARY KEY (id)
 );
 CREATE TABLE category (
     id INT AUTO_INCREMENT NOT NULL,
     category_name VARCHAR(255),
+        is_deleted TINYINT DEFAULT 0,
     PRIMARY KEY (id)
 );
 CREATE TABLE meals(
@@ -43,12 +48,15 @@ CREATE TABLE meals(
     image VARCHAR(255),
     description VARCHAR(1000),
     category_id INT,
+    is_deleted TINYINT DEFAULT 0,
     FOREIGN KEY (category_id) REFERENCES category(id),
     PRIMARY KEY (id)
 );
 CREATE TABLE orders (
     id INT AUTO_INCREMENT NOT NULL,
     user_id INT NOT NULL,
+    is_deleted TINYINT DEFAULT 0,
+
     FOREIGN KEY (user_id) REFERENCES users(id),
     PRIMARY KEY (id)
 );
@@ -57,6 +65,8 @@ CREATE TABLE cart (
     meal_id INT NOT NULL,
     user_id INT NOT NULL,
     order_id INT NOT NULL,
+    is_deleted TINYINT DEFAULT 0,
+
     FOREIGN KEY (meal_id) REFERENCES meals(id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (order_id) REFERENCES orders(id),
