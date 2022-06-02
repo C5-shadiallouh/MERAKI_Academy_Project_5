@@ -1,6 +1,11 @@
-const express = require("express")
+const express = require("express");
 
-const mealsRouter = express.Router()
+const { addMeal,getAllMeal } = require(`../controllers/meals`);
 
+const mealsRouter = express.Router();
 
-module.exports = mealsRouter
+mealsRouter.post(`/addmeal`, addMeal);
+
+mealsRouter.get(`/`,getAllMeal)
+
+module.exports = mealsRouter;
