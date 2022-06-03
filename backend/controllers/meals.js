@@ -182,6 +182,18 @@ const paginatedMeals = (req, res) => {
     });
   });
 };
+const priceRange=(req,res)=>{
+  const{price_from,price_to}=req.query
+  const query = "SELECT * FROM meals WHERE meal_price between ? AND ?"
+  const data=[price_from,price_to]
+  connection.query(query,data,(err,result)=>{
+    if(err)
+    {return res.json(err)}
+    if(result.length)
+    {return res.status(200).json(result)}
+    res.status(404).json("There is no meals with this price range")
+  })
+}
 
 module.exports = {
   addMeal,
@@ -190,5 +202,6 @@ module.exports = {
   deleteMealById,
   gitMealById,
   getMealByCategory,
-  paginatedMeals
+  paginatedMeals,
+  priceRange
 };
