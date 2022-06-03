@@ -141,12 +141,11 @@ const gitMealById = (req, res) => {
   });
 };
 
-
-const getMealByCategory = (req,res) => {
-  const category = req.query.category;
+const getMealByCategory = (req, res) => {
+  const {name} = req.query;
 
   const query = `SELECT * FROM meals INNER JOIN category ON meals.category_id=category.id  WHERE meals.is_deleted=0 AND category.category_name=?;`;
-  const data = [category];
+  const data = [name];
 
   connection.query(query, data, (err, result) => {
     if (err) {
@@ -155,17 +154,34 @@ const getMealByCategory = (req,res) => {
     if (result.length) {
       res.status(200).json({
         success: true,
-        massage: `All the meals for the category: ${category}`,
+        massage: `All the meals for the category: ${name}`,
         result: result,
       });
     } else {
       res.status(404).json({
         success: false,
-        massage: `The category: ${category} has no meals`,
+        massage: `The category: ${name} has no meals`,
       });
     }
   });
-}
+};
+const paginatedMeals = (req, res) => {
+  const limit = 20;
+  const page = req.query.p;
+  const offset = (page - 1) * limit;
+  const query = `select * from meals limit ? OFFSET ?`;
+  const data = [limit, offset];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.json(err);
+    }
+    res.status(200).json({
+      products_page_count: result.length,
+      page_number: page,
+      products: result,
+    });
+  });
+};
 
 module.exports = {
   addMeal,
@@ -173,5 +189,6 @@ module.exports = {
   updateMealById,
   deleteMealById,
   gitMealById,
-  getMealByCategory
+  getMealByCategory,
+  paginatedMeals
 };
