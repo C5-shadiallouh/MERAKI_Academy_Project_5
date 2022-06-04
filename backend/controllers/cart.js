@@ -6,7 +6,7 @@ const addToCart = (req, res) => {
 
   const query = `INSERT INTO cart (meal_id,user_id,order_id) VALUES (?,?,?)`;
 
-  const data = [user_id, meal_id, order_id];
+  const data = [meal_id,user_id, order_id];
 
   connection.query(query, data, (err, result) => {
     if (err) {
@@ -57,7 +57,7 @@ const addToCart = (req, res) => {
 }; */
 
 const getCart = (req, res) => {
-  const query = `SELECT * from cart where is_deleted=0`;
+  const query = `SELECT cart.*,meals.meal_name,meals.meal_price,meals.meal_price*cart.quantity AS total from cart INNER JOIN meals ON cart.meal_id =meals.id where cart.is_deleted=0;`
   connection.query(query, (err, result) => {
     if (err) {
       return res.status(500).json({
