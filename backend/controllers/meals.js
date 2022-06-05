@@ -142,7 +142,7 @@ const gitMealById = (req, res) => {
 };
 
 const getMealByCategory = (req, res) => {
-  const {name} = req.query;
+  const { name } = req.query;
 
   const query = `SELECT * FROM meals INNER JOIN category ON meals.category_id=category.id  WHERE meals.is_deleted=0 AND category.category_name=?;`;
   const data = [name];
@@ -182,18 +182,40 @@ const paginatedMeals = (req, res) => {
     });
   });
 };
-const priceRange=(req,res)=>{
-  const{price_from,price_to}=req.query
-  const query = "SELECT * FROM meals WHERE meal_price between ? AND ?"
-  const data=[price_from,price_to]
-  connection.query(query,data,(err,result)=>{
-    if(err)
-    {return res.json(err)}
-    if(result.length)
-    {return res.status(200).json(result)}
-    res.status(404).json("There is no meals with this price range")
-  })
-}
+
+const paginatedMealByCategory = (req, res) => {
+  const { name,p } = req.query;
+  const limit = 20;
+  const offset = (p - 1) * limit;
+  const query = `SELECT * FROM meals INNER JOIN category ON meals.category_id=category.id  WHERE meals.is_deleted=0 AND category.category_name=? limit ? OFFSET ? ;`;
+  const data = [name, limit, offset];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.json(err);
+    }
+    res.status(200).json({
+      products_page_count: result.length,
+      page_number: p,
+      products: result,
+    });
+  });
+};
+
+
+const priceRange = (req, res) => {
+  const { price_from, price_to } = req.query;
+  const query = "SELECT * FROM meals WHERE meal_price between ? AND ?";
+  const data = [price_from, price_to];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.json(err);
+    }
+    if (result.length) {
+      return res.status(200).json(result);
+    }
+    res.status(404).json("There is no meals with this price range");
+  });
+};
 
 module.exports = {
   addMeal,
@@ -203,5 +225,6 @@ module.exports = {
   gitMealById,
   getMealByCategory,
   paginatedMeals,
-  priceRange
+  priceRange,
+  paginatedMealByCategory,
 };
