@@ -16,6 +16,7 @@ const cartSlice=createSlice({
 
         addItem:(state,action)=>{
             state.carts.push(action.payload)
+            localStorage.setItem(`cartItem`,state.carts)
         },
 
 
@@ -23,7 +24,21 @@ const cartSlice=createSlice({
             state.carts=state.carts.filter((cart,index)=>{
                 return cart.id !==action.payload
             })
-        }
+            localStorage.removeItem(`cartItem`,action.payload)
+        },
+
+        updateById:(state,action)=>{
+            state.carts = state.carts.map((cart, index) => {
+            if (cart.id == action.payload) {
+              return { ...cart, quantity:action.payload.quantity };
+            }
+            return cart;
+          });
+
+          localStorage.setItem(`cartItem`,action.payload)
+        },
+
+        
 
 
 
