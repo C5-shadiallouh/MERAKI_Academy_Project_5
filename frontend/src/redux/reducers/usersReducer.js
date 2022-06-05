@@ -12,6 +12,12 @@ const usersSlice=createSlice({
             state.users=action.payload
 
         },
+        addUser:(state,action)=>{
+          state.users.push(action.payload)
+      },
+
+     
+
 
        
 
