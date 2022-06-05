@@ -3,19 +3,26 @@ import {createSlice} from `@reduxjs/toolkit`
 const cartSlice=createSlice({
     name:`Cart`,
     initialState:{
-        cart:localStorage.getItem("cartItem")?localStorage.getItem("cartItem"):[]
+        carts:localStorage.getItem("cartItem")?localStorage.getItem("cartItem"):[]
     },
 
     reducers:{
 
         setCart:(state,action)=>{
-            state.cart=action.payload
+            state.carts=action.payload
             localStorage.setItem(action.payload)
         },
 
 
         addItem:(state,action)=>{
-            state.cart.push(action.payload)
+            state.carts.push(action.payload)
+        },
+
+
+        deleteItemById:(state,action)=>{
+            state.carts=state.carts.filter((cart,index)=>{
+                return cart.id !==action.payload
+            })
         }
 
 
