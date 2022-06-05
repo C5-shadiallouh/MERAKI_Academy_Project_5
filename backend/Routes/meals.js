@@ -1,6 +1,6 @@
 const express = require("express");
 const {addCategory} = require("../controllers/categorey")
-const { addMeal,getAllMeal,updateMealById,deleteMealById, gitMealById, getMealByCategory,paginatedMeals,priceRange, paginatedMealByCategory } = require(`../controllers/meals`);
+const { addMeal,getAllMeal,updateMealById,deleteMealById, gitMealById, getMealByCategory,paginatedMeals,priceRange, paginatedMealByCategory, priceASC, priceDESC } = require(`../controllers/meals`);
 
 const mealsRouter = express.Router();
 
@@ -14,6 +14,9 @@ mealsRouter.get(`/`,getAllMeal)
 mealsRouter.get("/paginated",paginatedMeals)
 mealsRouter.get("/price",priceRange)
 mealsRouter.get("/pageInCategory", paginatedMealByCategory)
+mealsRouter.get("/asc",priceASC)
+mealsRouter.get("/desc",priceDESC)
+
 
 
 module.exports = mealsRouter;

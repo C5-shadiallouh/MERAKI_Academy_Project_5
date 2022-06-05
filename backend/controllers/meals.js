@@ -217,6 +217,36 @@ const priceRange = (req, res) => {
   });
 };
 
+const priceASC = (req,res) => {
+const query = `SELECT * FROM meals
+ORDER BY meal_price ASC;`;
+
+  connection.query(query,(err, result) => {
+    if (err) {
+      return res.json(err);
+    }
+    if (result.length) {
+      return res.status(200).json(result);
+    }
+    res.status(404).json("Not Found");
+  });
+}
+
+const priceDESC = (req,res) => {
+  const query = `SELECT * FROM meals
+  ORDER BY meal_price DESC;`;
+  
+    connection.query(query, (err, result) => {
+      if (err) {
+        return res.json(err);
+      }
+      if (result.length) {
+        return res.status(200).json(result);
+      }
+      res.status(404).json("Not Found");
+    });
+  }
+
 module.exports = {
   addMeal,
   getAllMeal,
@@ -227,4 +257,7 @@ module.exports = {
   paginatedMeals,
   priceRange,
   paginatedMealByCategory,
+  priceASC,
+  priceDESC,
+
 };
