@@ -13,7 +13,19 @@ const cartSlice=createSlice({
             localStorage.setItem(action.payload)
         },
 
-        
+
+        addItem:(state,action)=>{
+            state.cart.push(action.payload)
+        }
+
+
+
+
+
+
+
+
+
 
 
 
