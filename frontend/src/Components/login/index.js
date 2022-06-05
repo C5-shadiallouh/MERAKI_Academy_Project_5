@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-
+import axios from "axios"
 
 import { loggedin } from "../../redux/reducers/auth";
 
@@ -15,10 +15,11 @@ const Login = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const { token, isLoggedIn } = useSelector((state) => {
+  const { token, isLoggedIn,isAdmin } = useSelector((state) => {
     return {
       token: state.auth.token,
       isLoggedIn: state.auth.isLoggedIn,
+      isAdmin:state.auth.isAdmin
     };
   });
 
@@ -30,11 +31,11 @@ const Login = () => {
         email,
         password,
       });
-      console.log(res);
       if (res) {
         setMessage("");
-        localStorage.setItem("token", res.data.token);
-        dispatch(loggedin(res.data));
+        
+        dispatch(loggedin({token:res.data.token,isAdmin:res.data.isAdmin}));
+        
       } else throw Error;
     } catch (error) {
       if (error.response && error.response.data) {
