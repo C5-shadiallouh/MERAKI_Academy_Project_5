@@ -35,7 +35,7 @@ const Login = () => {
         setMessage("");
         
         dispatch(loggedin({token:res.data.token,isAdmin:res.data.isAdmin}));
-        
+        navigate("/")
       } else throw Error;
     } catch (error) {
       if (error.response && error.response.data) {
