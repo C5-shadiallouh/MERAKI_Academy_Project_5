@@ -12,7 +12,12 @@ users:[]
 
         addUser:(state,action)=>{
             state.users.push(action.payload)
-        }
+        },
+        deleteUserById: (state, action) => {
+            state = state.users.filter((elem, index) => {
+              return elem.id !== action.payload;
+            });
+          },
 
        
 
