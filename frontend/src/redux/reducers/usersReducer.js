@@ -19,10 +19,6 @@ users:[]
             });
           },
 
-          updateUserById:(state,action)=>{
-
-          },
-
         updateUserById: (state, action) => {
       state.users = state.users.map((user, index) => {
         if (user.id == action.payload) {
@@ -33,3 +29,8 @@ users:[]
     },
         }
 })
+
+
+export const {setUsers,addUser,updateUserById,deleteUserById}=userSlice.actions
+
+export default userSlice.reducers()
