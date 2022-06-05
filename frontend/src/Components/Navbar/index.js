@@ -4,9 +4,9 @@ import { useDispatch,useSelector } from "react-redux";
 import { loggedin,logout } from "../../redux/reducers/auth";
 const Navbar = ()=>{
 const dispatch = useDispatch()
-const {isLoggedIn}=useSelector((state)=>{
+const {token}=useSelector((state)=>{
     return{
-      isLoggedIn : state.auth.isLoggedIn
+      token : state.auth.token
     }
   })
 return(
