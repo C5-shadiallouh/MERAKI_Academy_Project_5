@@ -24,6 +24,13 @@ const usersSlice=createSlice({
                 return user;
               });
             },
+
+            deleteUserById: (state, action) => {
+              state = state.users.filter((elem, index) => {
+                return elem.id !== action.payload;
+              });
+            },
+
     
     
            
