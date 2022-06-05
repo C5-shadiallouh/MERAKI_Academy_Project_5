@@ -16,6 +16,17 @@ const usersSlice=createSlice({
           state.users.push(action.payload)
       },
 
+      updateUserById: (state, action) => {
+        state.users = state.users.map((user, index) => {
+                if (user.id == action.payload) {
+                  return { ...user, firstName:action.payload.firstName,lastName:action.payload.lastName,city:action.payload.city,email:action.payload.email,password:action.payload.password };
+                }
+                return user;
+              });
+            },
+    
+    
+           
      
 
 
