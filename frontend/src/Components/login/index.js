@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 
-import { loggedin } from "../../src/redux/reducers/auth";
+import { loggedin } from "../../redux/reducers/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
