@@ -1,3 +1,55 @@
+<<<<<<< HEAD
+import {createSlice} from `@reduxjs/toolkit` 
+
+const usersSlice=createSlice({
+    name:"Users",
+    initialState:{
+        users:[]
+
+    },
+    reducers:{
+
+        setUser:(state,action)=>{
+            state.users=action.payload
+
+        },
+        addUser:(state,action)=>{
+          state.users.push(action.payload)
+      },
+
+      updateUserById: (state, action) => {
+        state.users = state.users.map((user, index) => {
+                if (user.id == action.payload) {
+                  return { ...user, firstName:action.payload.firstName,lastName:action.payload.lastName,city:action.payload.city,email:action.payload.email,password:action.payload.password };
+                }
+                return user;
+              });
+            },
+
+            deleteUserById: (state, action) => {
+              state = state.users.filter((elem, index) => {
+                return elem.id !== action.payload;
+              });
+            },
+
+    
+    
+           
+     
+
+
+       
+
+
+    
+    }
+})
+
+
+export const {setUser,deleteUserById,updateUserById,addUser}=usersSlice.actions
+
+export default usersSlice.reducers()
+=======
 import {createSlice} from `@reduxjs/toolkit`
 
 const userSlice =createSlice({
@@ -34,3 +86,4 @@ users:[]
 export const {setUsers,addUser,updateUserById,deleteUserById}=userSlice.actions
 
 export default userSlice.reducers()
+>>>>>>> 163fb1c354165935f19c1afbf7a23b711ba2bbfa
