@@ -68,7 +68,7 @@ const getCart = (req, res) => {
     }
 
     if (result.length !== 0) {
-      res.status(200).json({
+      return  res.status(200).json({
         success: true,
         message: "All the Meals",
         result,
@@ -124,7 +124,50 @@ const getCart = (req, res) => {
   });
 };
  */
+
+/* const subTotal = (req, res) => {
+  const { quantity } = req.body;
+  const query = `SELECT meals.pric*meals.quantity FROM meals INNER JOIN cart ON cart.meal_id = meals.id WHERE cart.is_deleted=0`;
+  const data = [quantity];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      res.status(500).json({
+        success: false,
+        message: `server error`,
+        err,
+      });
+    }
+    res.status(201).json({
+      success: true,
+      message: `subTotal price ${result}`,
+    });
+  });
+}; */
+
+const totalPrice = (req, res) => {
+  const { quantity } = req.body;
+  //NOTE ====>PUT QUANTITY IN MEALS
+
+  const query = `SELECT SUM (meals.price*meals.quantity) FROM meals INNER JOIN cart ON cart.meal_id = meals.id where cart.is_deleted=0`;
+  const data = [quantity];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      res.status(500).json({
+        success: false,
+        message: `server error`,
+        err,
+      });
+    }
+    res.status(201).json({
+      success: true,
+      message: `total price ${result}`,
+    });
+  });
+};
+
 module.exports = {
   addToCart,
   getCart,
+  totalPrice,
+  /* subTotal */
 };
