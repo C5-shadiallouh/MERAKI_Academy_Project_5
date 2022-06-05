@@ -20,7 +20,9 @@ const login = (req,res)=>{
                             email:result[0].email
                         }
                         const token=jwt.sign(payload,process.env.SECRET)
-                        return res.status(200).json({success:true,token,isAdmin:result[0].role_id})
+                        if (result[0].role_id ==1)
+                        return res.status(200).json({success:true,token,isAdmin:true})
+                        else {return res.status(200).json({success:true,token,isAdmin:false})}
                     }
                     return res.status(403).json({success:false,message:"wrong password"})
                 })
