@@ -25,13 +25,13 @@ const addToCart = (req, res) => {
   });
 };
 
-/* const deleteFromCart = (req, res) => {
+const deleteFromCart = (req, res) => {
   const user_id = req.token.user_id;
   const { meal_id } = req.body;
 
-  const query = `DELETE FROM cart WHERE user_id = ? and meal_id = ?`;
+  const query = `UPDATE cart SET is_deleted=1 WHERE user_id = ? and meal_id = ?`;
 
-  const data = [meal_id, user_id];
+  const data = [user_id, meal_id];
 
   connection.query(query, data, (err, result) => {
     if (err) {
@@ -54,7 +54,7 @@ const addToCart = (req, res) => {
       result: result,
     });
   });
-}; */
+};
 
 const getCart = (req, res) => {
   const query = `SELECT * from cart where is_deleted=0`;
@@ -68,7 +68,7 @@ const getCart = (req, res) => {
     }
 
     if (result.length !== 0) {
-      return  res.status(200).json({
+      return res.status(200).json({
         success: true,
         message: "All the Meals",
         result,
@@ -81,8 +81,8 @@ const getCart = (req, res) => {
   });
 };
 
-/* const removeAll = (req, res) => {
-  const query = `U FROM cart WHERE is_deleted=0 ?`;
+const removeAll = (req, res) => {
+  const query = `UPDATE cart SET is_deleted=1`;
 
   connection.query(query, (err, result) => {
     if (err) {
@@ -99,7 +99,7 @@ const getCart = (req, res) => {
       result,
     });
   });
-}; */
+};
 
 /* const addOrder = (req, res) => {
   const user_id = req.token.user_id;
@@ -169,5 +169,8 @@ module.exports = {
   addToCart,
   getCart,
   totalPrice,
+  deleteFromCart,
+  removeAll,
+
   /* subTotal */
 };
