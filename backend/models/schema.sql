@@ -1,3 +1,4 @@
+DROP DATABASE project5;
 CREATE DATABASE project5;
 USE project5;
 CREATE TABLE roles (
