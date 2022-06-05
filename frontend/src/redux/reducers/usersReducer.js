@@ -14,11 +14,22 @@ users:[]
             state.users.push(action.payload)
         },
         deleteUserById: (state, action) => {
-            state = state.users.filter((elem, index) => {
+            state.users = state.users.filter((elem, index) => {
               return elem.id !== action.payload;
             });
           },
 
-       
+          updateUserById:(state,action)=>{
 
+          },
+
+        updateUserById: (state, action) => {
+      state.users = state.users.map((user, index) => {
+        if (user.id == action.payload) {
+          return { ...user, firstName:action.payload.firstName,lastName:action.payload.lastName,city:action.payload.city,email:action.payload.email};
+        }
+        return user;
+      });
+    },
+        }
 })
