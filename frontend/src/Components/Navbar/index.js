@@ -2,18 +2,29 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loggedin, logout } from "../../redux/reducers/auth";
+import { setCategories } from "../../redux/reducers/category";
 import "./style.css";
+import axios from "axios";
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { token, isLoggedIn, isAdmin,meals } = useSelector((state) => {
+  const { token, isLoggedIn, isAdmin,meals,categories } = useSelector((state) => {
     return {
       token: state.auth.token,
       isLoggedIn: state.auth.isLoggedIn,
       isAdmin: state.auth.isAdmin,
-      meals:state.meals.meals
+      categories: state.category.categories
     };
   });
+  const getCategories =()=>{
+
+     axios.get("http://localhost:5000/meals/allcategories").then((result)=>{
+       
+       dispatch(setCategories(result.data.categories))
+     }).catch((err)=>{
+       console.log(err);
+     })
+  }
   return (
     <div className="navbar">
       <nav>
@@ -22,12 +33,15 @@ const Navbar = () => {
           width={"170px"}
         />
         <div className="dropdown">
-        <Link className="dropbtn" to={"/menu"}>القائمة</Link>
+        <Link className="dropbtn" to={"/menu"}onClick={getCategories} >القائمة</Link>
           
           <div className="dropdown-content">
-            <Link to={"#"}>Link 1</Link>
-            <Link to={"#"}>Link 2</Link>
-            <Link to={"#"}>Link 3</Link>
+            {categories.length?
+            categories.map((element,index)=>{
+              return(<Link key={element.id} to={`/${element.category_name}`}>{element.category_name}</Link>)
+            })
+            :""}
+           
           </div>
         </div>
        
