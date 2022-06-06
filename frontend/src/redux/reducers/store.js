@@ -6,6 +6,6 @@ export default configureStore({
     reducer:{
         auth: authReducer,
         meals: mealsReducer,
-        categories : categoriesReducer,
+        category : categoriesReducer,
     }
 })

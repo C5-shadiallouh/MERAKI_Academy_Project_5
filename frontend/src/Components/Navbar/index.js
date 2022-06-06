@@ -13,7 +13,7 @@ const Navbar = () => {
       token: state.auth.token,
       isLoggedIn: state.auth.isLoggedIn,
       isAdmin: state.auth.isAdmin,
-      categories: state.categories.categories
+      categories: state.category.categories
     };
   });
   const getCategories =()=>{
