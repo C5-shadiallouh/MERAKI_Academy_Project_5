@@ -22,4 +22,4 @@ const getCategories=(req,res)=>{
     })
 }
 
-module.exports= {addCategory}
+module.exports= {addCategory,getCategories}
