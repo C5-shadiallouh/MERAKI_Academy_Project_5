@@ -6,6 +6,7 @@ import {useSelector,useDispatch} from `react-redux`
 const AllMenue=(req,res)=>{
     const [meals,setMeals]=useState(``)
     const [message,setMessage]=useState(``)
+    const dispatch=useDispatch()
   
     
     return (
