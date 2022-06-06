@@ -16,7 +16,7 @@ const {isLoggedIn}=useSelector((state)=>{
         isLoggedIn:state.auth.isLoggedIn
     }
 })
-
+//this fuction to add new user
 const addNewUser=()=>{
 try{
     axios.post(`http://localhost:5000/register`,{
