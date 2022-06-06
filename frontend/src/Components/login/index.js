@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios"
-
+import axios from "axios";
+//login with google
+import { GoogleLogin } from "react-google-login";
 import { loggedin } from "../../redux/reducers/auth";
 
 const Login = () => {
@@ -15,16 +16,16 @@ const Login = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const { token, isLoggedIn,isAdmin } = useSelector((state) => {
+  const { token, isLoggedIn, isAdmin } = useSelector((state) => {
     return {
       token: state.auth.token,
       isLoggedIn: state.auth.isLoggedIn,
-      isAdmin:state.auth.isAdmin
+      isAdmin: state.auth.isAdmin,
     };
   });
 
   const login = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     console.log("Login:");
     try {
       const res = await axios.post("http://localhost:5000/login", {
@@ -33,9 +34,11 @@ const Login = () => {
       });
       if (res) {
         setMessage("");
-        
-        dispatch(loggedin({token:res.data.token,isAdmin:res.data.isAdmin}));
-        navigate("/")
+
+        dispatch(
+          loggedin({ token: res.data.token, isAdmin: res.data.isAdmin })
+        );
+        navigate("/");
       } else throw Error;
     } catch (error) {
       if (error.response && error.response.data) {
@@ -54,7 +57,6 @@ const Login = () => {
           placeholder="Email ..."
           onChange={(e) => setEmail(e.target.value)}
         />
-
         <br />
         <input
           type="password"
@@ -63,6 +65,15 @@ const Login = () => {
         />
         <br />
         <button onClick={login}>Login</button>
+        <GoogleLogin
+          clientId="260394999425-0vka8sggtmarkhanf033bsh18ot56vj5.apps.googleusercontent.com"
+          buttonText="Login"
+          onSuccess={login}
+          isLoggedIn={true}
+          onFailure={login}
+          cookiePolicy={"single_host_origin"}
+        />
+        ,
       </div>
 
       {status
