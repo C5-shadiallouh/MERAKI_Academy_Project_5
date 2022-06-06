@@ -27,9 +27,11 @@ const AllMenue=(req,res)=>{
             {meals&&meals.map((meal,index)=>{
                 return (
                     <>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    <li key={index}>{meal.meal_name}</li>
+                    <li key={index}>{meal.meal_price}</li>
+                    <image src={meal.image}/>
+                    <button>Add to Cart</button>
+
                     </>
                 )
             })}
