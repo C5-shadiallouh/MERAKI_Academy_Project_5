@@ -24,30 +24,32 @@ const Login = () => {
     };
   });
 
-  const loginWithGoogle = (response) => {
-    console.log(response.profileObj.givenName);
-    try{
-      axios.post(`http://localhost:5000/register`,{
-      firstName : response.profileObj.givenName,
-      lastName : response.profileObj.familyName,
-      city:null,
-      email : response.profileObj.email,
-      password : response.profileObj.googleId,
-      role_id:2
-  
-  })
-  if (response.tokenId) {
-      setStatus(true);
-      setMessage("The user has been created successfully");
-    } else throw Error;
-  } catch (error) {
-    setStatus(false);
-    if (error.response && error.response.data) {
-      return setMessage(error.response.data.message);
+  const loginWithGoogle = async (response) => {
+    try {
+      console.log(response.profileObj.givenName);
+      const res = await axios.post(`http://localhost:5000/register`, {
+        firstName: response.profileObj.givenName,
+        lastName: response.profileObj.familyName,
+        city: "jordan",
+        email: response.profileObj.email,
+        password: response.profileObj.googleId,
+        role_id: 2,
+        age: 5
+      });
+      if (res) {
+        console.log(res);
+        setStatus(true);
+        setMessage("The user has been created successfully");
+      } else throw Error;
+    } catch (error) {
+      console.log(error);
+      setStatus(false);
+      if (error.response && error.response.data) {
+        return setMessage(error.response.data.message);
+      }
+      setMessage("Error happened while register, please try again");
     }
-    setMessage("Error happened while register, please try again");
-  }
-  }
+  };
   const login = async (e) => {
     // e.preventDefault();
     console.log("Login:");
@@ -96,7 +98,6 @@ const Login = () => {
           onFailure={loginWithGoogle}
           cookiePolicy={"single_host_origin"}
         />
-        
       </div>
 
       {status
