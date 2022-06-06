@@ -16,7 +16,7 @@ const AllMenue=(req,res)=>{
   
     useEffect(() => {
         axios.get("http://localhost:5000/meals/paginated").then((result)=>{
-            dispatch(setMeals(result.data.result))
+            dispatch(setMeals(result.data.products))
         }).catch((err)=>{
             setMessage(err.response.data.message)
         })
@@ -31,6 +31,7 @@ const AllMenue=(req,res)=>{
                     <li key={index}>{meal.meal_price}</li>
                     <image src={meal.image}/>
                     <button>Add to Cart</button>
+                    {message}
 
                     </>
                 )
