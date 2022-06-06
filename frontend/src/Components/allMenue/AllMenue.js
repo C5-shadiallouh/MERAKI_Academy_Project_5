@@ -24,6 +24,15 @@ const AllMenue=(req,res)=>{
     
     return (
         <div>
+            {meals&&meals.map((meal,index)=>{
+                return (
+                    <>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    </>
+                )
+            })}
 
         </div>
     )
