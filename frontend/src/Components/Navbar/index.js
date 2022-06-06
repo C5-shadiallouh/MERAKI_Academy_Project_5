@@ -27,7 +27,6 @@ const Navbar = () => {
   }
   return (
     <div className="navbar">
-      {categories.length ? console.log(categories):console.log("nocat")}
       <nav>
         <img
           src="https://scontent-frt3-1.xx.fbcdn.net/v/t1.6435-9/95093528_925008204596091_3051705487943794688_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeHauKD1lKQ1B_JKeY4f5g_SZiv_hMWAs6ZmK_-ExYCzpv595L_1JAZxtur3jyOmd6CLiQtzOo2DKzu355CRzvfx&_nc_ohc=AUoj-2sVlp4AX8EsSxu&_nc_ht=scontent-frt3-1.xx&oh=00_AT8EmOIbtDsEYK9l55H0K7Z_XTssHwMKZ3OWcS71J7kbvA&oe=62C3D0FA"
@@ -37,7 +36,11 @@ const Navbar = () => {
         <Link className="dropbtn" to={"/menu"}onClick={getCategories} >القائمة</Link>
           
           <div className="dropdown-content">
-            
+            {categories.length?
+            categories.map((element,index)=>{
+              return(<Link key={element.id} to={`/${element.category_name}`}>{element.category_name}</Link>)
+            })
+            :""}
            
           </div>
         </div>
