@@ -28,7 +28,7 @@ const Navbar = () => {
     }
     catch(error){
       if (error.response && error.response.data) {
-        return setMessage(error.response.data.message);
+        
       }
     }
     
