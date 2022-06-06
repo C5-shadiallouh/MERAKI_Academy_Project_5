@@ -20,6 +20,7 @@ export const authSlice = createSlice({
     logout: (state, action) => {
       state.token = null;
       state.isLoggedIn = false;
+      state.isAdmin =false
       localStorage.clear();
     },
   },

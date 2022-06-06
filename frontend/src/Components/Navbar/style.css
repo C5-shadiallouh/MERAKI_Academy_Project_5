@@ -1,9 +1,9 @@
 nav a {
-    margin: 10%;
+    margin: 5%;
 }
 nav{
     background-color: greenyellow;
-    padding-right:4%;
+    padding-right:2%;
     padding-top:2%;
     padding-bottom: 2%;
     
@@ -18,14 +18,13 @@ nav .navs{
 
 }
 .dropbtn {
-    background-color: #04AA6D;
-    color: white;
     padding: 16px;
     font-size: 16px;
     border: none;
   }
   
   .dropdown {
+      margin-left: 5%;
     position: inherit;
     display: inline-block;
   }
@@ -50,5 +49,4 @@ nav .navs{
   
   .dropdown:hover .dropdown-content {display: block;}
   
-  .dropdown:hover .dropbtn {background-color: #3e8e41;}
 
