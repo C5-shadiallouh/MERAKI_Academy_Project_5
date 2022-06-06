@@ -24,6 +24,30 @@ const Login = () => {
     };
   });
 
+  const loginWithGoogle = (response) => {
+    console.log(response.profileObj.givenName);
+    try{
+      axios.post(`http://localhost:5000/register`,{
+      firstName : response.profileObj.givenName,
+      lastName : response.profileObj.familyName,
+      city:null,
+      email : response.profileObj.email,
+      password : response.profileObj.googleId,
+      role_id:2
+  
+  })
+  if (response.tokenId) {
+      setStatus(true);
+      setMessage("The user has been created successfully");
+    } else throw Error;
+  } catch (error) {
+    setStatus(false);
+    if (error.response && error.response.data) {
+      return setMessage(error.response.data.message);
+    }
+    setMessage("Error happened while register, please try again");
+  }
+  }
   const login = async (e) => {
     // e.preventDefault();
     console.log("Login:");
@@ -66,14 +90,13 @@ const Login = () => {
         <br />
         <button onClick={login}>Login</button>
         <GoogleLogin
-          clientId="260394999425-0vka8sggtmarkhanf033bsh18ot56vj5.apps.googleusercontent.com"
+          clientId="171142303177-dlklu0me533t11g37ll28pjmd603vh8c.apps.googleusercontent.com"
           buttonText="Login"
-          onSuccess={login}
-          isLoggedIn={true}
-          onFailure={login}
+          onSuccess={loginWithGoogle}
+          onFailure={loginWithGoogle}
           cookiePolicy={"single_host_origin"}
         />
-        ,
+        
       </div>
 
       {status
