@@ -14,6 +14,13 @@ const AllMenue=(req,res)=>{
         }
     })
   
+    useEffect(() => {
+        axios.get("http://localhost:5000/meals/paginated").then((result)=>{
+            dispatch(setMeals(result.data.result))
+        }).catch((err)=>{
+            setMessage(err.response.data.message)
+        })
+    }, []);
     
     return (
         <div>
