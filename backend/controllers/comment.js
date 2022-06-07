@@ -42,4 +42,45 @@ const addComment = (req, res) => {
     });
   };
 
+  const updateComment = (req, res) => {
+    const { comment } = req.body;
+    const id = req.params.id;
+  
+    const query = `SELECT * FROM comment WHERE id=?;`;
+    const data = [id];
+  
+    connection.query(query, data, (err, result) => {
+      if (err) {
+        return res.status(404).json({
+          success: false,
+          massage: `Server error`,
+          err: err,
+        });
+      }
+      if (!result) {
+        res.status(404).json({
+          success: false,
+          err: err,
+        });
+      } // result are the data returned by mysql server
+      else {
+        const query = `UPDATE comment SET comment=?  WHERE id=?;`;
+        const data = [
+          comment || result[0].comment,
+          id,
+        ];
+  
+        connection.query(query, data, (err, result) => {
+          if (result.affectedRows != 0)
+            res.status(201).json({
+              success: true,
+              massage: `comment updated`,
+              result: result,
+            });
+        });
+      }
+    });
+  };
+
+  
   module.exports = {addComment, getAllComments}
