@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 //login with google
+//npm install react-google-login
 import { GoogleLogin } from "react-google-login";
 import { loggedin } from "../../redux/reducers/auth";
 
@@ -25,6 +26,30 @@ const Login = () => {
   });
 
   const loginWithGoogle = async (response) => {
+
+    const result = axios.get(`http://localhost:5000/users/:${response.profileObj.email}`)
+    .then(()=>{ try {
+      const res = await axios.post("http://localhost:5000/login", {
+        email,
+        password,
+      });
+      if (res) {
+        setMessage("");
+
+        dispatch(
+          loggedin({ token: res.data.token, isAdmin: res.data.isAdmin })
+        );
+        navigate("/");
+      } else throw Error;
+    } catch (error) {
+      if (error.response && error.response.data) {
+        return setMessage(error.response.data.message);
+      }
+      setMessage("Error happened while Login, please try again");
+    }})
+    .catch(()=>{
+      
+    })
     try {
       console.log(response.profileObj.givenName);
       const res = await axios.post(`http://localhost:5000/register`, {

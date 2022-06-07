@@ -79,7 +79,7 @@ const deleteUserById = (req,res)=>{
 }
 
 const getUserByEmail = (req,res) => { 
-  const {email} = req.params
+  const {email} = req.query
   const query = `SELECT * FROM users WHERE is_deleted=0 AND emil=${email};`;
 
   connection.query(query, (err, result) => {
@@ -92,7 +92,7 @@ const getUserByEmail = (req,res) => {
       }
       res.status(200).json({
         success: true,
-        massage: "All the users",
+        massage: "The user you choose:",
         result: result,
       });
     });
