@@ -98,4 +98,4 @@ const getUserByEmail = (req,res) => {
     });
 }
 
-module.exports = {getAllUsers,updateUsersSettings,deleteUserById} ; 
+module.exports = {getAllUsers,updateUsersSettings,deleteUserById, getUserByEmail} ; 
