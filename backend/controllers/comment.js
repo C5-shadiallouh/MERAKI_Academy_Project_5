@@ -113,4 +113,4 @@ const addComment = (req, res) => {
   };
 
 
-  module.exports = {addComment, getAllComments, updateComment}
+  module.exports = {addComment, getAllComments, updateComment, deleteComment}
