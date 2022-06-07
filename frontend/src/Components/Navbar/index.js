@@ -33,9 +33,11 @@ const Navbar = () => {
           width={"170px"}
         />
         <div className="dropdown">
-        <Link className="dropbtn" to={"/menu"}onClick={getCategories} >القائمة</Link>
+        <Link className="dropbtn" to={""}onClick={getCategories} >القائمة</Link>
+        
           
           <div className="dropdown-content">
+          <Link to={"/menu"} >جميع الاصناف</Link>
             {categories.length?
             categories.map((element,index)=>{
               return(<Link key={element.id} to={`/${element.category_name}`}>{element.category_name}</Link>)

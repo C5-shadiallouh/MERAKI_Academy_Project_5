@@ -70,6 +70,29 @@ CREATE TABLE cart (
     FOREIGN KEY (order_id) REFERENCES orders(id),
     PRIMARY KEY (id)
 );
+CREATE TABLE comment (
+    id INT AUTO_INCREMENT NOT NULL,
+    comment VARCHAR(2000) NOT NULL,
+    commenter INT NOT NULL ,
+    meal_id INT  NOT NULL,
+    FOREIGN KEY (commenter) REFERENCES users(id),
+    FOREIGN KEY (meal_id) REFERENCES meals(id),
+    PRIMARY KEY (id)
+
+);
+CREATE TABLE rating (
+    id INT AUTO_INCREMENT NOT NULL,
+    rating INT NOT NULL,
+    rater INT NOT NULL ,
+    meal_id INT  NOT NULL,
+    FOREIGN KEY (rater) REFERENCES users(id),
+    FOREIGN KEY (meal_id) REFERENCES meals(id),
+    PRIMARY KEY (id)
+
+);
+INSERT INTO roles VALUES
+(1,"ADMIN"),
+(2,"USER");
 INSERT INTO category VALUES
 ('1',N'حمص وفول','0'),
 ('2',N'فتة','0'),
