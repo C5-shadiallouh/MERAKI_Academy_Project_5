@@ -22,4 +22,24 @@ const addComment = (req, res) => {
     });
   };
 
-  module.exports = {addComment}
+  const getAllComments = (req, res) => {
+    const query = `SELECT * FROM comment `;
+  
+    connection.query(query, (err, result) => {
+      if (err) {
+        return res.status(500).json({
+          success: false,
+          message: "Server Error",
+          err,
+        });
+      }
+  
+      res.status(200).json({
+        success: true,
+        message: "All the Comments",
+        result,
+      });
+    });
+  };
+
+  module.exports = {addComment, getAllComments}
