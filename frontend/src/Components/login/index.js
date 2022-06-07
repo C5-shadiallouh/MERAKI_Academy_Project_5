@@ -57,7 +57,6 @@ const Login = () => {
           email: response.profileObj.email,
           password: response.profileObj.googleId,
           role_id: 2,
-          age: 5
         });
         if (res) {
           console.log(res);
@@ -65,12 +64,25 @@ const Login = () => {
           setMessage("The user has been created successfully");
         } else throw Error;
       } catch (error) {
-        console.log(error);
-        setStatus(false);
-        if (error.response && error.response.data) {
-          return setMessage(error.response.data.message);
+        try {
+          const res = await axios.post("http://localhost:5000/login", {
+            email,
+            password,
+          });
+          if (res) {
+            setMessage("");
+    
+            dispatch(
+              loggedin({ token: res.data.token, isAdmin: res.data.isAdmin })
+            );
+            navigate("/");
+          } else throw Error;
+        } catch (error) {
+          if (error.response && error.response.data) {
+            return setMessage(error.response.data.message);
+          }
+          setMessage("Error happened while Login, please try again");
         }
-        setMessage("Error happened while register, please try again");
       }
     })
     
