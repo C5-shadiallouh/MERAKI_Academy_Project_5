@@ -1,9 +1,10 @@
 const connection = require(`../models/db`);
 
 const addComment = (req, res) => {
-    const { comment,  } = req.body;
-    const query = `INSERT INTO comment (comment) VALUES (?);`;
-    const data = [comment];
+    const meal_id = req.params.id
+    const { comment} = req.body;
+    const query = `INSERT INTO comment (comment,commenter,meal_id) VALUES (?,?,?);`;
+    const data = [comment, commenter, meal_id];
   
     connection.query(query, data, (err, result) => {
       if (err) {

@@ -3,5 +3,5 @@ const {addComment} = require("")
 
 const commentRouter = express.Router();
 
-commentRouter.post("/", addComment)
+commentRouter.post("/:id", addComment)
 module.exports = commentRouter
