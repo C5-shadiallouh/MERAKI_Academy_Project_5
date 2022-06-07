@@ -1,6 +1,6 @@
 const connection = require(`../models/db`);
 
-onst addComment = (req, res) => {
+const addComment = (req, res) => {
     const { comment,  } = req.body;
     const query = `INSERT INTO comment (comment) VALUES (?);`;
     const data = [comment];
@@ -20,3 +20,5 @@ onst addComment = (req, res) => {
       });
     });
   };
+
+  module.exports = {addComment}
