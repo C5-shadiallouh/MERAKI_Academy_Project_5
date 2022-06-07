@@ -2,6 +2,7 @@ import axios from "axios"
 import {useState,useEffect} from "react"
 import { setMeals } from "../../redux/reducers/meals/index"
 import {useSelector,useDispatch} from "react-redux"
+import { Link } from "react-router-dom"
 
 const AllMenue=(req,res)=>{
 /*     const [meal,setMeal]=useState(``)
@@ -31,7 +32,7 @@ const AllMenue=(req,res)=>{
                     <>
                     <p key={meal.meal_name}>{meal.meal_name}</p>
                     <p key={meal.meal_price}>{meal.meal_price}</p>
-                    <img src={meal.image}  alt=""  key={meal.id}/>
+                    <Link to={`/meals/${meal.id}`}><img src={meal.image}  alt=""  key={meal.id}/></Link>
                     <button>Add to Cart</button>
                     {message}
 
