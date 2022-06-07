@@ -13,6 +13,10 @@ function App() {
     <Route path="/:name" element={<GetMealByCategory/>}/>
     <Route path="/menu" element={<AllMenue/>}/>
     <Route path="/meals/:id" element={<MealPage/>}/>
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 6720da6fcfb5bf335c2ba8d7762c72712af567f3
   </Routes>
   
   

@@ -33,7 +33,7 @@ const Navbar = () => {
           width={"170px"}
         />
         <div className="dropdown">
-        <Link className="dropbtn" to={""}onClick={getCategories} >القائمة</Link>
+        <Link className="dropbtn" to={""}onMouseOver={getCategories} >القائمة</Link>
         
           
           <div className="dropdown-content">
