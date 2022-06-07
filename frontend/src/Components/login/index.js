@@ -27,47 +27,15 @@ const Login = () => {
 
   const loginWithGoogle = async (response) => {
 
-    const result = axios.get(`http://localhost:5000/users/:${response.profileObj.email}`)
-    .then(()=>{ try {
-      const res = await axios.post("http://localhost:5000/login", {
-        email,
-        password,
-      });
-      if (res) {
-        setMessage("");
-
-        dispatch(
-          loggedin({ token: res.data.token, isAdmin: res.data.isAdmin })
-        );
-        navigate("/");
-      } else throw Error;
-    } catch (error) {
-      if (error.response && error.response.data) {
-        return setMessage(error.response.data.message);
-      }
-      setMessage("Error happened while Login, please try again");
-    }})
-    .catch(()=>{
-      try {
-        console.log(response.profileObj.givenName);
-        const res = await axios.post(`http://localhost:5000/register`, {
-          firstName: response.profileObj.givenName,
-          lastName: response.profileObj.familyName,
-          city: "jordan",
-          email: response.profileObj.email,
-          password: response.profileObj.googleId,
-          role_id: 2,
-        });
-        if (res) {
-          console.log(res);
-          setStatus(true);
-          setMessage("The user has been created successfully");
-        } else throw Error;
-      } catch (error) {
+    const result = axios.get(`http://localhost:5000/users/${response.profileObj.email}`)
+    .then(async(result)=>{ 
+      if(result.data.result.length)
+      {
         try {
+     
           const res = await axios.post("http://localhost:5000/login", {
-            email,
-            password,
+            email:response.profileObj.email,
+            password:response.profileObj.googleId,
           });
           if (res) {
             setMessage("");
@@ -77,13 +45,57 @@ const Login = () => {
             );
             navigate("/");
           } else throw Error;
-        } catch (error) {
+        }
+        catch (error) {
           if (error.response && error.response.data) {
             return setMessage(error.response.data.message);
           }
           setMessage("Error happened while Login, please try again");
         }
       }
+      else{
+        try {
+          // console.log(response.profileObj.givenName);
+          const res = await axios.post(`http://localhost:5000/register`, {
+            firstName: response.profileObj.givenName,
+            lastName: response.profileObj.familyName,
+            city: "jordan",
+            email: response.profileObj.email,
+            password: response.profileObj.googleId,
+            role_id: 2,
+          });
+          if (res) {
+            try {
+              const res = await axios.post("http://localhost:5000/login", {
+                email:response.profileObj.email,
+                password:response.profileObj.googleId,
+              });
+              if (res) {
+                setMessage("");
+        
+                dispatch(
+                  loggedin({ token: res.data.token, isAdmin: res.data.isAdmin })
+                );
+                navigate("/");
+              } else throw Error;
+            } catch (error) {
+              if (error.response && error.response.data) {
+                return setMessage(error.response.data.message);
+              }
+              setMessage("Error happened while Login, please try again");
+            }
+          } else throw Error;
+        }
+        catch (error) {
+          if (error.response && error.response.data) {
+            return setMessage(error.response.data.message);
+          }
+          setMessage("Error happened while Login, please try again");
+        }
+      }
+      })
+    .catch((err)=>{
+      console.log(err);
     })
     
   };

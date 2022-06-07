@@ -79,12 +79,12 @@ const deleteUserById = (req,res)=>{
 }
 
 const getUserByEmail = (req,res) => { 
-  const {email} = req.query
-  const query = `SELECT * FROM users WHERE is_deleted=0 AND emil=${email};`;
+  const {email} = req.params
+  const query = `SELECT * FROM users WHERE is_deleted=0 AND email="${email}";`;
 
   connection.query(query, (err, result) => {
       if (err) {
-        res.status(500).json({
+       return res.status(500).json({
           success: false,
           massage: "server error",
           err: err,
