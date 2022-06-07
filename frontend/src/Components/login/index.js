@@ -48,32 +48,32 @@ const Login = () => {
       setMessage("Error happened while Login, please try again");
     }})
     .catch(()=>{
-      
-    })
-    try {
-      console.log(response.profileObj.givenName);
-      const res = await axios.post(`http://localhost:5000/register`, {
-        firstName: response.profileObj.givenName,
-        lastName: response.profileObj.familyName,
-        city: "jordan",
-        email: response.profileObj.email,
-        password: response.profileObj.googleId,
-        role_id: 2,
-        age: 5
-      });
-      if (res) {
-        console.log(res);
-        setStatus(true);
-        setMessage("The user has been created successfully");
-      } else throw Error;
-    } catch (error) {
-      console.log(error);
-      setStatus(false);
-      if (error.response && error.response.data) {
-        return setMessage(error.response.data.message);
+      try {
+        console.log(response.profileObj.givenName);
+        const res = await axios.post(`http://localhost:5000/register`, {
+          firstName: response.profileObj.givenName,
+          lastName: response.profileObj.familyName,
+          city: "jordan",
+          email: response.profileObj.email,
+          password: response.profileObj.googleId,
+          role_id: 2,
+          age: 5
+        });
+        if (res) {
+          console.log(res);
+          setStatus(true);
+          setMessage("The user has been created successfully");
+        } else throw Error;
+      } catch (error) {
+        console.log(error);
+        setStatus(false);
+        if (error.response && error.response.data) {
+          return setMessage(error.response.data.message);
+        }
+        setMessage("Error happened while register, please try again");
       }
-      setMessage("Error happened while register, please try again");
-    }
+    })
+    
   };
   const login = async (e) => {
     // e.preventDefault();
