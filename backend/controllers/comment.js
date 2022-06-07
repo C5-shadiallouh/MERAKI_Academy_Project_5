@@ -83,4 +83,34 @@ const addComment = (req, res) => {
   };
 
 
+  const deleteComment = (req, res) => {
+    const id = req.params.id;
+  
+    const query = `UPDATE comment SET is_deleted=1 WHERE id=?;`;
+  
+    const data = [id];
+  
+    connection.query(query, data, (err, result) => {
+      if (err) {
+        return res.status(500).json({
+          success: false,
+          massage: "Server Error",
+          err: err,
+        });
+      }
+      if (!result.changedRows) {
+        return res.status(404).json({
+          success: false,
+          err: err,
+        });
+      }
+      res.status(200).json({
+        success: true,
+        massage: `Succeeded to delete comment with id: ${id}`,
+        result: result,
+      });
+    });
+  };
+
+
   module.exports = {addComment, getAllComments, updateComment}
