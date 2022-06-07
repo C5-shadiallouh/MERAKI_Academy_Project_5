@@ -1,12 +1,17 @@
 const express = require("express");
-const {addComment, getAllComments, updateComment, deleteComment} = require("")
 
+//import CRUD comment
+const {addComment, getAllComments, updateComment, deleteComment} = require("../controllers/comment");
+const { authentication } = require("../middlewares/authentication");
+
+//create comment Router
 const commentRouter = express.Router();
 
-commentRouter.post("/:id", addComment)
+//Routes
+commentRouter.post("/:id",authentication,  addComment)
 commentRouter.get("/", getAllComments)
 commentRouter.put("/", updateComment)
 commentRouter.delete("/", deleteComment)
 
-
+//export Router
 module.exports = commentRouter

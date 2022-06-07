@@ -78,7 +78,7 @@ CREATE TABLE comment (
     FOREIGN KEY (commenter) REFERENCES users(id),
     FOREIGN KEY (meal_id) REFERENCES meals(id),
     PRIMARY KEY (id)
-
+        
 );
 CREATE TABLE rating (
     id INT AUTO_INCREMENT NOT NULL,

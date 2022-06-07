@@ -2,6 +2,7 @@ const connection = require(`../models/db`);
 
 const addComment = (req, res) => {
     const meal_id = req.params.id
+    const  commenter = req.token.user_id
     const { comment} = req.body;
     const query = `INSERT INTO comment (comment,commenter,meal_id) VALUES (?,?,?);`;
     const data = [comment, commenter, meal_id];
@@ -20,7 +21,8 @@ const addComment = (req, res) => {
         result: result,
       });
     });
-  };
+  };                
+
 
   const getAllComments = (req, res) => {
     const query = `SELECT * FROM comment `;
