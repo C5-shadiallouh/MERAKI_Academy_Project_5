@@ -144,7 +144,7 @@ const gitMealById = (req, res) => {
 const getMealByCategory = (req, res) => {
   const { name } = req.query;
 
-  const query = `SELECT * FROM meals INNER JOIN category ON meals.category_id=category.id  WHERE meals.is_deleted=0 AND category.category_name=?;`;
+  const query = `SELECT meals.* FROM meals INNER JOIN category ON meals.category_id=category.id  WHERE meals.is_deleted=0 AND category.category_name=?;`;
   const data = [name];
 
   connection.query(query, data, (err, result) => {
@@ -187,7 +187,7 @@ const paginatedMealByCategory = (req, res) => {
   const { name,p } = req.query;
   const limit = 20;
   const offset = (p - 1) * limit;
-  const query = `SELECT * FROM meals INNER JOIN category ON meals.category_id=category.id  WHERE meals.is_deleted=0 AND category.category_name=? limit ? OFFSET ? ;`;
+  const query = `SELECT  meals.* FROM meals INNER JOIN category ON meals.category_id=category.id  WHERE meals.is_deleted=0 AND category.category_name=? limit ? OFFSET ? ;`;
   const data = [name, limit, offset];
   connection.query(query, data, (err, result) => {
     if (err) {

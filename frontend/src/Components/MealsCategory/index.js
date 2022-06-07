@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useDispatch,useSelector } from "react-redux";
 import { setMeals } from "../../redux/reducers/meals";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const GetMealByCategory = ()=>{
     const {name} =useParams()
@@ -28,7 +28,7 @@ const GetMealByCategory = ()=>{
                 return(
                     <div>
                         <p>{element.meal_name}</p>
-                        <img src={element.image}/>
+                        <Link to={`/meals/${element.id}`}><img src={element.image}/></Link>
                     </div>
                 )
             })

@@ -13,7 +13,7 @@ function App() {
     <Route path="/:name" element={<GetMealByCategory/>}/>
     <Route path="/menu" element={<AllMenue/>}/>
     <Route path="/meals/:id" element={<MealPage/>}/>
-  
+
   </Routes>
   
   
