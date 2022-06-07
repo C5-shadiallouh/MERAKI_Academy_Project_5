@@ -82,5 +82,5 @@ const addComment = (req, res) => {
     });
   };
 
-  
-  module.exports = {addComment, getAllComments}
+
+  module.exports = {addComment, getAllComments, updateComment}
