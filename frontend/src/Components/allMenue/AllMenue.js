@@ -32,7 +32,7 @@ const AllMenue=(req,res)=>{
                     <>
                     <p key={meal.meal_name}>{meal.meal_name}</p>
                     <p key={meal.meal_price}>{meal.meal_price}</p>
-                    <Link to={`/meals/${meal.meal_name}`}><img src={meal.image}  alt=""  key={meal.id}/></Link>
+                    <Link to={`/meals/${meal.id}`}><img src={meal.image}  alt=""  key={meal.id}/></Link>
                     <button>Add to Cart</button>
                     {message}
 
