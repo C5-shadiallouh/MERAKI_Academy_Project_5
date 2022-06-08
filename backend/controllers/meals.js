@@ -270,6 +270,31 @@ const priceDESC = (req,res) => {
   });
   }
 
+
+  const deleteRate = (req, res) => {
+    const id = req.params.id;
+  
+    const query = `UPDATE rating SET is_deleted=1 WHERE id=?;`;
+  
+    const data = [id];
+  
+    connection.query(query, data, (err, result) => {
+      if (err) {
+        return res.status(500).json({
+          success: false,
+          massage: "Server Error",
+          err: err,
+        });
+      }
+     
+      res.status(200).json({
+        success: true,
+        massage: `Succeeded to delete rate with id: ${id}`,
+        result: result,
+      });
+    });
+  };
+
 module.exports = {
   addMeal,
   getAllMeal,

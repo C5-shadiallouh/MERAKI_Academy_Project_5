@@ -85,6 +85,7 @@ CREATE TABLE rating (
     rating INT NOT NULL,
     rater INT NOT NULL ,
     meal_id INT  NOT NULL,
+    is_deleted TINYINT DEFAULT 0,
     FOREIGN KEY (rater) REFERENCES users(id),
     FOREIGN KEY (meal_id) REFERENCES meals(id),
     PRIMARY KEY (id)
