@@ -15,14 +15,24 @@ const GetMealByCategory = () => {
       meals: state.meals.meals,
     };
   });
+
+
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/meals/pageInCategory?p=1&name=${name}`)
+      .get(`http://localhost:5000/meals/pageInCategory?p=${page}&name=${name}`)
       .then((result) => {
         dispatch(setMeals(result.data.products));
       })
       .catch((err) => {
         console.log(err);
+      });
+      axios
+      .get("http://localhost:5000/meals/category")
+      .then((result) => {
+        setMeal(result.data.result);
+      })
+      .catch((err) => {
+        setMessage(err.sqlMessage);
       });
   }, [meals]);
   return (
