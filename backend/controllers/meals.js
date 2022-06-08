@@ -247,6 +247,29 @@ const priceDESC = (req,res) => {
     });
   }
 
+
+  const addRate = (req,res) => {
+   const meal_id = req.params.id
+   const rater = req.token.userId
+   const rate = req.body
+   const query = `INSERT INTO rating (rating, rater, meal_id) VALUES (?,?,?);`;
+   const data = [rate, rater, meal_id]
+   connection.query(query,data,(err, result) => {
+    if (err) {
+      res.status(500).json({
+        success: false,
+        massage: "Server error",
+        err: err,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      massage: "rate added",
+      result: result,
+    });
+  });
+  }
+
 module.exports = {
   addMeal,
   getAllMeal,
