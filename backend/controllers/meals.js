@@ -295,9 +295,9 @@ const deleteRate = (req, res) => {
 
 const getRates = (req, res) => {
   const meal_id = req.params.id;
-  const query = `SELECT (rating) FROM rating WHERE meal_id=? ;`;
+  const query = `SELECT AVG(rate) AS AverageRate FROM rating;`;
   const data = [meal_id];
-  connection.query(query, (err, result) => {
+  connection.query(query,data,(err, result) => {
     if (err) {
       return res.status(500).json({
         success: false,
@@ -311,8 +311,8 @@ const getRates = (req, res) => {
       message: "All the rates",
       result,
     });
-  });
-};
+});
+}
 
 module.exports = {
   addMeal,

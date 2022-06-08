@@ -82,7 +82,7 @@ CREATE TABLE comment (
 );
 CREATE TABLE rating (
     id INT AUTO_INCREMENT NOT NULL,
-    rating INT NOT NULL,
+    rate INT NOT NULL,
     rater INT NOT NULL ,
     meal_id INT  NOT NULL,
     is_deleted TINYINT DEFAULT 0,
