@@ -3,6 +3,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setMeals } from "../../redux/reducers/meals";
 import { useParams } from "react-router-dom";
+import { changePage } from "../../redux/reducers/page/pageReducer";
 
 const GetMealByCategory = () => {
   const [meal, setMeal] = useState([]);
