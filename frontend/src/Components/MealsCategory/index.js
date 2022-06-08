@@ -5,6 +5,8 @@ import { setMeals } from "../../redux/reducers/meals";
 import { useParams } from "react-router-dom";
 
 const GetMealByCategory = () => {
+  const [meal, setMeal] = useState([]);
+
   const { name } = useParams();
   const dispatch = useDispatch();
   const { meals } = useSelector((state) => {
