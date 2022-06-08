@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setMeals } from "../../redux/reducers/meals";
 import { useParams } from "react-router-dom";
 import { changePage } from "../../redux/reducers/page/pageReducer";
+import { Link } from "react-router-dom";
 
 const GetMealByCategory = () => {
   const [meal, setMeal] = useState([]);
@@ -22,10 +23,14 @@ const GetMealByCategory = () => {
     }
 })
 
-  useEffect(() => {
+console.log(page)
+
+useEffect(() => {
     axios
       .get(`http://localhost:5000/meals/pageInCategory?p=${page}&name=${name}`)
+
       .then((result) => {
+        console.group(result);
         dispatch(setMeals(result.data.products));
       })
       .catch((err) => {
@@ -33,15 +38,16 @@ const GetMealByCategory = () => {
       });
       axios
       .get("http://localhost:5000/meals/category")
+
       .then((result) => {
         setMeal(result.data.result);
       })
       .catch((err) => {
-        setMessage(err.sqlMessage);
-      });
-  }, [meals]);
+console.log(err)      });
+  }, [meals,page,name]);
   return (
     <div>
+        {meal.length?console.log(meal.length):""}
       {meals.length
         ? meals.map((element, index) => {
             return (
@@ -54,7 +60,7 @@ const GetMealByCategory = () => {
         : ""}
 
       <div style={{ display: "none" }}>
-        {(meal.length = Math.ceil(meal.length / 20))}
+        {(meal.length = Math.ceil(meal.length / 5))}
       </div>
       <div class="center">
         <div class="pagination">
