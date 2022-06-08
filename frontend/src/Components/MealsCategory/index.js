@@ -99,41 +99,9 @@ console.log(err)      });
           >
             &raquo;
           </Link>
-=======
-import { Link, useParams } from "react-router-dom";
 
-const GetMealByCategory = ()=>{
-    const {name} =useParams()
-    const dispatch =  useDispatch()
-    const {meals}=useSelector((state)=>{
-        return{
-            meals:state.meals.meals
-        }
-       
-    })
-    useEffect(()=>{
-        axios.get(`http://localhost:5000/meals/pageInCategory?p=1&name=${name}`).then((result)=>{
-            dispatch(setMeals(result.data.products))
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
-    },[meals])
-    return(
-        <div>
-            {meals.length?
-            meals.map((element,index)=>{
-                return(
-                    <div>
-                        <p>{element.meal_name}</p>
-                        <Link to={`/meals/${element.id}`}><img src={element.image}/></Link>
-                    </div>
-                )
-            })
-            :""}
-        </div>
       </div>
-    </div>
+    </div></div>
   );
 };
 export default GetMealByCategory;
