@@ -184,7 +184,7 @@ const paginatedMeals = (req, res) => {
 };
 
 const paginatedMealByCategory = (req, res) => {
-  const { name,p } = req.query;
+  const { name, p } = req.query;
   const limit = 20;
   const offset = (p - 1) * limit;
   const query = `SELECT  meals.* FROM meals INNER JOIN category ON meals.category_id=category.id  WHERE meals.is_deleted=0 AND category.category_name=? limit ? OFFSET ? ;`;
@@ -201,7 +201,6 @@ const paginatedMealByCategory = (req, res) => {
   });
 };
 
-
 const priceRange = (req, res) => {
   const { price_from, price_to } = req.query;
   const query = "SELECT * FROM meals WHERE meal_price between ? AND ?";
@@ -217,11 +216,11 @@ const priceRange = (req, res) => {
   });
 };
 
-const priceASC = (req,res) => {
-const query = `SELECT * FROM meals
+const priceASC = (req, res) => {
+  const query = `SELECT * FROM meals
 ORDER BY meal_price ASC;`;
 
-  connection.query(query,(err, result) => {
+  connection.query(query, (err, result) => {
     if (err) {
       return res.json(err);
     }
@@ -230,31 +229,31 @@ ORDER BY meal_price ASC;`;
     }
     res.status(404).json("Not Found");
   });
-}
+};
 
-const priceDESC = (req,res) => {
+const priceDESC = (req, res) => {
   const query = `SELECT * FROM meals
   ORDER BY meal_price DESC;`;
-  
-    connection.query(query, (err, result) => {
-      if (err) {
-        return res.json(err);
-      }
-      if (result.length) {
-        return res.status(200).json(result);
-      }
-      res.status(404).json("Not Found");
-    });
-  }
 
+  connection.query(query, (err, result) => {
+    if (err) {
+      return res.json(err);
+    }
+    if (result.length) {
+      return res.status(200).json(result);
+    }
+    res.status(404).json("Not Found");
+  });
+};
 
-  const addRate = (req,res) => {
-   const meal_id = req.params.id
-   const rater = req.token.userId
-   const rate = req.body
-   const query = `INSERT INTO rating (rating, rater, meal_id) VALUES (?,?,?);`;
-   const data = [rate, rater, meal_id]
-   connection.query(query,data,(err, result) => {
+const addRate = (req, res) => {
+  const meal_id = req.params.id;
+  console.log(req.token);
+  const rater = req.token.user_id;
+  const rate = req.body;
+  const query = `INSERT INTO rating (rating, rater, meal_id) VALUES (?,?,?);`;
+  const data = [rate, rater, meal_id];
+  connection.query(query, data, (err, result) => {
     if (err) {
       res.status(500).json({
         success: false,
@@ -268,32 +267,52 @@ const priceDESC = (req,res) => {
       result: result,
     });
   });
-  }
+};
 
+const deleteRate = (req, res) => {
+  const id = req.params.id;
 
-  const deleteRate = (req, res) => {
-    const id = req.params.id;
-  
-    const query = `UPDATE rating SET is_deleted=1 WHERE id=?;`;
-  
-    const data = [id];
-  
-    connection.query(query, data, (err, result) => {
-      if (err) {
-        return res.status(500).json({
-          success: false,
-          massage: "Server Error",
-          err: err,
-        });
-      }
-     
-      res.status(200).json({
-        success: true,
-        massage: `Succeeded to delete rate with id: ${id}`,
-        result: result,
+  const query = `UPDATE rating SET is_deleted=1 WHERE id=?;`;
+
+  const data = [id];
+
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        massage: "Server Error",
+        err: err,
       });
+    }
+
+    res.status(200).json({
+      success: true,
+      massage: `Succeeded to delete rate with id: ${id}`,
+      result: result,
     });
-  };
+  });
+};
+
+const getRates = (req, res) => {
+  const meal_id = req.params.id;
+  const query = `SELECT (rating) FROM rating WHERE meal_id=? ;`;
+  const data = [meal_id];
+  connection.query(query, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+        err,
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "All the rates",
+      result,
+    });
+  });
+};
 
 module.exports = {
   addMeal,
@@ -308,6 +327,5 @@ module.exports = {
   priceASC,
   priceDESC,
   addRate,
-  deleteRate
-
+  deleteRate,
 };
