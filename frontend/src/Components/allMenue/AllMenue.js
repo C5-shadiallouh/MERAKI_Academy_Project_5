@@ -58,6 +58,49 @@ const AllMenue = (req, res) => {
             </>
           );
         })}
+
+      <div style={{ display: "none" }}>
+        {(meal.length = Math.ceil(meal.length / 20))}
+      </div>
+      <div class="center">
+        <div class="pagination">
+          <Link
+            to="#"
+            onClick={() => {
+              if (page < meal.length) {
+                dispatch(changePage(page + 1));
+              }
+            }}
+          >
+            &laquo;
+          </Link>
+
+          {meal.length
+            ? meal.map((element, index) => {
+                return (
+                  <Link
+                    to=""
+                    onClick={() => {
+                      dispatch(changePage(index + 1));
+                    }}
+                  >
+                    {index + 1}
+                  </Link>
+                );
+              })
+            : ""}
+          <Link
+            to="#"
+            onClick={() => {
+              if (page > 1) {
+                dispatch(changePage(page - 1));
+              }
+            }}
+          >
+            &raquo;
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
