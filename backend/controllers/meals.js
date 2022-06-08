@@ -359,4 +359,5 @@ module.exports = {
   addRate,
   deleteRate,
   getRates,
+  updateRate,
 };
