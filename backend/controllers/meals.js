@@ -282,5 +282,6 @@ module.exports = {
   paginatedMealByCategory,
   priceASC,
   priceDESC,
+  addRate,
 
 };
