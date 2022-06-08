@@ -16,6 +16,11 @@ const GetMealByCategory = () => {
     };
   });
 
+  const {page}=useSelector((state)=>{
+    return {
+        page:state.page.page
+    }
+})
 
   useEffect(() => {
     axios
