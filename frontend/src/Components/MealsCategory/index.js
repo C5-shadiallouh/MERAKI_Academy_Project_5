@@ -11,18 +11,14 @@ const GetMealByCategory = () => {
 
   const { name } = useParams();
   const dispatch = useDispatch();
-  const { meals } = useSelector((state) => {
+  const { meals,page } = useSelector((state) => {
     return {
       meals: state.meals.meals,
+      page:state.page.page
     };
   });
 
-  const {page}=useSelector((state)=>{
-    return {
-        page:state.page.page
-    }
-})
-
+  
 console.log(page)
 
 useEffect(() => {
@@ -37,14 +33,14 @@ useEffect(() => {
         console.log(err);
       });
       axios
-      .get("http://localhost:5000/meals/category")
+      .get(`http://localhost:5000/meals/category?name=${name}`)
 
       .then((result) => {
         setMeal(result.data.result);
       })
       .catch((err) => {
 console.log(err)      });
-  }, [meals,page,name]);
+  }, [page]);
   return (
     <div>
         {meal.length?console.log(meal.length):""}
@@ -60,7 +56,9 @@ console.log(err)      });
         : ""}
 
       <div style={{ display: "none" }}>
-        {(meal.length = Math.ceil(meal.length / 5))}
+          {console.log("prev",meal.length)}
+        {(meal.length = Math.ceil(meal.length / 20))}
+        {console.log("meal length",meal.length)}
       </div>
       <div class="center">
         <div class="pagination">
