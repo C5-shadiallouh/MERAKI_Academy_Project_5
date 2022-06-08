@@ -15,11 +15,11 @@ const AllMenue = (req, res) => {
     };
   });
 
-  const {page}=useSelector((state)=>{
+  const { page } = useSelector((state) => {
     return {
-      page:state.page.page
-    }
-  })
+      page: state.page.page,
+    };
+  });
 
   console.log(page);
   useEffect(() => {
@@ -32,7 +32,14 @@ const AllMenue = (req, res) => {
       .catch((err) => {
         setMessage(err.sqlMessage);
       });
-   
+    axios
+      .get("http://localhost:5000/meals")
+      .then((result) => {
+        setMeal(result.data.result);
+      })
+      .catch((err) => {
+        setMessage(err.sqlMessage);
+      });
   }, [page]);
 
   return (
@@ -51,7 +58,6 @@ const AllMenue = (req, res) => {
             </>
           );
         })}
-      
     </div>
   );
 };
