@@ -202,9 +202,14 @@ const paginatedMealByCategory = (req, res) => {
 };
 
 const priceRange = (req, res) => {
-  const { price_from, price_to } = req.query;
-  const query = "SELECT * FROM meals WHERE meal_price between ? AND ?";
-  const data = [price_from, price_to];
+  let price_from = req.query.price_from
+  req.query.price_from ? "":price_from=0
+  let price_to = req.query.price_to
+  req.query.price_to ? "":price_to=999
+  let sort = req.query.sort
+req.query.sort? console.log(true):sort="ASC";
+  const query = `SELECT * FROM meals WHERE meal_price between ? AND ?  ORDER BY meal_price ${sort}`;
+  const data = [price_from, price_to,sort];
   connection.query(query, data, (err, result) => {
     if (err) {
       return res.json(err);

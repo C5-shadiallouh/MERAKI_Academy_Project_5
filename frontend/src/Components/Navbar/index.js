@@ -49,7 +49,7 @@ const Navbar = () => {
        
         {!isLoggedIn ? (
           <>
-            <Link to={"/regeister"}>تسجيل مستخدم جديد</Link>
+            <Link to={"/register"}>تسجيل مستخدم جديد</Link>
             <Link to={"/login"}>تسجيل الدخول</Link>
           </>
         ) : (

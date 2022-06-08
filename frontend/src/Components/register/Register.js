@@ -1,6 +1,6 @@
 import { useState } from "react"
-import axios from `axios`
-import {useSelector} from `react-redux`
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Register=()=>{
 const [firstName,setFirstName]=useState(``)
@@ -19,7 +19,7 @@ const {isLoggedIn}=useSelector((state)=>{
 //this fuction to add new user
 const addNewUser=()=>{
 try{
-    axios.post(`http://localhost:5000/register`,{
+   const res= axios.post(`http://localhost:5000/register`,{
     firstName,
     lastName,
     city,
@@ -28,7 +28,7 @@ try{
     role_id:2
 
 })
-if (result.data.success) {
+if (res) {
     setStatus(true);
     setMessage("The user has been created successfully");
   } else throw Error;
