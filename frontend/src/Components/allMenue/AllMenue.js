@@ -9,11 +9,17 @@ const AllMenue = (req, res) => {
   const [meal, setMeal] = useState([]);
   const [message, setMessage] = useState(``);
   const dispatch = useDispatch();
-  const { meals, page } = useSelector((state) => {
+  const { meals } = useSelector((state) => {
     return {
       meals: state.meals.meals,
     };
   });
+
+  const {page}=useSelector((state)=>{
+    return {
+      page:state.page.page
+    }
+  })
 
   console.log(page);
   useEffect(() => {
