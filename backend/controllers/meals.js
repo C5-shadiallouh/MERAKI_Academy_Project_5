@@ -328,4 +328,5 @@ module.exports = {
   priceDESC,
   addRate,
   deleteRate,
+  getRates,
 };
