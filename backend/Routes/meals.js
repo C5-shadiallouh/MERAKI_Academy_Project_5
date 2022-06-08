@@ -1,6 +1,7 @@
 const express = require("express");
+const { authentication } = require(`../middlewares/authentication`);
 const {addCategory,getCategories} = require("../controllers/categorey")
-const { addMeal,getAllMeal,updateMealById,deleteMealById, gitMealById, getMealByCategory,paginatedMeals,priceRange, paginatedMealByCategory, priceASC, priceDESC } = require(`../controllers/meals`);
+const { addMeal,getAllMeal,updateMealById,deleteMealById, gitMealById, getMealByCategory,paginatedMeals,priceRange, paginatedMealByCategory, priceASC, priceDESC, addRate, deleteRate, getRates, updateRate } = require(`../controllers/meals`);
 
 const mealsRouter = express.Router();
 
@@ -17,6 +18,9 @@ mealsRouter.get("/pageInCategory", paginatedMealByCategory)
 mealsRouter.get("/asc",priceASC)
 mealsRouter.get("/desc",priceDESC)
 mealsRouter.get("/allcategories",getCategories)
-
+mealsRouter.post("/rating/:id", authentication, addRate)
+mealsRouter.delete("/rating/:id",authentication, deleteRate)
+mealsRouter.get("/rating/:id", getRates)
+mealsRouter.put("/rating/:id", updateRate)
 
 module.exports = mealsRouter;
