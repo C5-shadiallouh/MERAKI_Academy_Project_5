@@ -293,11 +293,41 @@ const deleteRate = (req, res) => {
   });
 };
 
+const updateRate = (req, res) => {
+  const { rate } = req.body;
+  const id = req.params.id;
+
+  const query = `SELECT * FROM rating WHERE id=?;`;
+  const data = [id];
+
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(404).json({
+        success: false,
+        massage: `Server error`,
+        err: err,
+      });
+    } else {
+      const query = `UPDATE rating SET rate=? WHERE id=?;`;
+      const data = [rate || result[0].rate, id];
+
+      connection.query(query, data, (err, result) => {
+        if (result.affectedRows != 0)
+          res.status(201).json({
+            success: true,
+            massage: `rate updated`,
+            result: result,
+          });
+      });
+    }
+  });
+};
+
 const getRates = (req, res) => {
   const meal_id = req.params.id;
   const query = `SELECT AVG(rate) AS AverageRate FROM rating;`;
   const data = [meal_id];
-  connection.query(query,data,(err, result) => {
+  connection.query(query, data, (err, result) => {
     if (err) {
       return res.status(500).json({
         success: false,
@@ -311,8 +341,8 @@ const getRates = (req, res) => {
       message: "All the rates",
       result,
     });
-});
-}
+  });
+};
 
 module.exports = {
   addMeal,
