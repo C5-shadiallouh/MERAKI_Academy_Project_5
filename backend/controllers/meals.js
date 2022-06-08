@@ -294,7 +294,7 @@ const deleteRate = (req, res) => {
 };
 
 const updateRate = (req, res) => {
-  const { rate } = req.body;
+  const rate  = req.body;
   const id = req.params.id;
 
   const query = `SELECT * FROM rating WHERE id=?;`;
@@ -312,12 +312,20 @@ const updateRate = (req, res) => {
       const data = [rate || result[0].rate, id];
 
       connection.query(query, data, (err, result) => {
-        if (result.affectedRows != 0)
+        if(err){
+          return res.status(404).json({
+            success: false,
+            massage: `Server error`,
+            err: err,
+          });
+        }
+        if (result){
           res.status(201).json({
             success: true,
             massage: `rate updated`,
             result: result,
           });
+        }
       });
     }
   });
