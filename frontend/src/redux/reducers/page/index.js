@@ -13,3 +13,6 @@ const pageReducer=createSlice({
     }
 })
 
+export const {changePage}=pageReducer.actions
+
+export default pageReducer.reducers
