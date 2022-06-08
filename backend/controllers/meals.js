@@ -308,5 +308,6 @@ module.exports = {
   priceASC,
   priceDESC,
   addRate,
+  
 
 };
