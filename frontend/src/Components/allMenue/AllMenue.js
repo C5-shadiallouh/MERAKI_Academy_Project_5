@@ -1,47 +1,53 @@
-import axios from "axios"
-import {useState,useEffect} from "react"
-import { setMeals } from "../../redux/reducers/meals/index"
-import {useSelector,useDispatch} from "react-redux"
-import { Link } from "react-router-dom"
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { setMeals } from "../../redux/reducers/meals/index";
+import { useSelector, useDispatch } from "react-redux";
+import { changePage } from "../../redux/reducers/page/pageReducer";
+import { Link } from "react-router-dom";
 
-const AllMenue=(req,res)=>{
-/*     const [meal,setMeal]=useState(``)
- */    const [message,setMessage]=useState(``)
-    const dispatch=useDispatch()
-     const{meals}=useSelector((state)=>{
-        return {
-            meals:state.meals.meals
+const AllMenue = (req, res) => {
+  const [meal, setMeal] = useState([]);
+  const [message, setMessage] = useState(``);
+  const dispatch = useDispatch();
+  const { meals, page } = useSelector((state) => {
+    return {
+      meals: state.meals.meals,
+    };
+  });
 
-        }
-    })
+  console.log(page);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/meals/paginated?p=${page}`)
+      .then((result) => {
+        console.group(result);
+        dispatch(setMeals(result.data.products));
+      })
+      .catch((err) => {
+        setMessage(err.sqlMessage);
+      });
    
-    useEffect(() => {
-       
-        axios.get("http://localhost:5000/meals/paginated?p=1").then((result)=>{
-            dispatch(setMeals(result.data.products))
-        }).catch((err)=>{
-             setMessage(err.sqlMessage)
-        })
-    }, []);
+  }, [page]);
 
-    
-    return (
-        <div key={"cc"}>
-            {meals.length&&meals.map((meal,index)=>{
-               return (
-                    <>
-                    <p key={meal.meal_name}>{meal.meal_name}</p>
-                    <p key={meal.meal_price}>{meal.meal_price}</p>
-                    <Link to={`/meals/${meal.id}`}><img src={meal.image}  alt=""  key={meal.id}/></Link>
-                    <button>Add to Cart</button>
-                    {message}
+  return (
+    <div key={"cc"}>
+      {meals.length &&
+        meals.map((meal, index) => {
+          return (
+            <>
+              <p key={meal.meal_name}>{meal.meal_name}</p>
+              <p key={meal.meal_price}>{meal.meal_price}</p>
+              <Link to={`/meals/${meal.id}`}>
+                <img src={meal.image} alt="" key={meal.id} />
+              </Link>
+              <button>Add to Cart</button>
+              {message}
+            </>
+          );
+        })}
+      
+    </div>
+  );
+};
 
-                    </>
-                )
-            })}
-
-        </div>
-    )
-}
-
-export default AllMenue
+export default AllMenue;
