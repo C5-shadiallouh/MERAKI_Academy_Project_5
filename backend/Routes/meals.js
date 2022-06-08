@@ -17,7 +17,7 @@ mealsRouter.get("/pageInCategory", paginatedMealByCategory)
 mealsRouter.get("/asc",priceASC)
 mealsRouter.get("/desc",priceDESC)
 mealsRouter.get("/allcategories",getCategories)
-mealsRouter.post("/rating", addRate)
-mealsRouter.delete("/rating", deleteRate)
+mealsRouter.post("/rating/:id", addRate)
+mealsRouter.delete("/rating/:id", deleteRate)
 
 module.exports = mealsRouter;
