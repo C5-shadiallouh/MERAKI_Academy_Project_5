@@ -20,7 +20,7 @@ export const comment = createSlice({
         //payload:updated-Comment
         state.comments = state.comments.map((comment) => {
           if (comment.id == action.payload) {
-            return { ...comments, ...action.payload };
+            return { ...comment, ...action.payload };
           }
         });
       },
@@ -37,6 +37,6 @@ export const comment = createSlice({
 });
 
 
-export const { setComments, addNewComment, updateComment, deleteComment} = comments.actions;
+export const { setComments, addNewComment, updateComment, deleteComment} = comment.actions;
 
-export default comments.reducer;
+export default comment.reducer;
