@@ -16,7 +16,16 @@ export const rating = createSlice({
         state.ratings.push(action.payload);
       },
   
-      
+      updateRating: (state, action) => {
+        //payload:updated-Rating
+        state.ratings = state.ratings.map((rating) => {
+          if (rating.id == action.payload) {
+            return { ...rating, ...action.payload };
+          }
+        });
+      },
+  
+     
 
    
   },
