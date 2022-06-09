@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { setCart,RemoveFromCart } from "../../redux/reducers/cart/cart";
+import { setCart,RemoveFromCart, decreaseCart, addtoCart, removeAllItem } from "../../redux/reducers/cart/cart";
 
 const Cart = () => {
   const dispatch=useDispatch()
@@ -13,14 +13,45 @@ const Cart = () => {
     };
   });
 
-  const handleRemoveFromCart=(id)=>{
+  const handleRemoveFromCart=(cart)=>{
 
-    axios.delete(`htt:localhost:5000/cart/delete/${id}`).then(()=>{
-      dispatch(RemoveFromCart(id))
+    axios.delete(`htt:localhost:5000/cart/delete/${cart.id}`).then(()=>{
+      dispatch(RemoveFromCart(cart))
     }).catch((err)=>{
       console.log(err)
     })
   }
+
+
+  const handleDecrese=(cart)=>{
+    axios.put(`http://localhost:5000/cart/update/${cart.id}`,{
+      quantity:cart.quantity
+    }).then(()=>{
+      dispatch(decreaseCart(cart))
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
+
+
+const handleIncrease=(cart)=>{
+  axios.put(`http://localhost:5000/cart/update/${cart.id}`,{
+      quantity:cart.quantity
+    }).then(()=>{
+      dispatch(addtoCart(cart))
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
+
+
+const handleCleareCart=()=>{
+  axios.delete(`http://localhost:5000/removeAll`).then(()=>{
+    dispatch(removeAllItem())
+  }).catch((err)=>{
+    console.log(err)
+  })
+}
 
   useEffect=(()=>{
       axios.get(`http://localhost:5000/cart`)
@@ -60,9 +91,9 @@ const Cart = () => {
                       </div>
                       <h3>{cart.price}د.أ</h3>
                       <div>
-                        <button>-</button>
+                        <button onClick={()=>{handleDecrese(cart)}}>-</button>
                         <div>{cart.quantity}</div>
-                        <button>+</button>
+                        <button onClick={()=>{handleIncrease(cart)}}>+</button>
                       </div>
                       <div>{cart.price * cart.quantity}</div>
                     </div>
@@ -70,7 +101,7 @@ const Cart = () => {
                 })}
             </div>
             <div>
-              <button>امسح السلة</button>
+              <button onClick={()=>{handleCleareCart()}}>افرغ السلة</button>
               <div>
                 <span>المجموع</span>
                 <span>{totalAmount}</span>
