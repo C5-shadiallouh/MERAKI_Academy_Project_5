@@ -4,11 +4,12 @@ export const comment = createSlice({
   name: "comment",
   initialState: {
     comments: [],
+    allComments:[]
   },
   reducers: {
     setComments: (state, action) => {
       //payload:all comments
-      state.comments = action.payload;
+      state.allComments = action.payload;
     },
 
     addNewComment: (state, action) => {

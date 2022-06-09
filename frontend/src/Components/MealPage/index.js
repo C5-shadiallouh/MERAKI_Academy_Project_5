@@ -10,11 +10,12 @@ const MealPage = () => {
   const [comment, setComment] = useState("");
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { meals, token,comments } = useSelector((state) => {
+  const { meals, token,comments,allComments } = useSelector((state) => {
     return {
       token: state.auth.token,
       meals: state.meals.meals,
-      comments:state.comments.comments
+      comments:state.comments.comments,
+      allComments:state.comments.allComments
     };
   });
   console.log(token);
@@ -61,15 +62,6 @@ const MealPage = () => {
       });
   };
 
-  // const createRate = (id) => {
-  //   axios.post(`http://localhost:5000//rating/${id}`,{rate}, {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   }).then(())
-  //   .catch((error))
-  // }
-
   useEffect(() => {
     axios
       .get(`http://localhost:5000/meals/id/${id}`)
@@ -79,8 +71,10 @@ const MealPage = () => {
       .catch((err) => {
         console.log(err);
       });
-      getAllComments(id)
-  }, []);
+      
+     getAllComments(id)
+      
+  }, [allComments]);
   return (
     <div>
       {meals.length
@@ -94,27 +88,29 @@ const MealPage = () => {
 
                 <div>
                   <textarea
-                    placeholder="comment..."
+                    placeholder="إضافة تعليق..."
                     onChange={(e) => {
                       setComment(e.target.value);
                     }}
                   />
-                  <button onClick={() => addComment(element.id)}>
-                    Add comment
+                  <button onClick={() => {
+                   
+                    addComment(element.id)}}>
+                  إضافة
                   </button>
-                  {comments?
-                  comments.map((element)=>{
-                    return(
-                      <p>{element.comment}</p>
-                    )
-                  })
-                  :""}
+                  
                 </div>
               </div>
             );
           })
         : ""}
-      {console.log(meals)}
+      {allComments.length?
+                  allComments.map((element)=>{
+                    return(
+                      <p>{element.comment}</p>
+                    )
+                  })
+                  :""}
     </div>
   );
 };
