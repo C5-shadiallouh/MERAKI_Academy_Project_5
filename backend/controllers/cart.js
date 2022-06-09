@@ -26,13 +26,14 @@ const addToCart = (req, res) => {
 };
 
 const deleteFromCart = (req, res) => {
-  const { id} = req.params.id;
+  const { id} = req.params;
 
   const query = `UPDATE cart SET is_deleted=1 WHERE  id = ?`;
 
   const data = [id];
 
   connection.query(query, data, (err, result) => {
+    console.log(result)
     if (err) {
       return res.status(500).json({
         success: false,
@@ -43,7 +44,7 @@ const deleteFromCart = (req, res) => {
     if (!result) {
       return res.status(404).json({
         success: false,
-        massage: `The meal: ${meal_id} is not found`,
+        massage: `The meal: ${id} is not found`,
         err: err,
       });
     }
@@ -56,7 +57,7 @@ const deleteFromCart = (req, res) => {
 };
 
 const getCart = (req, res) => {
-  const query = `SELECT * from cart where is_deleted=0`;
+  const query = `SELECT meals.* FROM meals INNER JOIN cart ON cart.meal_id=meals.id  WHERE meals.is_deleted=0 ;`;
   connection.query(query, (err, result) => {
     if (err) {
       return res.status(500).json({
@@ -143,13 +144,14 @@ const removeAll = (req, res) => {
   });
 }; */
 
-const updateById = () => {
+const updateById = (req,res) => {
   const { quantity } = req.body;
-  const {id} = req.params.id;
-
-  const query = `UPDATE  cart SET quantity=? where id=?`;
-  const data = [quantity,id];
+  const {id} = req.params;
+console.log(id);
+  const query = `UPDATE  cart SET quantity=${quantity} where id=?`;
+  const data = [id];
   connection.query(query, data, (err, result) => {
+    console.log(result)
     if (err) {
       return res.status(404).json({
         success: false,
@@ -159,7 +161,7 @@ const updateById = () => {
     } else {
       res.status(201).json({
         success: true,
-        massage: `task updated`,
+        massage: `quantity updated`,
         result: result,
       });
     }
