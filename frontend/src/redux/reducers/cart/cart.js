@@ -1,53 +1,57 @@
-import {createSlice} from `@reduxjs/toolkit`
+import { createSlice } from "@reduxjs/toolkit";
 
-const cartSlice=createSlice({
-    name:`Cart`,
-    initialState:{
-        carts:localStorage.getItem("cartItem")?localStorage.getItem("cartItem"):[]
+const cartSlice = createSlice({
+  name: `Cart`,
+  initialState: {
+    carts: [],
+    totalAmount: 0,
+  },
+
+  reducers: {
+    setCart: (state, action) => {
+      state.carts = action.payload;
     },
 
-    reducers:{
-
-        setCart:(state,action)=>{
-            state.carts=action.payload
-            localStorage.getItem(action.payload)
-        },
-
-
-        addItem:(state,action)=>{
-            state.carts.push(action.payload)
-            localStorage.setItem(`cartItem`,state.carts)
-        },
-
-
-        deleteItemById:(state,action)=>{
-            state.carts=state.carts.filter((cart,index)=>{
-                return cart.id !==action.payload
-            })
-            localStorage.removeItem(`cartItem`,action.payload)
-        },
-
-        updateById:(state,action)=>{
-            state.carts = state.carts.map((cart, index) => {
-            if (cart.id == action.payload) {
-              return { ...cart, quantity:action.payload.quantity };
-            }
-            return cart;
-          });
-
-          localStorage.setItem(`cartItem`,action.payload)
-        },
-
-
-        removeAllItem:(state,action)=>{
-            state.carts=[]
-            localStorage.removeItem(`cartItem`)
-        }
+    addtoCart: (state, action) => {
+    const itemIndex= state.carts.findIndex(item=>{return item.id===action.payload.id})
+    if(itemIndex>=0){
+        state.carts[itemIndex].quantity +=1
+    }else{
+        const meal = { ...action.payload, quantity: 1 };
+      state.carts.push(meal);
     }
+    },
 
-})
+    RemoveFromCart: (state, action) => {
+      state.carts = state.carts.filter((cart, index) => {
+        return cart.id !== action.payload;
+      });
+    },
 
+    removeAllItem: (state, action) => {
+      state.carts = [];
+    },
+    decreaseCart: (state, action) => {
+      const itemIndex = state.carts.findIndex(
+        (cart) => cart.id === action.payload.id
+      );
+      if (state.carts[itemIndex].quantity > 1) {
+        state.carts[itemIndex].quantity -= 1;
+      } else if (state.carts[itemIndex].quantity === 1) {
+        state.carts = state.carts.filter((cart) => {
+          return cart.id !== action.payload.id;
+        });
+      }
+    },
+  },
+});
 
-export const {setCart,addItem,deleteItemById,removeAllItem,updateById}=cartSlice.actions
+export const {
+  setCart,
+  addtoCart,
+  RemoveFromCart,
+  removeAllItem,
+  decreaseCart,
+} = cartSlice.actions;
 
-export default cartSlice.reducers
+export default cartSlice.reducer;
