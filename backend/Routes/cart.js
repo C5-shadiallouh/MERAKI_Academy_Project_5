@@ -18,6 +18,6 @@ cartRouter.post(`/add`, authentication, addToCart);
 cartRouter.get(`/`, getCart);
 cartRouter.delete(`/removeAll`, removeAll);
 
-cartRouter.delete(`/delete`, authentication, deleteFromCart);
+cartRouter.delete(`/delete`, deleteFromCart);
 
 module.exports = cartRouter;
