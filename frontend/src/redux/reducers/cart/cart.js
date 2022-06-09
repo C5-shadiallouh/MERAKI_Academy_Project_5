@@ -1,4 +1,4 @@
-import {createSlice} from `@reduxjs/toolkit`
+import {createSlice} from "@reduxjs/toolkit"
 
 const cartSlice=createSlice({
     name:`Cart`,
@@ -49,4 +49,4 @@ const cartSlice=createSlice({
 
 export const {setCart,addItem,deleteItemById,removeAllItem,updateById}=cartSlice.actions
 
-export default cartSlice.reducers
+export default cartSlice.reducer
