@@ -5,5 +5,10 @@ import { setCart } from "../../redux/reducers/cart/cart"
 
 const Cart=()=>{
 
+    return (
+        <div>
+            <h3>سلة التسوق</h3>
+        </div>
+    )
 }
 export default Cart
