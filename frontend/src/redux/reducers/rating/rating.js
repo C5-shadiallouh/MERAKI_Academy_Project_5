@@ -11,7 +11,12 @@ export const rating = createSlice({
       state.ratings = action.payload;
     },
 
-    
+    addRating: (state, action) => {
+        //payload:newRating
+        state.ratings.push(action.payload);
+      },
+  
+      
 
    
   },
