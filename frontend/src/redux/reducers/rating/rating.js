@@ -5,7 +5,16 @@ export const rating = createSlice({
   initialState: {
     ratings: [],
   },
-  
+  reducers: {
+    setRatings: (state, action) => {
+      //payload:all ratings
+      state.ratings = action.payload;
+    },
+
+    
+
+   
+  },
 });
 
 
