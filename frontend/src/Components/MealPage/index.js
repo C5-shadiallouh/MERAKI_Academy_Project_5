@@ -34,12 +34,12 @@ const MealPage = () => {
               <textarea
                 placeholder="comment..."
                 onChange={(e) => {
-                  setComment(e.target.value);
+                  /* setComment(e.target.value); */
                 }}
               />
               <button
                 onClick={() => {
-                  dispatch(addNewComment(product._id));
+                /*   dispatch(addNewComment(product._id)); */
                 }}
               >
                 Add comment
