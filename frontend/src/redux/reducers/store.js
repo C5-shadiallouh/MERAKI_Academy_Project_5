@@ -5,6 +5,7 @@ import categoriesReducer from "./category"
 import pageSlice from "./page/pageReducer"
 import cartSlice from "./cart/cart"
 import comment from './comment'
+import rating from './rating/rating'
 export default configureStore({
     reducer:{
         auth: authReducer,
@@ -12,6 +13,7 @@ export default configureStore({
         category : categoriesReducer,
         page:pageSlice,
         carts:cartSlice,
-        comments:comment
+        comments:comment,
+        ratings:rating
     }
 })
