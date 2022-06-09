@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { setCart } from "../../redux/reducers/cart/cart";
+import { setCart,RemoveFromCart } from "../../redux/reducers/cart/cart";
 
 const Cart = () => {
   const dispatch=useDispatch()
@@ -13,6 +13,14 @@ const Cart = () => {
     };
   });
 
+  const handleRemoveFromCart=(id)=>{
+
+    axios.delete(`htt:localhost:5000/cart/delete/${id}`).then(()=>{
+      dispatch(RemoveFromCart(id))
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
 
   useEffect=(()=>{
       axios.get(`http://localhost:5000/cart`)
@@ -47,7 +55,7 @@ const Cart = () => {
                         <img src={cart.image} alt="" />
                         <div>
                           <h3>{cart.meal_name}</h3>
-                          <button>ازالة</button>
+                          <button onClick={()=>handleRemoveFromCart(cart.id)}>ازالة</button>
                         </div>
                       </div>
                       <h3>{cart.price}د.أ</h3>
