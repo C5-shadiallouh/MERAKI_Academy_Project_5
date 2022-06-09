@@ -13,43 +13,45 @@ const cartSlice = createSlice({
     },
 
     addtoCart: (state, action) => {
-      const itemIndex = state.carts.findIndex((item) => {
-        item.id === action.payload.id;
-
-        if (itemIndex >= 0) {
-          state.carts[itemIndex].quantity += 1;
-        } else {
-          const item = { ...action.payload, quantity: 1 };
-          state.carts.push(item);
-        }
-      });
+    const itemIndex= state.carts.findIndex(item=>{return item.id===action.payload.id})
+    if(itemIndex>=0){
+        state.carts[itemIndex].quantity +=1
+    }else{
+        const meal = { ...action.payload, quantity: 1 };
+      state.carts.push(meal);
+    }
     },
 
     RemoveFromCart: (state, action) => {
       state.carts = state.carts.filter((cart, index) => {
         return cart.id !== action.payload;
       });
-      localStorage.removeItem(`cartItem`, action.payload);
-    },
-
-    updateById: (state, action) => {
-      state.carts = state.carts.map((cart, index) => {
-        if (cart.id == action.payload) {
-          return { ...cart, quantity: action.payload.quantity };
-        }
-        return cart;
-      });
-
-      localStorage.setItem(`cartItem`, action.payload);
     },
 
     removeAllItem: (state, action) => {
       state.carts = [];
     },
+    decreaseCart: (state, action) => {
+      const itemIndex = state.carts.findIndex(
+        (cart) => cart.id === action.payload.id
+      );
+      if (state.carts[itemIndex].quantity > 1) {
+        state.carts[itemIndex].quantity -= 1;
+      } else if (state.carts[itemIndex].quantity === 1) {
+        state.carts = state.carts.filter((cart) => {
+          return cart.id !== action.payload.id;
+        });
+      }
+    },
   },
 });
 
-export const { setCart, addtoCart, RemoveFromCart, removeAllItem, updateById } =
-  cartSlice.actions;
+export const {
+  setCart,
+  addtoCart,
+  RemoveFromCart,
+  removeAllItem,
+  decreaseCart,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
