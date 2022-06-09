@@ -25,7 +25,12 @@ export const rating = createSlice({
         });
       },
   
-     
+      deleteRating: (state, action) => {
+        //payload : id
+        state.ratings = state.ratings.filter((rating) => {
+          return rating.id != action.payload;
+        });
+      }, 
 
    
   },
