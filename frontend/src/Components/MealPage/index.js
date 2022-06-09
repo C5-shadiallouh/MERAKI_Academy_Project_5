@@ -30,6 +30,21 @@ const MealPage = () => {
         return(<div>
         <img src={element.image}/>
         <h1>{element.meal_name}</h1>
+        <div >
+              <textarea
+                placeholder="comment..."
+                onChange={(e) => {
+                  setComment(e.target.value);
+                }}
+              />
+              <button
+                onClick={() => {
+                  dispatch(addNewComment(product._id));
+                }}
+              >
+                Add comment
+              </button>
+              </div>
         </div>);
         }):""
         }
