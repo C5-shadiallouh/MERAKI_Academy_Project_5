@@ -18,7 +18,6 @@ const MealPage = () => {
   console.log(token);
 
   const addComment = async (id) => {
-    console.log(comment);
     await axios
       .post(
         `http://localhost:5000/comment/${id}`,
@@ -32,9 +31,13 @@ const MealPage = () => {
         }
       )
       .then((result) => {
-        console.log(result);
         dispatch(addNewComment(result.data.result));
-        dispatch(setComments(result.data.result));
+        axios
+      .get(
+        `http://localhost:5000/comment`).then((res2)=>{
+          console.log(res2);
+        dispatch(setComments(res2.data.res2));
+        })
 
       })
       .catch((error) => {
