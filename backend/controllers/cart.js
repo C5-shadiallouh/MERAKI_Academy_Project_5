@@ -26,12 +26,11 @@ const addToCart = (req, res) => {
 };
 
 const deleteFromCart = (req, res) => {
-  const user_id = req.token.user_id;
   const { meal_id } = req.body;
 
-  const query = `UPDATE cart SET is_deleted=1 WHERE user_id = ? and meal_id = ?`;
+  const query = `UPDATE cart SET is_deleted=1 WHERE  meal_id = ?`;
 
-  const data = [user_id, meal_id];
+  const data = [ meal_id];
 
   connection.query(query, data, (err, result) => {
     if (err) {
