@@ -1,36 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { setMeals } from "../../redux/reducers/meals";
-import {addNewComment} from "../../redux/reducers/comment"
+import { setComments,addNewComment } from "../../redux/reducers/comment";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const MealPage = () => {
-  const [comment, setComment] = useState("")
+  const [comment, setComment] = useState("");
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { meals,comments } = useSelector((state) => {
+  const { meals, token } = useSelector((state) => {
     return {
+      token: state.auth.token,
       meals: state.meals.meals,
-      comments:state.comments.comment
     };
   });
+  console.log(token);
 
-  const addComment = async(id) => {
-    const res =await axios.post(`http://localhost:5000/comment/${id}`,{
-      comment,
-    },{
-      headers: {
-        Authorization: `Bearer ${token}`
+  const addComment = async (id) => {
+    console.log(comment);
+    await axios
+      .post(
+        `http://localhost:5000/comment/${id}`,
+        {
+          comment,
         },
-    })
-    .then((result)=>{
-dispatch(addNewComment(comment))
-    })
-    .catch((error)=>{
-      console.log(error);
-    })
-  }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((result) => {
+        console.log(result);
+        dispatch(addNewComment(result.data.result));
+        dispatch(setComments(result.data.result));
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
     axios
@@ -44,36 +54,33 @@ dispatch(addNewComment(comment))
   }, []);
   return (
     <div>
-      {meals.length ?
-        meals.map((element) => {
-        return(<div>
-        <img src={element.image}/>
-        <h1>{element.meal_name}</h1>
-        <div >
-              <textarea
-                placeholder="comment..."
-                onChange={(e) => {
-                  setComment(e.target.value); 
-                }}
-              />
-              <button
-                onClick= {addComment}
-              >
-                Add comment
-              </button>
+      {meals.length
+        ? meals.map((element) => {
+            return (
+              <div>
+                <img src={element.image} />
+                <h1>{element.meal_name}</h1>
+
+                <div>{/* for rating */}</div>
+
+                <div>
+                  <textarea
+                    placeholder="comment..."
+                    onChange={(e) => {
+                      setComment(e.target.value);
+                    }}
+                  />
+                  <button onClick={() => addComment(element.id)}>
+                    Add comment
+                  </button>
+                </div>
               </div>
-        </div>);
-        }):""
-        }
-        {console.log(meals)}
+            );
+          })
+        : ""}
+      {console.log(meals)}
     </div>
   );
 };
 
-
-
-
-
-
-export default MealPage
-
+export default MealPage;
