@@ -19,15 +19,17 @@ const addComment = (req, res) => {
         success: true,
         massage: "comment created",
         result: result,
+        commenter:commenter
       });
     });
   };                
 
 
   const getAllComments = (req, res) => {
-    const query = `SELECT * FROM comment `;
-  
-    connection.query(query, (err, result) => {
+    const {id}=req.params
+    const query = `SELECT * FROM comment WHERE meal_id=? `;
+  const data=[id]
+    connection.query(query,data, (err, result) => {
       if (err) {
         return res.status(500).json({
           success: false,
