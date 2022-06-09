@@ -9,21 +9,18 @@ const AllMenue = (req, res) => {
   const [meal, setMeal] = useState([]);
   const [message, setMessage] = useState(``);
   const dispatch = useDispatch();
-  const { meals,page } = useSelector((state) => {
+  const { meals, page, carts } = useSelector((state) => {
     return {
       meals: state.meals.meals,
-      page:state.page.page
+      page: state.page.page,
+      carts: state.carts.carts,
     };
   });
 
- 
-
-  console.log(page);
   useEffect(() => {
     axios
       .get(`http://localhost:5000/meals/paginated?p=${page}`)
       .then((result) => {
-        console.group(result);
         dispatch(setMeals(result.data.products));
       })
       .catch((err) => {
@@ -39,6 +36,10 @@ const AllMenue = (req, res) => {
       });
   }, [page]);
 
+  const handleAddToCart=()=>{
+
+  }
+
   return (
     <div key={"cc"}>
       {meals.length &&
@@ -47,17 +48,22 @@ const AllMenue = (req, res) => {
             <>
               <p key={meal.meal_name}>{meal.meal_name}</p>
               <p key={meal.meal_price}>{meal.meal_price}</p>
-              <Link to={`/meals/${meal.id}`} onClick={()=>{dispatch(changePage(1))}}>
+              <Link
+                to={`/meals/${meal.id}`}
+                onClick={() => {
+                  dispatch(changePage(1));
+                }}
+              >
                 <img src={meal.image} alt="" key={meal.id} />
               </Link>
-              <button>Add to Cart</button>
+              <button onClick={()=>{handleAddToCart(meal.id)}}>Add to Cart</button>
               {message}
             </>
           );
         })}
 
       <div style={{ display: "none" }}>
-        {meal?(meal.length = Math.ceil(meal.length / 20)):""}
+        {meal ? (meal.length = Math.ceil(meal.length / 20)) : ""}
       </div>
       <div class="center">
         <div class="pagination">
