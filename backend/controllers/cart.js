@@ -26,11 +26,11 @@ const addToCart = (req, res) => {
 };
 
 const deleteFromCart = (req, res) => {
-  const { meal_id } = req.body;
+  const { id} = req.params.id;
 
-  const query = `UPDATE cart SET is_deleted=1 WHERE  meal_id = ?`;
+  const query = `UPDATE cart SET is_deleted=1 WHERE  id = ?`;
 
-  const data = [ meal_id];
+  const data = [id];
 
   connection.query(query, data, (err, result) => {
     if (err) {
@@ -49,7 +49,7 @@ const deleteFromCart = (req, res) => {
     }
     res.status(200).json({
       success: true,
-      massage: `Succeeded to delete meal with id: ${meal_id}`,
+      massage: `Succeeded to delete meal with id: ${id}`,
       result: result,
     });
   });
@@ -143,6 +143,29 @@ const removeAll = (req, res) => {
   });
 }; */
 
+const updateById = () => {
+  const { quantity } = req.body;
+  const {id} = req.params.id;
+
+  const query = `UPDATE  cart SET quantity=? where id=?`;
+  const data = [quantity,id];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(404).json({
+        success: false,
+        massage: `Server error`,
+        err: err,
+      });
+    } else {
+      res.status(201).json({
+        success: true,
+        massage: `task updated`,
+        result: result,
+      });
+    }
+  });
+};
+
 const totalPrice = (req, res) => {
   const { quantity } = req.body;
   //NOTE ====>PUT QUANTITY IN MEALS
@@ -170,6 +193,7 @@ module.exports = {
   totalPrice,
   deleteFromCart,
   removeAll,
+  updateById
 
   /* subTotal */
 };
