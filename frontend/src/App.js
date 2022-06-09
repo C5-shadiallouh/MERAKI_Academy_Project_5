@@ -6,6 +6,7 @@ import GetMealByCategory from "./Components/MealsCategory";
 import AllMenue from "./Components/allMenue/AllMenue";
 import MealPage from "./Components/MealPage";
 import Register from "./Components/Register/Register";
+import Cart from "./Components/cart/Cart";
 function App() {
   return <div className="App">
   <Navbar/>
@@ -15,7 +16,7 @@ function App() {
     <Route path="/menu" element={<AllMenue/>}/>
     <Route path="/meals/:id" element={<MealPage/>}/>
     <Route path="/register" element={<Register/>}/>
-    
+    <Route path="/cart" element={<Cart/>}/>
   </Routes>
   
   
