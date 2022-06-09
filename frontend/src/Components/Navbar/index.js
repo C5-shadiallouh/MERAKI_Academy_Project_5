@@ -3,18 +3,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loggedin, logout } from "../../redux/reducers/auth";
 import { setCategories } from "../../redux/reducers/category";
+import { changePage } from "../../redux/reducers/page/pageReducer";
 import Filter from "../Search";
 import "./style.css";
 import axios from "axios";
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { token, isLoggedIn, isAdmin,meals,categories } = useSelector((state) => {
+  const { token, isLoggedIn, isAdmin,meals,categories,page } = useSelector((state) => {
     return {
       token: state.auth.token,
       isLoggedIn: state.auth.isLoggedIn,
       isAdmin: state.auth.isAdmin,
-      categories: state.category.categories
+      categories: state.category.categories,
+      page :state.page.page
     };
   });
   const getCategories =()=>{
@@ -39,7 +41,7 @@ const Navbar = () => {
         
           
           <div className="dropdown-content">
-          <Link to={"/menu"} >جميع الاصناف</Link>
+          <Link to={"/menu"} onClick={()=>{dispatch(changePage(1))}} >جميع الاصناف</Link>
             {categories.length?
             categories.map((element,index)=>{
               return(<Link key={element.id} to={`/${element.category_name}`}>{element.category_name}</Link>)
@@ -51,15 +53,15 @@ const Navbar = () => {
        
         {!isLoggedIn ? (
           <>
-            <Link to={"/register"}>تسجيل مستخدم جديد</Link>
-            <Link to={"/login"}>تسجيل الدخول</Link>
+            <Link to={"/register"} onClick={()=>{dispatch(changePage(1))}}>تسجيل مستخدم جديد</Link>
+            <Link to={"/login"} onClick={()=>{dispatch(changePage(1))}}>تسجيل الدخول</Link>
           </>
         ) : (
           ""
         )}
         {isAdmin ? (
           <>
-            <Link to={"/adminpanel"}>لوحة الادارة</Link>
+            <Link to={"/adminpanel"} onClick={()=>{dispatch(changePage(1))}}>لوحة الادارة</Link>
           </>
         ) : (
           ""
@@ -70,6 +72,7 @@ const Navbar = () => {
               to={"/"}
               onClick={() => {
                 dispatch(logout());
+                dispatch(changePage(1))
               }}
             >
               تسجيل الخروج
@@ -79,7 +82,7 @@ const Navbar = () => {
           ""
         )}
 
-        <Link to={"/aboutus"}>من نحن</Link>
+        <Link to={"/aboutus"} onClick={()=>{dispatch(changePage(1))}}>من نحن</Link>
         <Filter/>
       </nav>
     </div>

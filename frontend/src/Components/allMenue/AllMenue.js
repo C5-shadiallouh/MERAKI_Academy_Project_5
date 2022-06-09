@@ -47,7 +47,7 @@ const AllMenue = (req, res) => {
             <>
               <p key={meal.meal_name}>{meal.meal_name}</p>
               <p key={meal.meal_price}>{meal.meal_price}</p>
-              <Link to={`/meals/${meal.id}`}>
+              <Link to={`/meals/${meal.id}`} onClick={()=>{dispatch(changePage(1))}}>
                 <img src={meal.image} alt="" key={meal.id} />
               </Link>
               <button>Add to Cart</button>
@@ -57,7 +57,7 @@ const AllMenue = (req, res) => {
         })}
 
       <div style={{ display: "none" }}>
-        {(meal.length = Math.ceil(meal.length / 20))}
+        {meal?(meal.length = Math.ceil(meal.length / 20)):""}
       </div>
       <div class="center">
         <div class="pagination">
