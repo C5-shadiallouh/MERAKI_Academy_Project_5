@@ -20,9 +20,15 @@ const addRole = (req, res) => {
     });
   });
 };
+const updateRole = (req, res) => {
+  const { role_id } = req.body;
+  const id = req.params.id;
+
+  
+};
 
 module.exports = {
-  addRole,
+  addRole,updateRole
 };
 
 
