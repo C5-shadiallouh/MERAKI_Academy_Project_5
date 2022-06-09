@@ -43,7 +43,8 @@ const Filter = () => {
                 onClick={() => {
                     setInputVal("")
                   navigate(`/meals/${element.id}`);
-                  
+                  window.location.reload(false);
+
                   setFiltered("")
                   
                   
