@@ -9,7 +9,7 @@ const commentRouter = express.Router();
 
 //Routes
 commentRouter.post("/:id",authentication,  addComment)
-commentRouter.get("/", getAllComments)
+commentRouter.get("/:id", getAllComments)
 commentRouter.put("/:id", updateComment)
 commentRouter.delete("/:id", deleteComment)
 

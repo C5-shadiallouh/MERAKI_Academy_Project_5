@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { setMeals } from "../../redux/reducers/meals";
 import { setComments,addNewComment } from "../../redux/reducers/comment";
+import {addRating} from "../../redux/reducers/rating/rating"
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -9,14 +10,30 @@ const MealPage = () => {
   const [comment, setComment] = useState("");
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { meals, token } = useSelector((state) => {
+  const { meals, token,comments } = useSelector((state) => {
     return {
       token: state.auth.token,
       meals: state.meals.meals,
+      comments:state.comments.comments
     };
   });
   console.log(token);
+  const getAllComments = async (id) => {
+    await axios
+      .get(
+        `http://localhost:5000/comment/${id}`,
+        
+        
+      )
+      .then((result) => {
+        console.log(result);
+        dispatch(setComments( result.data.result));
 
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const addComment = async (id) => {
     await axios
       .post(
@@ -31,19 +48,27 @@ const MealPage = () => {
         }
       )
       .then((result) => {
-        dispatch(addNewComment(result.data.result));
-        axios
-      .get(
-        `http://localhost:5000/comment`).then((res2)=>{
-          console.log(res2);
-        dispatch(setComments(res2.data.res2));
-        })
+        console.log(result);
+        dispatch(addNewComment( {
+          comment:result.data.result,
+          id:result.data.result.insertId,
+          commenter:result.data.commenter
+        }));
 
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  // const createRate = (id) => {
+  //   axios.post(`http://localhost:5000//rating/${id}`,{rate}, {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   }).then(())
+  //   .catch((error))
+  // }
 
   useEffect(() => {
     axios
@@ -54,6 +79,7 @@ const MealPage = () => {
       .catch((err) => {
         console.log(err);
       });
+      getAllComments(id)
   }, []);
   return (
     <div>
@@ -76,6 +102,13 @@ const MealPage = () => {
                   <button onClick={() => addComment(element.id)}>
                     Add comment
                   </button>
+                  {comments?
+                  comments.map((element)=>{
+                    return(
+                      <p>{element.comment}</p>
+                    )
+                  })
+                  :""}
                 </div>
               </div>
             );
