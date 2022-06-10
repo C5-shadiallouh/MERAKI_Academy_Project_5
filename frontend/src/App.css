@@ -1,7 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@200;300;400;500;600;700&display=swap');
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Readex Pro', sans-serif;
 }
-.App {
+
+.App .img  {
+background-image: url("https://scontent.famm11-1.fna.fbcdn.net/v/t39.30808-6/242829495_1274717976291777_1374395012164106851_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=e3f864&_nc_eui2=AeG1Hq1hMDvVYwIQc8CAALTSk0ujnnYL0LqTS6OedgvQunryCG0iLU5moX0NGCr_KWppjKESrgSoqq2sg1jSxdCf&_nc_ohc=gbgCm1rY5OsAX--sFmi&_nc_ht=scontent.famm11-1.fna&oh=00_AT-_tu7lp7yPDBbir3TYM1ldTnipLWWaK4H9aCMx3kwXig&oe=62A8ED92")
+
 }
+.center {
+    margin-top: 2vh;
+    text-align: center;
+  }
+  
+  .pagination {
+    display: inline-block;
+  }
+  
+  .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+  }
+  
+  .pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+  }
+  
+  .pagination a:hover:not(.active) {background-color: #ddd;}
+
+  .searchResult{
+    display: block;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
