@@ -23,6 +23,13 @@ const addRole = (req, res) => {
 const updateRole = (req, res) => {
   const { role_id } = req.body;
   const id = req.params.id;
+  const query ="UPDATE users SET role_id = ? WHERE id=?"
+  const data=[role_id,id]
+  connection.query(query,data,(err,result)=>{
+    if(err)
+    {return res.json(err)}
+    res.status(201).json(result)
+  })
 
   
 };

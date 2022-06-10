@@ -57,7 +57,7 @@ const deleteFromCart = (req, res) => {
 };
 
 const getCart = (req, res) => {
-  const query = `SELECT meals.* FROM meals INNER JOIN cart ON cart.meal_id=meals.id  WHERE meals.is_deleted=0 ;`;
+  const query = `SELECT meals.meal_name,meals.meal_price,meals.image ,cart.quantity,cart.id FROM meals RIGHT JOIN cart ON cart.meal_id=meals.id  WHERE meals.is_deleted=0 ;`;
   connection.query(query, (err, result) => {
     if (err) {
       return res.status(500).json({

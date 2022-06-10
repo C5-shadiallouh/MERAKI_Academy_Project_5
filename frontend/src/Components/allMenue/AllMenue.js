@@ -4,23 +4,26 @@ import { setMeals } from "../../redux/reducers/meals/index";
 import { useSelector, useDispatch } from "react-redux";
 import { changePage } from "../../redux/reducers/page/pageReducer";
 import { Link } from "react-router-dom";
-
+import "./style.css"
 const AllMenue = (req, res) => {
   const [meal, setMeal] = useState([]);
   const [message, setMessage] = useState(``);
   const dispatch = useDispatch();
-  const { meals, page, carts } = useSelector((state) => {
+  const { meals,page } = useSelector((state) => {
     return {
       meals: state.meals.meals,
-      page: state.page.page,
-      carts: state.carts.carts,
+      page:state.page.page
     };
   });
 
+ 
+
+  console.log(page);
   useEffect(() => {
     axios
       .get(`http://localhost:5000/meals/paginated?p=${page}`)
       .then((result) => {
+        console.group(result);
         dispatch(setMeals(result.data.products));
       })
       .catch((err) => {
@@ -36,34 +39,29 @@ const AllMenue = (req, res) => {
       });
   }, [page]);
 
-  const handleAddToCart=()=>{
-
-  }
-
   return (
     <div key={"cc"}>
+      <h1 style={{"marginRight":"42%","marginTop":"1%"}}>جميع الأصناف</h1>
+      <table>
+       
       {meals.length &&
         meals.map((meal, index) => {
           return (
-            <>
-              <p key={meal.meal_name}>{meal.meal_name}</p>
-              <p key={meal.meal_price}>{meal.meal_price}</p>
-              <Link
-                to={`/meals/${meal.id}`}
-                onClick={() => {
-                  dispatch(changePage(1));
-                }}
-              >
-                <img src={meal.image} alt="" key={meal.id} />
-              </Link>
-              <button onClick={()=>{handleAddToCart(meal.id)}}>Add to Cart</button>
+            <tr>
+              <td><Link to={`/meals/${meal.id}`} onClick={()=>{dispatch(changePage(1))}}>
+                <img src={meal.image} alt="" key={meal.id} width={"150px"}/>
+              </Link></td>
+              <td key={meal.meal_name}>{meal.meal_name}</td>
+              <td key={meal.meal_price}>{meal.meal_price}</td>
+              
+              <td><button>اضافة الى سلة المشتريات</button></td>
               {message}
-            </>
+            </tr>
           );
         })}
-
+</table>
       <div style={{ display: "none" }}>
-        {meal ? (meal.length = Math.ceil(meal.length / 20)) : ""}
+        {meal?(meal.length = Math.ceil(meal.length / 20)):""}
       </div>
       <div class="center">
         <div class="pagination">
@@ -75,7 +73,7 @@ const AllMenue = (req, res) => {
               }
             }}
           >
-            &laquo;
+            &raquo;
           </Link>
 
           {meal.length
@@ -100,7 +98,7 @@ const AllMenue = (req, res) => {
               }
             }}
           >
-            &raquo;
+            &laquo;
           </Link>
         </div>
       </div>

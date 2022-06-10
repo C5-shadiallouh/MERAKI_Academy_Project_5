@@ -22,7 +22,8 @@ const Filter = () => {
     });
   }, [isClicked]);
   return (
-    <div>
+    <div className="dropdown">
+      <div className="dropInput">
       <input
         value={inputVal}
         onChange={(e) => {
@@ -35,7 +36,7 @@ const Filter = () => {
           );
         }}
       />
-    
+    <div className="searchResult">
       {filtered.length
         ? filtered.map((element) => {
             return (
@@ -55,6 +56,8 @@ const Filter = () => {
             );
           })
         : ""}
+        </div>
+    </div>
     </div>
   );
 };

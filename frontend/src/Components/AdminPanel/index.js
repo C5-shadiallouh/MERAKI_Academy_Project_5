@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 const AdminPanel = () => {
   return <div>
-<Link to={"/usersmanagment"}>user management</Link>
+<Link to={"/usersmanagment"}>ادارة المستخدمين</Link>
 
 
 
