@@ -5,6 +5,8 @@ import {addRating} from "../../redux/reducers/rating/rating"
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+//npm install react-rating-stars-component --save
+import ReactStars from "react-rating-stars-component";
 
 const MealPage = () => {
   const [comment, setComment] = useState("");
@@ -18,6 +20,11 @@ const MealPage = () => {
       allComments:state.comments.allComments
     };
   });
+
+  const ratingChanged = (newRating) => {
+    console.log(newRating);
+  };
+
   console.log(token);
   const getAllComments = async (id) => {
     await axios
@@ -84,7 +91,19 @@ const MealPage = () => {
                 <img src={element.image} />
                 <h1>{element.meal_name}</h1>
 
-                <div>{/* for rating */}</div>
+                <div>
+                <ReactStars
+    count={5}
+    onChange={ratingChanged}
+    size={24}
+    activeColor="#ffd700"  
+    a11y= "true"
+    isHalf= "true"
+    emptyIcon = <i className="far fa-star" />
+    halfIcon = <i className="fa fa-star-half-alt" />
+    filledIcon = <i className="fa fa-star" />
+  />
+                  </div>
 
                 <div>
                   <textarea
