@@ -99,9 +99,9 @@ const MealPage = () => {
     activeColor="#ffd700"  
     a11y= "true"
     isHalf= "true"
-    emptyIcon = <i className="far fa-star" />
-    halfIcon = <i className="fa fa-star-half-alt" />
-    filledIcon = <i className="fa fa-star" />
+    emptyIcon = {<i className="far fa-star" />}
+    halfIcon = {<i className="fa fa-star-half-alt" />}
+    filledIcon = {<i className="fa fa-star" />}
   />
                   </div>
 
