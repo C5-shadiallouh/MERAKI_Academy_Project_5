@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 
 const MealPage = () => {
+  const [rate, setRate] = useState("");
   const [comment, setComment] = useState("");
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -23,9 +24,19 @@ const MealPage = () => {
 
   const ratingChanged = (newRating) => {
     console.log(newRating);
+    const result = axios.post(`http://localhost:5000/meals/rating/${id}`, {rate},{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((result)=>{
+      console.log(result);
+      dispatch(addRating(rate))
+    })
+    .catch((error)=>{console.log(error);})
   };
 
-  console.log(token);
+  
   const getAllComments = async (id) => {
     await axios
       .get(
