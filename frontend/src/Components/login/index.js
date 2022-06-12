@@ -129,23 +129,26 @@ const Login = () => {
       <div className="login">
         <h2 className="active"> تسجيل الدخول : </h2>
         <form>
+
+          <span className="inputs">الإيميل :</span>
         <input
         className="text"
           type="email"
-          placeholder="Email ..."
+          placeholder="الإيميل ..."
           onChange={(e) => setEmail(e.target.value)}
         />
-        <span>الإيميل :</span>
+        
         
         <br />
+        <span className="inputs">كلمة السر :</span>
         <input
         className="text                                                                 "
           type="password"
-          placeholder="Password"
+          placeholder="كلمة السر ..."
           onChange={(e) => setPassword(e.target.value)}
         />
 <br />
-        <span>كلمة السر :</span>
+        
         <br />
 
         <input type="checkbox" id="checkbox-1" className="checkbox" />
@@ -155,15 +158,14 @@ const Login = () => {
 
         <br />
         <br />
-        <GoogleLogin
+        <span className="googleLogin"><GoogleLogin
           clientId="171142303177-dlklu0me533t11g37ll28pjmd603vh8c.apps.googleusercontent.com"
-
+          
           buttonText="الدخول بواسطة جوجل"
-          className="login_button"
           onSuccess={loginWithGoogle}
           onFailure={loginWithGoogle}
           cookiePolicy={"single_host_origin"}
-        />
+        /></span>
          </form>
       </div>
 

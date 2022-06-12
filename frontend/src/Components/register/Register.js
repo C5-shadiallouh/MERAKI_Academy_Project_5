@@ -37,7 +37,7 @@ if (res) {
   if (error.response && error.response.data) {
     return setMessage(error.response.data.message);
   }
-  setMessage("Error happened while register, please try again");
+  setMessage("حدث خطأ خلال التسجيل ... الرجاء إعادة المحاولة");
 }
 };
 
@@ -53,21 +53,21 @@ return (
               <input
                 type="text"
                 className="text"
-                placeholder="First Name"
+                placeholder="الإسم الأول ..."
                 onChange={(e) => setFirstName(e.target.value)}
               />
               <br />
               <input
                 type="text"
                 className="text"
-                placeholder="Last Name"
+                placeholder="الإسم الأخير ..."
                 onChange={(e) => setLastName(e.target.value)}
               />
               <br />
               <input
                 type="text"
                 className="text"
-                placeholder="city"
+                placeholder="المدينة ..."
                 onChange={(e) => setCity(e.target.value)}
               />
               <br />
@@ -75,19 +75,19 @@ return (
               <input
                 type="email"
                 className="text"
-                placeholder="Email"
+                placeholder="الإيميل ..."
                 onChange={(e) => setEmail(e.target.value)}
               />
               <br />
               <input
                 type="password"
                 className="text"
-                placeholder="Password"
+                placeholder="كلمة السر ..."
                 onChange={(e) => setPassword(e.target.value)}
               />
               <br />
 
-              <button className="login_button">Register</button>
+              <button className="login_button">تسجيل</button>
               <br />
             </form>
             {status
@@ -95,7 +95,7 @@ return (
               : message && <div className="ErrorMessage">{message}</div>}
           </>
         ) : (
-          <p>Logout First</p>
+          <p>من فضلك ... قم بتسجيل الخروج أولا ..</p>
         )}
       </div>
     </>
