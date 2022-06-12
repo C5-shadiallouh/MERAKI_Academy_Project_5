@@ -132,7 +132,7 @@ const Login = () => {
         <input
         className="text"
           type="email"
-          placeholder="Email ..."
+          placeholder="الإيميل ..."
           onChange={(e) => setEmail(e.target.value)}
         />
         <span>الإيميل :</span>
@@ -141,7 +141,7 @@ const Login = () => {
         <input
         className="text                                                                 "
           type="password"
-          placeholder="Password"
+          placeholder="كلمة السر ..."
           onChange={(e) => setPassword(e.target.value)}
         />
 <br />
