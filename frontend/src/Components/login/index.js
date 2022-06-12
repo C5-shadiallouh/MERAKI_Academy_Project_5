@@ -129,15 +129,18 @@ const Login = () => {
       <div className="login">
         <h2 className="active"> تسجيل الدخول : </h2>
         <form>
+
+          <span>الإيميل :</span>
         <input
         className="text"
           type="email"
           placeholder="الإيميل ..."
           onChange={(e) => setEmail(e.target.value)}
         />
-        <span>الإيميل :</span>
+        
         
         <br />
+        <span>كلمة السر :</span>
         <input
         className="text                                                                 "
           type="password"
@@ -145,7 +148,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
 <br />
-        <span>كلمة السر :</span>
+        
         <br />
 
         <input type="checkbox" id="checkbox-1" className="checkbox" />

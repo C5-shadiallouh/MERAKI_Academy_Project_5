@@ -27,8 +27,9 @@ span {
   opacity: 0.4; 
   display: inline-block;
   position: relative;
-  top: -65px;
+  /* top: -65px; */
   transition: all 0.5s ease-in-out;
+  margin-top: 19px;
 }
 
 .text {

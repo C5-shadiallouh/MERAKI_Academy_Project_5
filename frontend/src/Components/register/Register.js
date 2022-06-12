@@ -37,7 +37,7 @@ if (res) {
   if (error.response && error.response.data) {
     return setMessage(error.response.data.message);
   }
-  setMessage("Error happened while register, please try again");
+  setMessage("حدث خطأ خلال التسجيل ... الرجاء إعادة المحاولة");
 }
 };
 
@@ -87,7 +87,7 @@ return (
               />
               <br />
 
-              <button className="login_button">Register</button>
+              <button className="login_button">تسجيل</button>
               <br />
             </form>
             {status
@@ -95,7 +95,7 @@ return (
               : message && <div className="ErrorMessage">{message}</div>}
           </>
         ) : (
-          <p>Logout First</p>
+          <p>من فضلك ... قم بتسجيل الخروج أولا ..</p>
         )}
       </div>
     </>
