@@ -90,7 +90,7 @@ const MealPage = () => {
                   <textarea
                     placeholder="إضافة تعليق..."
                     onChange={(e) => {
-                      setComment(e.target.value);
+                      setComment(e.target.value)
                     }}
                   />
                   <button onClick={() => {
