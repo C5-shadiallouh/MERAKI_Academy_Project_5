@@ -44,25 +44,29 @@ if (res) {
 
 return (
     <>
-      <div className="Form">
+      <div className="login">
         {!isLoggedIn ? (
           <>
+          <h2 className="active"> تسجيل مستخدم جديد : </h2>
             <form onSubmit={addNewUser}>
               <br />
               <input
                 type="text"
+                className="text"
                 placeholder="First Name"
                 onChange={(e) => setFirstName(e.target.value)}
               />
               <br />
               <input
                 type="text"
+                className="text"
                 placeholder="Last Name"
                 onChange={(e) => setLastName(e.target.value)}
               />
               <br />
               <input
                 type="text"
+                className="text"
                 placeholder="city"
                 onChange={(e) => setCity(e.target.value)}
               />
@@ -70,18 +74,20 @@ return (
              
               <input
                 type="email"
+                className="text"
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <br />
               <input
                 type="password"
+                className="text"
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
               <br />
 
-              <button>Register</button>
+              <button className="login_button">Register</button>
               <br />
             </form>
             {status
