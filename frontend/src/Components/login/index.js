@@ -136,6 +136,7 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <span>الإيميل :</span>
+        
         <br />
         <input
         className="text                                                                 "
@@ -156,7 +157,7 @@ const Login = () => {
         <br />
         <GoogleLogin
           clientId="171142303177-dlklu0me533t11g37ll28pjmd603vh8c.apps.googleusercontent.com"
-          
+
           buttonText="الدخول بواسطة جوجل"
           className="login_button"
           onSuccess={loginWithGoogle}

@@ -1,0 +1,95 @@
+
+.login {
+    position: relative;
+    height: 560px;
+    width: 405px;
+    margin: auto;
+    padding: 60px 60px;
+    margin-top: 20px;
+    /* background: url() no-repeat   center center #505050;    */
+    background-size: cover;
+    box-shadow: 0px 30px 60px -5px #000;
+  }
+  
+  form {
+    padding-top: 80px;
+  }
+  
+  .active {
+    border-bottom: 2px solid #70b269;
+  }
+  
+    h2 {
+     font-size: 22px; 
+    padding-bottom: 5px;
+    display: inline-block;
+    font-weight: 100; 
+  }   
+  
+  span {
+    opacity: 0.4; 
+    display: inline-block;
+    position: relative;
+    top: -65px;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .text {
+    width: 89%;
+    padding: 10px 20px;
+    display: block;
+    height:15px;
+    border-radius: 20px;
+    /* background: rgba(255, 255, 255, 0.1); */
+    border: 2px solid rgba(255, 255, 255, 0);
+    /* overflow: hidden; */
+    margin-top: 15px;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .text:focus {
+    outline: 0;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    /* background: rgba(0, 0, 0, 0); */
+  }
+  
+  .text:focus + span {
+    opacity: 0.6;
+  }
+  
+  h2,
+  span,
+  .checkbox {
+    margin-left: 20px;
+  }
+  
+  .checkbox {
+    padding: 8px;
+    display: inline-block;
+    top: 6px;
+  }
+  
+  .checkbox:checked {
+    background-color: #70b269;
+  }
+  
+  .login_button {
+    background-color: #70b269;
+    color: #FFF;
+    width: 100%;
+    padding: 10px 20px;
+    display: block;
+    height: 39px;
+    border-radius: 20px;
+    margin-top: 30px;
+    transition: all 0.5s ease-in-out;
+    border: none;
+  }
+  
+  .login_button:hover {
+    background: #70b269;
+    box-shadow: 0px 4px 35px -5px #70b269;
+    cursor: pointer;
+  }
+  

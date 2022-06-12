@@ -51,6 +51,7 @@ return (
               <br />
               <input
                 type="text"
+                className="text"
                 placeholder="First Name"
                 onChange={(e) => setFirstName(e.target.value)}
               />
