@@ -13,6 +13,8 @@
   
   form {
     padding-top: 80px;
+    /* margin-bottom: 10px;
+    padding-bottom: 10px; */
   }
   
   .active {
@@ -24,15 +26,9 @@
     padding-bottom: 5px;
     display: inline-block;
     font-weight: 100; 
+    margin-left: 20px;
   }   
   
-  span {
-    opacity: 0.4; 
-    display: inline-block;
-    position: relative;
-    top: -65px;
-    transition: all 0.5s ease-in-out;
-  }
   
   .text {
     width: 89%;
@@ -42,7 +38,6 @@
     border-radius: 20px;
     /* background: rgba(255, 255, 255, 0.1); */
     border: 2px solid rgba(255, 255, 255, 0);
-    /* overflow: hidden; */
     margin-top: 15px;
     transition: all 0.5s ease-in-out;
   }
@@ -51,28 +46,10 @@
     outline: 0;
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
-    /* background: rgba(0, 0, 0, 0); */
-  }
+     opacity: 0.6;
+     }
   
-  .text:focus + span {
-    opacity: 0.6;
-  }
   
-  h2,
-  span,
-  .checkbox {
-    margin-left: 20px;
-  }
-  
-  .checkbox {
-    padding: 8px;
-    display: inline-block;
-    top: 6px;
-  }
-  
-  .checkbox:checked {
-    background-color: #70b269;
-  }
   
   .login_button {
     background-color: #70b269;
@@ -85,7 +62,7 @@
     margin-top: 30px;
     transition: all 0.5s ease-in-out;
     border: none;
-  }
+     }
   
   .login_button:hover {
     background: #70b269;
