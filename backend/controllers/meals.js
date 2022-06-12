@@ -275,55 +275,25 @@ const addRate = (req, res) => {
   const meal_id = req.params.id;
   console.log(req.token);
   const rater = req.token.user_id;
-  const rate = req.body.rate;
-  const query ="UPDATE rating SET rate=? WHERE rater=? AND meal_id=?" 
-/*   const query = `INSERT INTO rating (rate, rater, meal_id) VALUES (?,?,?);`;
- */  const data = [rate, rater, meal_id];
+  const rate = req.body;
+  const query = `INSERT INTO rating (rating, rater, meal_id) VALUES (?,?,?);`;
+  const data = [rate, rater, meal_id];
   connection.query(query, data, (err, result) => {
     if (err) {
-     return res.status(500).json({
+      res.status(500).json({
         success: false,
         massage: "Server error",
         err: err,
       });
     }
-    if(!result.affectedRows)
-    {const query = `INSERT INTO rating (rate, rater, meal_id) VALUES (?,?,?);`
-     const data = [rate, rater, meal_id];
-     connection.query(query, data, (err, result) => {
-      if (err) {
-        return res.status(500).json({
-           success: false,
-           massage: "Server error",
-           err: err,
-         });
-       }
-       res.status(201).json({
-        success: true,
-        massage: rate,
-        result: result,
-      });
-     })
-     
-     
-
-  }
-    
-   
+    res.status(200).json({
+      success: true,
+      massage: "rate added",
+      result: result,
+    });
   });
 };
-const getRateForMealByUserId=(req,res)=>{
-  const meal_id = req.params.id;
-  console.log(req.token);
-  const rater = req.token.user_id;
-  const query ="SELECT rate FROM rating Where rater=? AND meal_id=?"
-  const data=[rater,meal_id]
-  connection.query(query,data,(err,result)=>{
-  
-    return res.json(result)
-  })
- 
-}
+
 const deleteRate = (req, res) => {
   const id = req.params.id;
 
@@ -388,7 +358,7 @@ const updateRate = (req, res) => {
 
 const getRates = (req, res) => {
   const meal_id = req.params.id;
-  const query = `SELECT AVG(rate) AS AverageRate FROM rating WHERE meal_id=?;`;
+  const query = `SELECT AVG(rate) AS AverageRate FROM rating;`;
   const data = [meal_id];
   connection.query(query, data, (err, result) => {
     if (err) {
@@ -423,5 +393,4 @@ module.exports = {
   deleteRate,
   getRates,
   updateRate,
-  getRateForMealByUserId
 };
