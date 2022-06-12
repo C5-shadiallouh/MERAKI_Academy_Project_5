@@ -3,8 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const rating = createSlice({
   name: "rating",
   initialState: {
-    ratings: 0,
-    ratingAvg:0
+    ratings: [],
   },
   reducers: {
     setRatings: (state, action) => {
@@ -12,9 +11,9 @@ export const rating = createSlice({
       state.ratings = action.payload;
     },
 
-    getRating: (state, action) => {
+    addRating: (state, action) => {
         //payload:newRating
-        state.ratingAvg = action.payload;
+        state.ratings.push(action.payload);
       },
   
       updateRating: (state, action) => {
@@ -38,6 +37,6 @@ export const rating = createSlice({
 });
 
 
-export const {setRatings, getRating, updateRating, deleteRating} = rating.actions;
+export const {setRatings, addRating, updateRating, deleteRating} = rating.actions;
 
 export default rating.reducer;
