@@ -12,7 +12,7 @@ const mealsRouter = require("./Routes/meals");
 const usersRouter = require("./Routes/users");
 const cartRouter = require(`./Routes/cart`);
 const commentRouter = require("./Routes/comment");
-const orderRouter = require(`./Routes/order`)
+const orderRouter = require(`./Routes/order`);
 
 //built-in middleware
 app.use(express.json());

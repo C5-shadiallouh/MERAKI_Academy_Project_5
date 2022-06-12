@@ -5,15 +5,16 @@ import { addRating } from "../../redux/reducers/rating/rating";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-//npm install react-rating-stars-component --save
 import { Rating } from "react-simple-star-rating";
 import { setRatings, getRating } from "../../redux/reducers/rating/rating";
 const MealPage = () => {
-  const [clicked, setClicked] = useState(false);
+const [clicked, setClicked] = useState(false);
 
+const MealPage = () => {
   const [comment, setComment] = useState("");
   const { id } = useParams();
   const dispatch = useDispatch();
+
   const { meals, token, comments, allComments, ratings, ratingAvg } =
     useSelector((state) => {
       return {
@@ -30,11 +31,22 @@ const MealPage = () => {
     setRating(rate); // other logic
   };
 
+  const { meals, token,comments,allComments } = useSelector((state) => {
+    return {
+      token: state.auth.token,
+      meals: state.meals.meals,
+      comments:state.comments.comments,
+      allComments:state.comments.allComments
+    };
+  });
+
   const getAllComments = async (id) => {
     await axios
       .get(`http://localhost:5000/comment/${id}`)
       .then((result) => {
         dispatch(setComments(result.data.result));
+        console.log(result);
+        dispatch(setComments( result.data.result));
       })
       .catch((error) => {
         console.log(error);
@@ -54,7 +66,6 @@ const MealPage = () => {
         }
       )
       .then((result) => {
-        console.log(result);
         dispatch(
           addNewComment({
             comment: result.data.result,
@@ -91,8 +102,7 @@ const MealPage = () => {
           }
         )
         .then((result) => {
-          console.log(rating);
-          console.log(result);
+
         })
         .catch((error) => {
           console.log(error);
@@ -115,7 +125,10 @@ const MealPage = () => {
         dispatch(getRating(result.data.result[0].AverageRate));
       }
     });
-  }, [clicked, rating, ratings]);
+     getAllComments(id)
+
+  }, [clicked, rating, ratings,allComments]);    
+      
   return (
     <div>
       {meals.length
@@ -125,6 +138,7 @@ const MealPage = () => {
                 <img src={element.image} />
                 <h1>{element.meal_name}</h1>
 
+
                 <div>
                   <Rating
                     onClick={handleRating}
@@ -132,12 +146,13 @@ const MealPage = () => {
                   />
                   {ratingAvg ? ratingAvg / 20 : "not Rated"}
                 </div>
+                <div>{/* for rating */}</div>
 
                 <div>
                   <textarea
                     placeholder="إضافة تعليق..."
                     onChange={(e) => {
-                      setComment(e.target.value);
+                      setComment(e.target.value)
                     }}
                   />
                   <button
@@ -147,6 +162,10 @@ const MealPage = () => {
                     }}
                   >
                     إضافة
+                  <button onClick={() => {
+                   
+                    addComment(element.id)}}>
+                  إضافة
                   </button>
                 </div>
               </div>
