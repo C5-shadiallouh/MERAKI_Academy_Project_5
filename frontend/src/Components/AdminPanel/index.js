@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const AdminPanel = () => {
   return <div>
 <Link to={"/usersmanagment"}>ادارة المستخدمين</Link>
+<Link to={"/usersmanagment"}>ادارة المستخدمين</Link>
 
 
 
