@@ -7,6 +7,7 @@ import axios from "axios";
 //npm install react-google-login
 import { GoogleLogin } from "react-google-login";
 import { loggedin } from "../../redux/reducers/auth";
+import "./style.css"
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -125,28 +126,43 @@ const Login = () => {
 
   return (
     <>
-      <div className="loginDiv">
-        <p className="Title">Login:</p>
+      <div className="login">
+        <h2 className="active"> تسجيل الدخول : </h2>
+        <form>
         <input
+        className="text"
           type="email"
           placeholder="Email ..."
           onChange={(e) => setEmail(e.target.value)}
         />
+        <span>الإيميل :</span>
         <br />
         <input
+        className="text                                                                 "
           type="password"
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         />
+<br />
+        <span>كلمة السر :</span>
         <br />
-        <button onClick={login}>Login</button>
+
+        <input type="checkbox" id="checkbox-1" className="checkbox" />
+    <label for="checkbox-1">حفظ تسجيل الدخول</label>
+
+        <button className="login_button" onClick={login}>تسجيل الدخول</button>
+
+        <br />
+        <br />
         <GoogleLogin
           clientId="171142303177-dlklu0me533t11g37ll28pjmd603vh8c.apps.googleusercontent.com"
-          buttonText="Login"
+          buttonText="الدخول بواسطة جوجل"
+          className="login_button"
           onSuccess={loginWithGoogle}
           onFailure={loginWithGoogle}
           cookiePolicy={"single_host_origin"}
         />
+         </form>
       </div>
 
       {status
