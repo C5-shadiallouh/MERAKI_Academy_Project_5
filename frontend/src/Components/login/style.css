@@ -26,7 +26,7 @@ form {
   font-weight: 100; 
 }   
 
-span {
+.login span {
   opacity: 0.4; 
   display: inline-block;
   position: relative;
@@ -59,7 +59,7 @@ span {
 }
 
 h2,
-span,
+.login span,
 .checkbox {
   margin-left: 20px;
 }
