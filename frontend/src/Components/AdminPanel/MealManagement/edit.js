@@ -14,7 +14,32 @@ const Edit = () => {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
 
- 
+  const handleEditMeal = () => {
+    try {
+      const res = axios.put(`http://localhost:5000/meals/update/${id}`, {
+        meal_name,
+        meal_price,
+        image,
+      });
+      if (res) {
+        setStatus(true);
+        setMessage("تم تعديل الوجبة   ");
+        dispatch(
+          updateMeal({
+            meal_name,
+            meal_price,
+            image,
+          })
+        );
+      } else throw Error;
+    } catch (error) {
+      setStatus(false);
+      if (error.response && error.response.data) {
+        return setMessage(error.response.data.message);
+      }
+      setMessage("حدث خطأ ..الرجاء المحاولة مرة اخرى");
+    }
+  }; 
 
   return (
     <div>
