@@ -18,6 +18,10 @@ const meals = createSlice({
       state.total = action.payload;
     },
 
+    getQuantity:(state, action)=>{
+      state.quantity = action.payload;
+    },
+
     addNewMeal: (state, action) => {
       //payload:newMeal
       state.meals.push(action.payload);
