@@ -18,7 +18,7 @@ const MealPage = () => {
   const [comment, setComment] = useState("");
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { meals, token,comments,allComments,ratings,ratingAvg } = useSelector((state) => {
+  const { meals, token,comments,allComments,ratings,ratingAvg ,total} = useSelector((state) => {
     return {
       token: state.auth.token,
       meals: state.meals.meals,
@@ -26,6 +26,7 @@ const MealPage = () => {
       allComments:state.comments.allComments,
       ratings:state.ratings.ratings,
       ratingAvg: state.ratings.ratingAvg
+      total: state.ratings.total
     };
   });
   const [rating, setRating] = useState(ratings) // initial rating value
@@ -130,11 +131,13 @@ console.log(result);
             return (
               <div className="meal_page">
                 <img className="meal_img" src={element.image} />
+                <div className="meal_name_rating">
                 <h1>{element.meal_name}</h1>
 
                 <div className="rating">
                 <Rating onClick={handleRating} ratingValue={ratings}/>
                <p className="avg_rating"> {ratingAvg? ratingAvg/20:"not Rated"}</p>
+                  </div>
                   </div>
 
                 <div className="comment">
@@ -154,6 +157,18 @@ console.log(result);
                   إضافة
                   </button>
                   
+                </div>
+
+                <div className="cart_div">
+
+                  <button>-</button>
+                  <input placeholder="العدد المطلوب" />
+                  <button>+</button>
+                  <button>إضافة إلى سلة الطعام</button>
+
+<label className="total">Your Total :</label>
+<label className="totla"> {total? /20:"0"}</label>
+
                 </div>
               </div>
             );
