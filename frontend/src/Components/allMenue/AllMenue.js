@@ -16,9 +16,10 @@ const AllMenue = (req, res) => {
     };
   });
 
- 
+const addtoCart=(id)=>{
+  
+} 
 
-  console.log(page);
   useEffect(() => {
     axios
       .get(`http://localhost:5000/meals/paginated?p=${page}`)

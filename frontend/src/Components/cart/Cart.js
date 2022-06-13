@@ -4,10 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   setCart,
-  RemoveFromCart,
-  decreaseCart,
-  addtoCart,
-  removeAllItem,
+  setQuantity
 } from "../../redux/reducers/cart/cart";
 import './style.css'
 
@@ -24,58 +21,19 @@ const Cart = () => {
       };
     }
   );
-const [quantity,setQuantity]=useState(1)
-  const handleRemoveFromCart = (cart) => {
-    axios
-      .delete(`htt:localhost:5000/cart/delete/${cart.id}`)
-      .then(() => {
-        dispatch(RemoveFromCart(cart));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const handleDecrese = (cart) => {
-    axios
-      .put(`http://localhost:5000/cart/update/${cart.id}`, {
-        quantity: cart.quantity,
-      })
-      .then(() => {
-        dispatch(decreaseCart(cart));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const handleIncrease = (cart) => {
-    axios
-      .put(`http://localhost:5000/cart/update/${cart.id}`, {
-        quantity: cart.quantity,
-      })
-      .then(() => {
-        dispatch(addtoCart(cart));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const handleCleareCart = () => {
-    axios
-      .delete(`http://localhost:5000/removeAll`)
-      .then(() => {
-        dispatch(removeAllItem());
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  const total=(price)=>{
-    
-  dispatch(totalAmount(quantity*price))
+  const updateQuantity=(id,quantity,total)=>{
+  axios.put(`http://localhost:5000/cart/update/${id}`,{quantity:quantity,total:total},{
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((result)=>{dispatch(setQuantity(quantity))})
+  .catch((err)=>{console.log(err);})
   }
+ 
+  
+
+  
+  
 
   useEffect(() => {
     axios
@@ -98,7 +56,6 @@ const [quantity,setQuantity]=useState(1)
       {carts.length && isLoggedIn ? (
         
         <div>
-          {console.log(carts)}
           <table>
   <tr>
     <th>صورة الصنف</th>
@@ -111,20 +68,18 @@ const [quantity,setQuantity]=useState(1)
     return(
       
       <tr>
-        {console.log(element)}
        <td><img src={element.image} width="100px"/></td>
        <td>{element.meal_name}</td>
        <td><input type={"number"} min={1}  defaultValue={1} onChange={(e)=>{
-         setQuantity(e.target.value)}
+
+        updateQuantity(element.id,e.target.value,(e.target.value*element.meal_price))
+        console.log(totalQuantity);
+        }
        }/>
-       <button onClick={()=>{handleIncrease(element)
-       
-       total(element.meal_price) 
-       console.log(totalAmount)}
-      }>update</button></td>
+       </td>
        <td>{element.meal_price}</td> 
        
-       <td>{totalAmount}</td> 
+       <td>{element.meal_price*totalQuantity}</td> 
       </tr>
     )
   })}

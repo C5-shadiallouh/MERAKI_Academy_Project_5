@@ -65,6 +65,7 @@ CREATE TABLE cart (
     order_id INT NOT NULL,
     is_deleted TINYINT DEFAULT 0,
     quantity INT DEFAULT 1,
+    total    INT DEFAULT 0,
     FOREIGN KEY (meal_id) REFERENCES meals(id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (order_id) REFERENCES orders(id),

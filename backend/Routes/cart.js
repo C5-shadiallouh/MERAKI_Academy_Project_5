@@ -15,10 +15,10 @@ const { authentication } = require(`../middlewares/authentication`);
 const cartRouter = express.Router();
 /* cartRouter.put(`/subtotal`, subTotal);
  */ cartRouter.put(`/totalPrice`, totalPrice);
-cartRouter.post(`/add/:id`, authentication, addToCart);
+cartRouter.post(`/add`, authentication, addToCart);
 cartRouter.get(`/`, getCart);
-cartRouter.delete(`/removeAll`, removeAll);
-cartRouter.put(`/update/:id`,updateById)
+cartRouter.delete(`/removeAll`,authentication, removeAll);
+cartRouter.put(`/update/:id`,authentication,updateById)
 
 cartRouter.delete(`/delete/:id`, deleteFromCart);
 

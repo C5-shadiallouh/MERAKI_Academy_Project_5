@@ -2,11 +2,11 @@ const connection = require(`../models/db`);
 
 const addToCart = (req, res) => {
   const user_id = req.token.user_id;
-  const { meal_id, order_id } = req.body;
+  const { meal_id,quantity } = req.body;
 
-  const query = `INSERT INTO cart (meal_id,user_id,order_id) VALUES (?,?,?)`;
+  const query = `INSERT INTO cart (meal_id,user_id,quantity) VALUES (?,?,?)`;
 
-  const data = [user_id, meal_id, order_id];
+  const data = [meal_id,user_id,quantity];
 
   connection.query(query, data, (err, result) => {
     if (err) {
@@ -145,13 +145,13 @@ const removeAll = (req, res) => {
 }; */
 
 const updateById = (req,res) => {
-  const { quantity } = req.body;
+  const { quantity,total } = req.body;
+  const user_id=req.token.user_id
   const {id} = req.params;
 console.log(id);
-  const query = `UPDATE  cart SET quantity=${quantity} where id=?`;
-  const data = [id];
+  const query = `UPDATE  cart SET quantity=${quantity},total=${total} where id=? AND user_id=?`;
+  const data = [id,user_id];
   connection.query(query, data, (err, result) => {
-    console.log(result)
     if (err) {
       return res.status(404).json({
         success: false,
