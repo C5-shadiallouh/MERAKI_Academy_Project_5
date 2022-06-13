@@ -1,0 +1,75 @@
+.page {
+  padding: 20px;
+}
+
+.meal_page {
+  display: flex;
+  margin-bottom: 20px;
+  justify-content: space-around;
+}
+
+.meal_img {
+  margin-top: 50px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 300px;
+  border-radius: 10px;
+}
+/* ****************** rating ******************* */
+.meal_name_rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 130px;
+}
+
+.rating {
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+}
+
+.avg_rating {
+  margin-top: 7px;
+}
+/* ***************comment ************************** */
+.meal_comment {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
+
+.comment {
+  display: flex;
+}
+/* ************cart div**************** */
+
+.cart_div {
+  /* display: flex; */
+  /* flex-direction: row; */
+}
+
+.meal_name {
+  font-size: 25px;
+}
+
+.name_rate_cart {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .count_input {
+  border: none;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: #e8e8e8;
+  box-shadow: 20px 20px 60px #c5c5c5, -20px -20px 60px #ffffff;
+  transition: 0.3s;
+}
+
+.count_input:focus {
+  outline-color: #e8e8e8;
+  background: #e8e8e8;
+  box-shadow: inset 20px 20px 60px #c5c5c5, inset -20px -20px 60px #ffffff;
+  transition: 0.3s;
+} */

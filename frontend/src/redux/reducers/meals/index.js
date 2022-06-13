@@ -4,11 +4,22 @@ const meals = createSlice({
   name: "meals",
   initialState: {
     meals: [],
+    total:0,
+    quantity:0,
   },
   reducers: {
     setMeals: (state, action) => {
       //payload:all meals
       state.meals = action.payload;
+    },
+
+    getTotal:(state,action)=>{
+      //payload:
+      state.total = action.payload;
+    },
+
+    getQuantity:(state, action)=>{
+      state.quantity = action.payload;
     },
 
     addNewMeal: (state, action) => {
@@ -69,6 +80,6 @@ const meals = createSlice({
   },
 });
 
-export const { setMeals, addNewMeal, updateMeal, deleteMeal, setMealByID, setMealsByCategory, setPaginatedMeals, setPaginatedByCategory, setPriceRange, setPriceASC, setPriceDESC} = meals.actions;
+export const { setMeals, addNewMeal, updateMeal, deleteMeal, setMealByID, setMealsByCategory, setPaginatedMeals, setPaginatedByCategory, setPriceRange, setPriceASC, setPriceDESC,getTotal,getQuantity} = meals.actions;
 
 export default meals.reducer;
