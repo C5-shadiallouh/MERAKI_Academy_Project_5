@@ -6,6 +6,8 @@ import { setCategories } from "../../redux/reducers/category";
 import { changePage } from "../../redux/reducers/page/pageReducer";
 import Filter from "../Search";
 import "./style.css";
+import { FaShoppingCart } from 'react-icons/fa';
+
 import axios from "axios";
 const Navbar = () => {
   const navigate = useNavigate();
@@ -127,9 +129,14 @@ const Navbar = () => {
           >
             من نحن
           </Link>
+          <Link to={"/cart"}>
+          <FaShoppingCart  fontSize="1.2em"  title="سلة المشتريات"/>
+          
+          </Link>
           </div>
           <Filter />
         </div>
+        
       </nav>
     </div>
   );
