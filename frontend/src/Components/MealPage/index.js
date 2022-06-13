@@ -8,6 +8,8 @@ import { useParams } from "react-router-dom";
 //npm install react-rating-stars-component --save
 import { Rating } from 'react-simple-star-rating'
 import { setRatings,getRating } from "../../redux/reducers/rating/rating";
+import "./style.css"
+
 const MealPage = () => {
   
   const [clicked, setClicked] = useState(false)
@@ -122,27 +124,28 @@ console.log(result);
       
   }, [clicked,rating,ratings]);
   return (
-    <div>
+    <div className="page">
       {meals.length
         ? meals.map((element) => {
             return (
-              <div>
-                <img src={element.image} />
+              <div className="meal_page">
+                <img className="meal_img" src={element.image} />
                 <h1>{element.meal_name}</h1>
 
-                <div>
+                <div className="rating">
                 <Rating onClick={handleRating} ratingValue={ratings}/>
-                {ratingAvg? ratingAvg/20:"not Rated"}
+               <p className="avg_rating"> {ratingAvg? ratingAvg/20:"not Rated"}</p>
                   </div>
 
-                <div>
+                <div className="comment">
                   <textarea
+                  className="comment_text"
                     placeholder="إضافة تعليق..."
                     onChange={(e) => {
                       setComment(e.target.value);
                     }}
                   />
-                  <button onClick={() => {
+                  <button className="comment_button" onClick={() => {
                    
 
                     addComment(element.id)
