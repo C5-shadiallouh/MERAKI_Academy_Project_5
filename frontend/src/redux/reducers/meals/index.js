@@ -80,6 +80,6 @@ const meals = createSlice({
   },
 });
 
-export const { setMeals, addNewMeal, updateMeal, deleteMeal, setMealByID, setMealsByCategory, setPaginatedMeals, setPaginatedByCategory, setPriceRange, setPriceASC, setPriceDESC} = meals.actions;
+export const { setMeals, addNewMeal, updateMeal, deleteMeal, setMealByID, setMealsByCategory, setPaginatedMeals, setPaginatedByCategory, setPriceRange, setPriceASC, setPriceDESC,getTotal,getQuantity} = meals.actions;
 
 export default meals.reducer;
