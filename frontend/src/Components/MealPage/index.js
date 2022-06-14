@@ -55,11 +55,7 @@ const MealPage = () => {
   };
 
   const handleChange = (e) => {
-    if(e.target.value.includes('-')){
-      console.log('no');
-    }
-    const value = Math.max(min, Math.min(max, Number(e.target.value)));
-    setValue(value);
+   
   };
 
   const getAllComments = async (id) => {
@@ -176,18 +172,12 @@ const MealPage = () => {
                       <input
                       type={"number"}
                       min={1}
-                      // value={!counter?counter
-                      // :null}
-                      // onClick={(e)=>{if(e.target.value<=1)
-                      // setCounter()
-                      // else{
-                      //   setCounter(counter++)
-                      // }
-                      // }}
-                    
-                        className="count_input"
+                      className="count_order"
                         placeholder="العدد المطلوب"
-        onChange={handleChange}
+      //   onChange={(e)=>{if(e.target.value.includes('-')){
+      //     Math.abs(e,target.value)
+      //   }else{handleChange}
+      // }}
                       />
 
                       {/* <button className="add_minus_butt" onClick={counterPluse}>
@@ -224,12 +214,14 @@ const MealPage = () => {
             );
           })
         : ""}
+        <div className="scroll_div">
         <div  className="comments_array">
       {allComments.length
         ? allComments.map((element) => {
-            return <p>{element.comment}</p>;
+            return <p><p className="commenter_name">:{element.firstName} {element.lastName}</p> <p className="comment_in_scroll">{element.comment}</p></p>;
           })
         : ""}</div>
+        </div>
     </div>
   );
 };
