@@ -186,6 +186,7 @@ const MealPage = () => {
                       <button className="add_minus_butt">
                         إضافة إلى سلة الطعام
                       </button>
+                     
 
                       {/* <label className="total"> {total? "مجموع طلبك =" quantity*mealPrice:"لا يوجد أي طعام في القائمة"}</label> */}
                     </div>
