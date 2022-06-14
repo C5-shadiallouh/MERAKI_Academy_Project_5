@@ -17,7 +17,9 @@ const login = (req,res)=>{
                         const payload ={
                             user_id:result[0].id,
                             role_id:result[0].role_id,
-                            email:result[0].email
+                            email:result[0].email,
+                            user_name:(result[0].firstName+" "+result[0].lastName)
+
                         }
                         const token=jwt.sign(payload,process.env.SECRET)
                         if (result[0].role_id ==1)

@@ -16,9 +16,9 @@ const MealPage = () => {
   const [mealPrice, setMealPrice] = useState("");
   const [counter, setCounter] = useState(1);
   const [comment, setComment] = useState("");
-  const [value, setValue] = useState(0)
-  const [min, setMin] = useState(0)
-  const [max, setMax] = useState()
+  const [value, setValue] = useState(0);
+  const [min, setMin] = useState(0);
+  const [max, setMax] = useState();
   const { id } = useParams();
   const dispatch = useDispatch();
   const {
@@ -54,13 +54,7 @@ const MealPage = () => {
     counter--;
   };
 
-  const handleChange = (e) => {
-    if(e.target.value.includes('-')){
-      console.log('no');
-    }
-    const value = Math.max(min, Math.min(max, Number(e.target.value)));
-    setValue(value);
-  };
+  const handleChange = (e) => {};
 
   const getAllComments = async (id) => {
     await axios
@@ -147,7 +141,7 @@ const MealPage = () => {
         dispatch(getRating(result.data.result[0].AverageRate));
       }
     });
-  }, [clicked, rating, ratings]);
+  }, [clicked]);
   return (
     <div className="page">
       {meals.length
@@ -174,26 +168,22 @@ const MealPage = () => {
                         -
                       </button> */}
                       <input
-                      type={"number"}
-                      min={1}
-                      // value={!counter?counter
-                      // :null}
-                      // onClick={(e)=>{if(e.target.value<=1)
-                      // setCounter()
-                      // else{
-                      //   setCounter(counter++)
-                      // }
-                      // }}
-                    
-                        className="count_input"
+                        type={"number"}
+                        min={1}
+                        className="count_order"
                         placeholder="العدد المطلوب"
-        onChange={handleChange}
+                        //   onChange={(e)=>{if(e.target.value.includes('-')){
+                        //     Math.abs(e,target.value)
+                        //   }else{handleChange}
+                        // }}
                       />
 
                       {/* <button className="add_minus_butt" onClick={counterPluse}>
                         +
                       </button> */}
-                      <button className="add_minus_butt">
+                      <button className="add_minus_butt" onClick={()=>{
+                        
+                      }}>
                         إضافة إلى سلة الطعام
                       </button>
 
@@ -217,19 +207,27 @@ const MealPage = () => {
                       setClicked(!clicked);
                     }}
                   >
-                    إضافة
+                    إضافة تعليق
                   </button>
                 </div>
               </div>
             );
           })
         : ""}
-        <div  className="comments_array">
-      {allComments.length
-        ? allComments.map((element) => {
-            return <p>{element.comment}</p>;
-          })
-        : ""}</div>
+      <div className="scroll_div">
+        <div className="comments_array">
+          {allComments.length
+            ? allComments.map((element) => {
+                return (
+                  <div>
+                    <p className="commenter_name">:{element.firstName}&nbsp;{element.lastName}
+                    </p>&nbsp;<p className="comment_in_scroll">{element.comment}</p>
+                  </div>
+                );
+              })
+            : ""}
+        </div>
+      </div>
     </div>
   );
 };
