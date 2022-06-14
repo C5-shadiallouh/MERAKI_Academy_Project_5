@@ -1,12 +1,32 @@
 const connection = require(`../models/db`);
+const total=(req,res)=>{
+  const user_id = req.token.user_id;
 
+  const query = `SELECT COALESCE(SUM(total),0) AS total FROM cart WHERE user_id=? AND is_deleted=0;`;
+
+  const data = [user_id];
+
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        massage: "Server error",
+        err: err,
+      });
+    }
+
+    res.status(201).json({
+      result
+    });
+  });
+}
 const addToCart = (req, res) => {
   const user_id = req.token.user_id;
-  const { meal_id,quantity } = req.body;
+  const { meal_id,quantity,total } = req.body;
 
-  const query = `INSERT INTO cart (meal_id,user_id,quantity) VALUES (?,?,?)`;
+  const query = `INSERT INTO cart (meal_id,user_id,quantity,total) VALUES (?,?,?,?)`;
 
-  const data = [meal_id,user_id,quantity];
+  const data = [meal_id,user_id,quantity,total];
 
   connection.query(query, data, (err, result) => {
     if (err) {
@@ -28,7 +48,7 @@ const addToCart = (req, res) => {
 const deleteFromCart = (req, res) => {
   const { id} = req.params;
 
-  const query = `UPDATE cart SET is_deleted=1 WHERE  id = ?`;
+  const query = `UPDATE cart SET is_deleted=1 WHERE  id = ? `;
 
   const data = [id];
 
@@ -176,7 +196,7 @@ const totalPrice = (req, res) => {
   const data = [quantity];
   connection.query(query, data, (err, result) => {
     if (err) {
-      res.status(500).json({
+      return res.status(500).json({
         success: false,
         message: `server error`,
         err,
@@ -195,7 +215,8 @@ module.exports = {
   totalPrice,
   deleteFromCart,
   removeAll,
-  updateById
+  updateById,
+  total
 
   /* subTotal */
 };

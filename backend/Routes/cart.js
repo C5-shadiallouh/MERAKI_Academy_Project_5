@@ -7,6 +7,7 @@ const {
   removeAll,
   totalPrice,
   updateById,
+  total
   /* subTotal */
 } = require(`../controllers/cart`);
 
@@ -19,7 +20,7 @@ cartRouter.post(`/add`, authentication, addToCart);
 cartRouter.get(`/`, getCart);
 cartRouter.delete(`/removeAll`,authentication, removeAll);
 cartRouter.put(`/update/:id`,authentication,updateById)
-
+cartRouter.get(`/total`,authentication,total)
 cartRouter.delete(`/delete/:id`, deleteFromCart);
 
 module.exports = cartRouter;
