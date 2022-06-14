@@ -3,34 +3,31 @@ require("dotenv").config();
 const cors = require("cors");
 const socket = require("socket.io");
 require("./models/db");
-const connection = require("./models/db")
-const stripe = require("stripe")('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
-const jwt =require("jsonwebtoken")
-
 const app = express();
-app.use(express.static("public"));
-app.use(express.json());
+//routers
+const loginRouter = require("./routes/login");
+const registerRouter = require("./Routes/register");
+const roleRouter = require("./Routes/role");
+const mealsRouter = require("./Routes/meals");
+const usersRouter = require("./Routes/users");
+const cartRouter = require(`./Routes/cart`);
+const commentRouter = require("./Routes/comment");
+const orderRouter = require(`./Routes/order`);
 
-/* const calculateOrderAmount = async(items) => {
-  let x;
-  const token = localStorage.getItem("token")
-  jwt.verify(token, process.env.SECRET, (err, result) => {
-    if (err) {
-      return console.log(err);
-    }
-    x = result;
-    
-  });
-  const user_id=x.user_id
-  const query="SELECT COALESCE(SUM(total),0) AS total FROM cart WHERE user_id=? AND is_deleted=0;"
-  const data=[user_id]
-  connection.query(query,(err,result)=>{
-    return console.log(result);
-  })
-  
-  
+//built-in middleware
+app.use(express.json());
+app.use(cors());
+const stripe = require("stripe")('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+
+app.use(express.static("public"));
+
+const calculateOrderAmount = (items) => {
+  // Replace this constant with a calculation of the order's amount
+  // Calculate the order total on the server to prevent
+  // people from directly manipulating the amount on the client
+  return 1400;
 };
- */
+
 app.post("/create-payment-intent", async (req, res) => {
   const { items } = req.body;
 
@@ -48,20 +45,6 @@ app.post("/create-payment-intent", async (req, res) => {
   });
 });
 
-
-
-//routers
-const loginRouter = require("./routes/login");
-const registerRouter = require("./Routes/register");
-const roleRouter = require("./Routes/role");
-const mealsRouter = require("./Routes/meals");
-const usersRouter = require("./Routes/users");
-const cartRouter = require(`./Routes/cart`);
-const commentRouter = require("./Routes/comment");
-const orderRouter = require(`./Routes/order`);
-//built-in middleware
-app.use(express.json());
-app.use(cors());
 
 // router middleware
 app.use("/login", loginRouter);
