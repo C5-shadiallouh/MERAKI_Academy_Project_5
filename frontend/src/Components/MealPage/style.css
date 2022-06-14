@@ -17,7 +17,7 @@
 
 .meal_img {
     width: 400px;
-    height: 200px;
+    height: 290px;
     border:2px solid #fff;
     -moz-box-shadow: 10px 10px 5px #ccc;
     -webkit-box-shadow: 10px 10px 5px #ccc;
@@ -53,6 +53,7 @@
 
 .comment {
   display: flex;
+  justify-content: space-around;
 }
 /* ************cart div**************** */
 

@@ -27,7 +27,7 @@ const addComment = (req, res) => {
 
   const getAllComments = (req, res) => {
     const {id}=req.params
-    const query = `SELECT comment.*, users.firstName, users.lastName FROM comment INNER JOIN users on comment.commenter=users.id WHERE meal_id=? `;
+    const query = `SELECT comment.*, users.firstName, users.lastName FROM comment INNER JOIN users on comment.commenter=users.id WHERE meal_id=? ORDER BY comment.id DESC `;
   const data=[id]
     connection.query(query,data, (err, result) => {
       if (err) {
