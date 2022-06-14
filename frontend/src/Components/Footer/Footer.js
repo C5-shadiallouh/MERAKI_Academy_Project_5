@@ -1,51 +1,72 @@
-import { FaFacebook } from "@react-icons/all-files/fa/FaFacebook";
-import { FaTwitter } from "@react-icons/all-files/fa/FaTwitter";
-import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram";
-import { FaVk } from "@react-icons/all-files/fa/FaVk"
-import { FaHome } from "@react-icons/all-files/fa/FaHome"
-
-
-
+import { FaFacebook } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+import { FaVk } from "react-icons/fa";
 
 import "./style.css";
+
 const Footer = () => {
   return (
-    <footer className="footer-content">
-      <h3> عبد حمادة</h3>
-      <p>مؤسس مطاعم فلسطين من 1965</p>
+    <div class="main-footer">
+      <div class="logoinfo" data-aos="fade-up">
+        <h2>مطعم عبد حمادة</h2>
+        <p>مؤسس مطاعم فلسطين من عام 1956</p>
 
-      <ul className="social_icon">
-        <li>
-          <a href="#">
-            <FaFacebook />
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <FaTwitter />
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <FaInstagram />
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <FaVk />
-          </a>
-        </li>
-      </ul>
-
-      <ul className="menu">
-        <li><FaHome/>الصفحة الرئيسية</li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-    </footer>
+        <div class="contact-details">
+          <h1>للتواصل</h1>
+          <li>
+            <div class="fa fa-phone"></div>
+            <a href="#">+962 799999</a>
+          </li>
+          <li>
+            <div class="fa fa-envelope"></div>
+            <a href="#">abedhamada@gmail.com</a>
+          </li>
+        </div>
+      </div>
+      <div class="com" data-aos="fade-up">
+        <h1>الموقع</h1>
+        <ul>
+          <li>
+            {" "}
+            <a href="#">الصفحة الرئيسية</a>
+          </li>
+          <li>
+            {" "}
+            <a href="#">من نحن</a>
+          </li>
+          <li>
+            {" "}
+            <a href="#">الفروع</a>
+          </li>
+          <li>
+            {" "}
+            <a href="#">تواصل معنا</a>
+          </li>
+        </ul>
+      </div>
+      <div class="info" data-aos="fade-up">
+        <h1>وسائل التواصل الاجتماعي</h1>
+        <div class="sociallogos">
+          <div class="logobox">
+            <a href="#">
+              <FaFacebook />
+            </a>
+            <a href="#">
+              <FaTwitter />
+            </a>
+            <a href="#">
+              <FaInstagram />
+            </a>
+            <a href="#">
+              <FaVk />
+            </a>
+          </div>
+        </div>
+      </div>
+      <footer>&copy; Your Copyright 2021 All Rights Reserved</footer>
+    </div>
   );
 };
 export default Footer;
+
