@@ -2,11 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  setCart,
-  setQuantity
-} from "../../redux/reducers/cart/cart";
-import './style.css'
+import { setCart, setQuantity,setTotal } from "../../redux/reducers/cart/cart";
+import "./style.css";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -21,19 +18,40 @@ const Cart = () => {
       };
     }
   );
-  const updateQuantity=(id,quantity,total)=>{
-  axios.put(`http://localhost:5000/cart/update/${id}`,{quantity:quantity,total:total},{
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((result)=>{dispatch(setQuantity(quantity))})
-  .catch((err)=>{console.log(err);})
-  }
- 
-  
+  const total=()=>{
+    axios.get(`http://localhost:5000/cart/total`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((result) => {
+       dispatch(setTotal(result.data.result[0].total))
+       console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
+  }
   
-  
+  const updateQuantity = (id, quantity, total) => {
+    axios
+      .put(
+        `http://localhost:5000/cart/update/${id}`,
+        { quantity: quantity, total: total },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((result) => {
+        dispatch(setQuantity(quantity));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     axios
@@ -48,43 +66,60 @@ const Cart = () => {
       .catch((err) => {
         console.log(err);
       });
-  },[totalAmount]);
+      total()
+  }, [totalQuantity]);
   return (
-    
     <div>
       <h3>سلة التسوق</h3>
       {carts.length && isLoggedIn ? (
-        
         <div>
           <table>
-  <tr>
-    <th>صورة الصنف</th>
-    <th>الصنف</th>
-    <th>الكمية</th>
-    <th>السعر الافرادي للصنف</th>
-    <th> المجموع</th>
-  </tr>
-  {carts.map((element)=>{
-    return(
-      
-      <tr>
-       <td><img src={element.image} width="100px"/></td>
-       <td>{element.meal_name}</td>
-       <td><input type={"number"} min={1}  defaultValue={1} onChange={(e)=>{
+            <tbody>
+            <tr>
+              <th>صورة الصنف</th>
+              <th>الصنف</th>
+              <th>الكمية</th>
+              <th>السعر الافرادي للصنف</th>
+              <th> المجموع</th>
+            </tr>
+            {carts.map((element) => {
+              return (
+                <tr>
+                  <td>
+                    <img src={element.image} width="100px" />
+                  </td>
+                  <td>{element.meal_name}</td>
+                  <td>
+                    <input
+                      type={"number"}
+                      min={1}
+                      defaultValue={
+                        element.quantity
+                      }
+                      onChange={(e) => {
+                        dispatch(setQuantity(e.target.value));
+                        updateQuantity(
+                          element.id,
+                          e.target.value,
+                          e.target.value * element.meal_price
+                        );
+                      }}
+                    />
+                  </td>
+                  <td>{element.meal_price}</td>
 
-        updateQuantity(element.id,e.target.value,(e.target.value*element.meal_price))
-        console.log(totalQuantity);
-        }
-       }/>
-       </td>
-       <td>{element.meal_price}</td> 
-       
-       <td>{element.meal_price*totalQuantity}</td> 
-      </tr>
-    )
-  })}
-</table>
-          </div>
+                  <td>{(element.meal_price * element.quantity).toFixed(2)}</td>
+                </tr>
+              );
+            })}
+            </tbody>
+          </table>
+          {totalAmount?<div>
+            <h1>المبلغ الاجمالي: {totalAmount} دينار</h1>
+            <button>الدفع</button>
+          </div>:""}
+          
+        </div>
       ) : (
         <div>
           <p>السلة فارغة </p>

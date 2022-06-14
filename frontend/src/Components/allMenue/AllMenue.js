@@ -9,14 +9,23 @@ const AllMenue = (req, res) => {
   const [meal, setMeal] = useState([]);
   const [message, setMessage] = useState(``);
   const dispatch = useDispatch();
-  const { meals,page } = useSelector((state) => {
+  const { meals,page,token } = useSelector((state) => {
     return {
       meals: state.meals.meals,
-      page:state.page.page
+      page:state.page.page,
+      token: state.auth.token,
     };
   });
 
-const addtoCart=(id)=>{
+const addToCart=(meal_id,quantity,price)=>{
+  axios.post("http://localhost:5000/cart/add",{meal_id:meal_id,quantity:quantity,total:quantity*price},{
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((result)=>{
+  console.log(result);
+  })
+  .catch((err)=>{console.log(err);})
   
 } 
 
@@ -55,7 +64,7 @@ const addtoCart=(id)=>{
               <td key={meal.meal_name}>{meal.meal_name}</td>
               <td key={meal.meal_price}>{meal.meal_price}</td>
               
-              <td><button>اضافة الى سلة المشتريات</button></td>
+              <td><button onClick={()=>{addToCart(meal.id,1,meal.meal_price)}}>اضافة الى سلة المشتريات</button></td>
               {message}
             </tr>
           );

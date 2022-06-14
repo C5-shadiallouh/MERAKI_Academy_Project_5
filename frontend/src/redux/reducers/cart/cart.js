@@ -15,6 +15,10 @@ const cartSlice = createSlice({
     setQuantity: (state, action) => {
       state.totalQuantity = action.payload;
     },
+    setTotal: (state, action) => {
+      state.totalAmount = action.payload;
+    },
+    
 
     
 
@@ -27,7 +31,8 @@ const cartSlice = createSlice({
 
 export const {
   setCart,
-  setQuantity
+  setQuantity,
+  setTotal
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
