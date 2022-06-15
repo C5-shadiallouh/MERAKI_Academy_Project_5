@@ -29,7 +29,6 @@ const Cart = () => {
       })
       .then((result) => {
         dispatch(setTotal(result.data.result[0].total));
-        console.log(result);
       })
       .catch((err) => {
         console.log(err);
@@ -86,7 +85,8 @@ const Cart = () => {
               </tr>
               {carts.map((element) => {
                 return (
-                  <tr>
+                  
+                  <tr key={element.id}>
                     <td>
                       <img src={element.image} width="100px" />
                     </td>
@@ -98,9 +98,14 @@ const Cart = () => {
                         min={1}
                         defaultValue={element.quantity}
                         onChange={(e) => {
-                          if (e.target.value.includes("-")) {
+                          
+                          if (e.target.value.includes("-")|| e.target.value==0) {
+                            console.log("dsdsds");
                             setEl_id(element.id);
-                            return setShow("لا يمكنك ادخال قيمة سالبة");
+                          return setShow("لا يمكنك ادخال قيمة سالبة");
+                          }
+                          else{
+                            setShow("")
                           }
 
                           dispatch(setQuantity(e.target.value));
@@ -117,13 +122,18 @@ const Cart = () => {
                     <td>{element.meal_price}</td>
 
                     <td>
-                      {(element.meal_price * element.quantity).toFixed(2)}
+                      {(element.meal_price * element.quantity).toFixed(2)
+                      }
                     </td>
+                    
                   </tr>
+                  
                 );
               })}
             </tbody>
+           
           </table>
+          
           {totalAmount ? (
             <div>
               <h1>المبلغ الاجمالي: {totalAmount} دينار</h1>
