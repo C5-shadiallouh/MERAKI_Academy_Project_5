@@ -1,32 +1,12 @@
-import { useState, useEffect } from "react";
+
+import React, {useState,useEffect} from "react";
 import axios from "axios";
+import "./style.css"
+import { Line } from "react-chartjs-2";
+import {Chart,LinearScale,CategoryScale,PointElement,LineElement} from 'chart.js'; 
+Chart.register(CategoryScale,LinearScale,PointElement,LineElement);
 
-import { Bar } from "react-chartjs-2";
-import {
-  Chart,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-
-/*const state = {
-  labels: ["January", "February", "March", "April", "May"],
-  datasets: [
-    {
-      label: "White",
-      backgroundColor: "rgba(75,192,192,1)",
-      borderColor: "rgba(0,0,0,1)",
-      borderWidth: 2,
-      data: [65, 59, 80, 81, 56],
-    },
-  ],
-}; */
-
-const ChartBar = () => {
+const ChartLine = () => {
   const [chartData, setChartData] = useState({
     datasets: [],
   });
@@ -115,29 +95,24 @@ const ChartBar = () => {
       });
   }, []);
   return (
-    <div style={{ width: "50%", height: "50%" }}>
-      {
-        <>
-          {
-            <Bar
-              data={chartData}
-              options={{
-                title: {
-                  display: true,
-                  text: "معدل التسجيل في الموقع ",
-                  fontSize: 20,
-                },
-                legend: {
-                  display: true,
-                  position: "right",
-                },
-              }}
-            />
-          }
-        </>
-      }
+    <div className="chart">
+      <h3>معدل</h3>
+      <Line
+        data={chartData}
+        options={{
+          title: {
+            display: true,
+            text: "معدل المبيعات شهريا",
+            fontSize: 20,
+          },
+          legend: {
+            display: true,
+            position: "right",
+          },
+        }}
+      />
     </div>
   );
 };
 
-export default ChartBar;
+export default ChartLine

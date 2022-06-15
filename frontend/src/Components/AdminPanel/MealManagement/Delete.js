@@ -4,8 +4,10 @@ import { setMeals, deleteMeal } from "../../../redux/reducers/meals/index";
 import { useSelector, useDispatch } from "react-redux";
 import { changePage } from "../../../redux/reducers/page/pageReducer";
 import { Link } from "react-router-dom";
-
-const MealeManagement = (req, res) => {
+import { RiDeleteBin2Line } from "react-icons/ri";
+import { AiOutlineEye } from "react-icons/ai";
+import { BiEditAlt } from "react-icons/bi";
+const MealManagement = () => {
   const [meal, setMeal] = useState([]);
   const [message, setMessage] = useState(``);
   const dispatch = useDispatch();
@@ -46,59 +48,50 @@ const MealeManagement = (req, res) => {
       });
   };
 
-  const handleViewMeal = (id) => {
-    axios
-      .get(`http://localhost:5000/meals/id/${id}`)
-      .then((result) => {
-        dispatch(setMeals(result.data.result));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   return (
     <div>
-      <div>
-        <span>الصورة</span>
-        <span>الاسم</span>
-        <span>السعر</span>
-        <span>تعديل</span>
-      </div>
-      {meals &&
-        meals.map((meal, index) => {
-          return (
-            <>
-              <img src={meal.image} />
-              <p key={meal.meal_name}>{meal.meal_name}</p>
-              <p key={meal.meal_price}>{meal.meal_price}</p>
+      <table className="tableAdmin">
+        <td>#</td>
+        <td>الصورة</td>
+        <td>الاسم</td>
+        <td>السعر</td>
+        <td>تعديل</td>
 
-              <button
-                key={index}
-                onClick={() => {
-                  handleRemoveFromCart(meal.id);
-                }}
-              >
-                احذف
-              </button>
-              <Link to={`/edit/${meal.id}`}>
-                <button key={index * 100}>تعديل</button>
-              </Link>
+        {meals &&
+          meals.map((meal, index) => {
+            return (
+              <tr className="trAdmin">
+                <td className="tdAdmin">{index + 1}</td>
+                <img src={meal.image} alt="" key={meal.id} width={"150px"} />
+                <td className="tdAdmin" key={meal.meal_name}>
+                  {meal.meal_name}
+                </td>
+                <td className="tdAdmin" key={meal.meal_tdrice}>
+                  {meal.meal_price}
+                </td>
 
-              <Link to={"#"}>
-                <button
-                  key={index * 100}
-                  onClick={() => {
-                    handleViewMeal(meal.id);
-                  }}
-                >
-                  عرض
-                </button>
-              </Link>
-            </>
-          );
-        })}
-
+                <td className="tdAdmin">
+                  <RiDeleteBin2Line
+                    key={index}
+                    onClick={() => {
+                      handleRemoveFromCart(meal.id);
+                    }}
+                    style={{ cursor: "pointer" }}
+                  />
+                  <Link to={`/meals/${meal.id}`}>
+                    <AiOutlineEye
+                      key={index * 100}
+                      style={{ cursor: "pointer" }}
+                    />
+                  </Link>
+                  <Link to={`/editMeal/${meal.id}`}>
+                    <BiEditAlt key={index * 100} />
+                  </Link>
+                </td>
+              </tr>
+            );
+          })}
+      </table>
       <div>
         <Link to={"/add"}>addMeale</Link>
       </div>
@@ -149,4 +142,4 @@ const MealeManagement = (req, res) => {
   );
 };
 
-export default MealeManagement;
+export default MealManagement;
