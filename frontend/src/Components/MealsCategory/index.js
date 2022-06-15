@@ -8,17 +8,27 @@ import { Link } from "react-router-dom";
 
 const GetMealByCategory = () => {
   const [meal, setMeal] = useState([]);
-
+  const [message, setMessage] = useState(``);
   const { name } = useParams();
   const dispatch = useDispatch();
-  const { meals, page } = useSelector((state) => {
+  const { meals, page,token } = useSelector((state) => {
     return {
       meals: state.meals.meals,
       page: state.page.page,
+      token:state.auth.token
     };
   });
-  console.log("Iam hereeeeeeeeeeeeeeeeeeeeeeeeeee", page);
-
+  const addToCart=(meal_id,quantity,price)=>{
+    axios.post("http://localhost:5000/cart/add",{meal_id:meal_id,quantity:quantity,total:quantity*price},{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((result)=>{
+    console.log(result);
+    })
+    .catch((err)=>{console.log(err);})
+    
+  } 
 
   useEffect(() => {
     axios
@@ -40,25 +50,30 @@ const GetMealByCategory = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [name]);
+  }, [page,name]);
   return (
-    <div>
-      {meal.length ? console.log(meal.length) : ""}
-      {meals.length
-        ? meals.map((element, index) => {
-            return (
-              <div>
-                <p>{element.meal_name}</p>
-                <img src={element.image} />
-              </div>
-            );
-          })
-        : ""}
-
+    <div key={"cc"}>
+      <h1 style={{"marginRight":"42%","marginTop":"1%"}}>{name}</h1>
+      <table>
+       
+      {meals.length &&
+        meals.map((meal, index) => {
+          return (
+            <tr>
+              <td><Link to={`/meals/${meal.id}`} onClick={()=>{dispatch(changePage(1))}}>
+                <img src={meal.image} alt="" key={meal.id} width={"150px"}/>
+              </Link></td>
+              <td key={meal.meal_name}>{meal.meal_name}</td>
+              <td key={meal.meal_price}>{meal.meal_price}</td>
+              
+              <td><button onClick={()=>{addToCart(meal.id,1,meal.meal_price)}}>اضافة الى سلة المشتريات</button></td>
+              {message}
+            </tr>
+          );
+        })}
+</table>
       <div style={{ display: "none" }}>
-        {console.log("prev", meal.length)}
-        {(meal.length = Math.ceil(meal.length / 20))}
-        {console.log("meal length", meal.length)}
+        {meal?(meal.length = Math.ceil(meal.length / 20)):""}
       </div>
       <div class="center">
         <div class="pagination">
@@ -70,7 +85,7 @@ const GetMealByCategory = () => {
               }
             }}
           >
-            &laquo;
+            &raquo;
           </Link>
 
           {meal.length
@@ -95,7 +110,7 @@ const GetMealByCategory = () => {
               }
             }}
           >
-            &raquo;
+            &laquo;
           </Link>
         </div>
       </div>

@@ -1,4 +1,5 @@
 .navbar{
+  z-index: 9999;
   display: flex;
   background-color:#252222 ;
 }
