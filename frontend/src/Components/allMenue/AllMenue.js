@@ -4,30 +4,52 @@ import { setMeals } from "../../redux/reducers/meals/index";
 import { useSelector, useDispatch } from "react-redux";
 import { changePage } from "../../redux/reducers/page/pageReducer";
 import { Link } from "react-router-dom";
-import "./style.css"
+import "./style.css";
+import Alert from "../Alert/Alert";
+import Error from "../Error/Error";
+import { setMessage } from "../../redux/reducers/message/message";
+
 const AllMenue = (req, res) => {
   const [meal, setMeal] = useState([]);
-  const [message, setMessage] = useState(``);
+  const [succeed, setSucceed] = useState(false);
+  const [failed, setFailed] = useState(false);
   const dispatch = useDispatch();
-  const { meals,page,token } = useSelector((state) => {
-    return {
-      meals: state.meals.meals,
-      page:state.page.page,
-      token: state.auth.token,
-    };
-  });
+  const { meals, page, token, message, totalQuantity } = useSelector(
+    (state) => {
+      return {
+        meals: state.meals.meals,
+        page: state.page.page,
+        token: state.auth.token,
+        message: state.message.message,
+        totalQuantity: state.carts.totalQuantity,
+      };
+    }
+  );
 
-const addToCart=(meal_id,quantity,price)=>{
-  axios.post("http://localhost:5000/cart/add",{meal_id:meal_id,quantity:quantity,total:quantity*price},{
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((result)=>{
-  console.log(result);
-  })
-  .catch((err)=>{console.log(err);})
-  
-} 
+  const addToCart = (meal_id, quantity, price,one) => {
+    axios
+      .post(
+        "http://localhost:5000/cart/add",
+        {
+          one: one,
+          meal_id: meal_id,
+          quantity: one==true? 1:quantity,
+          total: quantity * price, 
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((result) => {
+        setSucceed(!succeed);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    dispatch(setMessage("تم اضافة الوجبة الى سلة المشتريات"));
+  };
 
   useEffect(() => {
     axios
@@ -36,45 +58,67 @@ const addToCart=(meal_id,quantity,price)=>{
         console.group(result);
         dispatch(setMeals(result.data.products));
       })
-      .catch((err) => {
-        setMessage(err.sqlMessage);
-      });
+      .catch((err) => {});
     axios
       .get("http://localhost:5000/meals")
       .then((result) => {
         setMeal(result.data.result);
       })
-      .catch((err) => {
-        setMessage(err.sqlMessage);
-      });
-  }, [page]);
+      .catch((err) => {});
+  }, [page, succeed]);
 
   return (
     <div>
-      <h1 style={{"marginRight":"42%","marginTop":"1%"}}>جميع الأصناف</h1>
-     
-       <table>
-       <tbody> 
-      {meals.length &&
-        meals.map((meal, index) => {
-          return (
-            <tr  key={meal.id}>
-                           <td key={`tabledata${meal.id}`}><Link to={`/meals/${meal.id}`} onClick={()=>{dispatch(changePage(1))}}>
-                <img src={meal.image} alt="" key={meal.id} width={"150px"}/>
-              </Link></td>
-              <td key={meal.meal_name}>{meal.meal_name}</td>
-              <td key={meal.meal_price}>{meal.meal_price}</td>
-              <td><button onClick={()=>{addToCart(meal.id,1,meal.meal_price)}}>اضافة الى سلة المشتريات</button></td>
-              {message}
-            </tr>
-          );
-        })}
-        </tbody>
+      <div style={succeed ? { display: "block" } : { display: "none" }}>
+        <Alert />
+      </div>
+      <div style={failed ? { display: "block" } : { display: "none" }}>
+        <Error />
+      </div>
 
-        </table>
+      <h1 style={{ marginRight: "42%", marginTop: "1%" }}>جميع الأصناف</h1>
+
+      <table>
+        <tbody>
+          {meals.length &&
+            meals.map((meal, index) => {
+              return (
+                <tr key={meal.id}>
+                  <td key={`tabledata${meal.id}`}>
+                    <Link
+                      to={`/meals/${meal.id}`}
+                      onClick={() => {
+                        dispatch(changePage(1));
+                      }}
+                    >
+                      <img
+                        src={meal.image}
+                        alt=""
+                        key={meal.id}
+                        width={"150px"}
+                      />
+                    </Link>
+                  </td>
+                  <td key={meal.meal_name}>{meal.meal_name}</td>
+                  <td key={meal.meal_price}>{meal.meal_price}</td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        console.log(meal.id);
+                        addToCart(meal.id,1, meal.meal_price,true);
+                      }}
+                    >
+                      اضافة الى سلة المشتريات
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </table>
 
       <div style={{ display: "none" }}>
-        {meal?(meal.length = Math.ceil(meal.length / 20)):""}
+        {meal ? (meal.length = Math.ceil(meal.length / 20)) : ""}
       </div>
       <div className="center">
         <div className="pagination">
@@ -92,7 +136,8 @@ const addToCart=(meal_id,quantity,price)=>{
           {meal.length
             ? meal.map((element, index) => {
                 return (
-                  <Link key={index}
+                  <Link
+                    key={index}
                     to=""
                     onClick={() => {
                       dispatch(changePage(index + 1));
