@@ -10,14 +10,20 @@
 .meal_page {
   display: flex;
   margin-bottom: 20px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
+.img{
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
 }
 
 .meal_img {
-    width: 400px;
-    height: 290px;
+    width: 600px;
+    height: 490px;
     border:2px solid #fff;
     -moz-box-shadow: 10px 10px 5px #ccc;
     -webkit-box-shadow: 10px 10px 5px #ccc;
@@ -27,12 +33,12 @@
     border-radius:25px;
 }
 /* ****************** rating ******************* */
-.meal_name_rating {
+/* .meal_name_rating {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 130px;
-}
+  align-items: flex-start;
+   margin-top: 130px; 
+} */
 
 .rating {
   display: flex;
@@ -46,21 +52,24 @@
 /* ***************comment ************************** */
 .meal_comment {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding-bottom: 20px;
+  margin-right: 2%;
   align-items: center;
-}
+} 
 
 .comment {
   display: flex;
-  justify-content: space-around;
+  justify-content: baseline;
+
 }
 /* ************cart div**************** */
 
-.cart_div {
-  /* display: flex; */
-  /* flex-direction: row; */
-}
+ .cart_div {
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+} 
 
 .meal_name {
   font-size: 25px;
@@ -69,12 +78,14 @@
 .name_rate_cart {
   display: flex;
   flex-direction: column;
-}
+  justify-content: space-between;
+  margin-right: 2%;
+} 
 
 .count_order {
   border: none;
   padding: 1rem;
-  width: 200px;
+  width:56%;
   border-radius: 1rem;
   background: #e8e8e8;
   box-shadow: 20px 20px 60px #c5c5c5, -20px -20px 60px #ffffff;
@@ -83,7 +94,7 @@
 .count_input {
   border: none;
   padding: 1rem;
-  width: 400px;
+  width:56%;
   border-radius: 1rem;
   background: #e8e8e8;
   box-shadow: 20px 20px 60px #c5c5c5, -20px -20px 60px #ffffff;
@@ -109,6 +120,7 @@
   transition: all 0.3s ease 0s;
   cursor: pointer;
   outline: none;
+  width: 38%;
 }
 
 .add_minus_butt:hover {
@@ -130,21 +142,33 @@
   height: 200px;
   border: 1px solid black;
   overflow: scroll;
-  float: left;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
+  border: none;
 }
+
+
 
 .commenter_name {
   font-weight: bold;
 }
 
 .comment_in_scroll {
-  float: right;
+  float: left;
 }
 
 div {
   /* background-color: azure; */
   background-repeat: no-repeat;
+}
+
+.comment_commenter{
+    /* background-color:azure;
+    border-bottom:#70b269 solid 1px; */
+    top: 10px;
+   
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;  
 }
