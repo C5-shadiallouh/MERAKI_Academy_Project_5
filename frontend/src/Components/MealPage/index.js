@@ -213,7 +213,7 @@ const MealPage = () => {
             ? allComments.map((element) => {
                 return (
                   <div className="comment_commenter">
-                    <p className="commenter_name">:{element.firstName}&nbsp;{element.lastName}
+                    <p className="commenter_name">{element.firstName}&nbsp;{element.lastName}:
                     </p>&nbsp;<p className="comment_in_scroll">{element.comment}</p>
                   </div>
                 );
