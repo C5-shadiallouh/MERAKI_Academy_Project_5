@@ -7,6 +7,7 @@ import cartSlice from "./cart/cart"
 import comment from './comment'
 import rating from './rating/rating'
 import users from "./users/usersReducer"
+import message from "./message/message"
 export default configureStore({
     reducer:{
         auth: authReducer,
@@ -16,7 +17,8 @@ export default configureStore({
         carts:cartSlice,
         comments:comment,
         ratings:rating,
-        users:users
+        users:users,
+        message:message
 
     }
 })

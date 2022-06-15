@@ -151,8 +151,7 @@ const Login = () => {
         
         <br />
 
-        <input type="checkbox" id="checkbox-1" className="checkbox" />
-    <label for="checkbox-1">حفظ تسجيل الدخول</label>
+        
 
         <button className="login_button" onClick={login}>تسجيل الدخول</button>
 

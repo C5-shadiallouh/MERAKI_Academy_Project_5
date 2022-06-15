@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loggedin, logout } from "../../redux/reducers/auth";
@@ -20,6 +20,8 @@ const Navbar = () => {
         isAdmin: state.auth.isAdmin,
         categories: state.category.categories,
         page: state.page.page,
+        meals: state.meals.meals,
+
       };
     }
   );
@@ -33,6 +35,7 @@ const Navbar = () => {
         console.log(err);
       });
   };
+  
   return (
     <div className="navbar">
       <div className="logo">
@@ -48,25 +51,30 @@ const Navbar = () => {
             <p className="dropbtn" to={""} onMouseOver={getCategories}>
               القائمة
             </p>
+            {categories.length?
             <div className="dropdown-content">
-              <Link
-                to={"/menu"}
-                onClick={() => {
-                  dispatch(changePage(1));
-                }}
-              >
-                جميع الاصناف
-              </Link>
-              {categories.length
-                ? categories.map((element, index) => {
-                    return (
-                      <Link key={element.id} to={`/${element.category_name}`}>
-                        {element.category_name}
-                      </Link>
-                    );
-                  })
-                : ""}
-            </div>
+            <Link
+              to={"/menu"}
+              onClick={() => {
+                dispatch(changePage(1));
+              }}
+            >
+              جميع الاصناف
+            </Link>
+            {
+               categories.map((element, index) => {
+                  return (
+                    <Link key={element.id} to={`/${element.category_name}`}>
+                      {element.category_name}
+                    </Link>
+                  );
+                })
+              }
+          </div>
+            
+            
+            :''}
+            
           </div>
 
           {!isLoggedIn ? (
