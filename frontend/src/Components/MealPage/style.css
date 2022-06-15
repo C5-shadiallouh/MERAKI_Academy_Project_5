@@ -155,7 +155,8 @@
   align-items: flex-start;
   /* overflow: scroll; */
   /* position: relative; */
-  max-width: 70%;
+  max-width: 80%;
+  height: 200px;
   /* height: auto; */
   margin: 20px 10px;
   padding: 5px;
@@ -163,7 +164,7 @@
   border-radius: 3px;
   border: 5px solid #ccc;
   overflow-y: scroll;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 .commenter_name {
