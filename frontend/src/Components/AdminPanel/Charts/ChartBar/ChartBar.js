@@ -1,17 +1,24 @@
-
-import {React,useState,useEffect} from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { Line } from "react-chartjs-2";
-import {Chart,LinearScale,CategoryScale,PointElement,LineElement} from 'chart.js'; 
-Chart.register(CategoryScale,LinearScale,PointElement,LineElement);
+import "./style.css"
 
-/* const state = {
+import { Bar } from "react-chartjs-2";
+import {
+  Chart,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
+/*const state = {
   labels: ["January", "February", "March", "April", "May"],
   datasets: [
     {
-      label: "المبيعات",
-      fill: false,
-      lineTension: 0.5,
+      label: "White",
       backgroundColor: "rgba(75,192,192,1)",
       borderColor: "rgba(0,0,0,1)",
       borderWidth: 2,
@@ -20,7 +27,7 @@ Chart.register(CategoryScale,LinearScale,PointElement,LineElement);
   ],
 }; */
 
-const ChartLine = () => {
+const ChartBar = () => {
   const [chartData, setChartData] = useState({
     datasets: [],
   });
@@ -31,7 +38,6 @@ const ChartLine = () => {
     axios
       .get(`http://localhost:5000/meals`)
       .then((result) => {
-        console.log(result);
         result.data.result.map((element) => {
           console.log(element);
           name.push(element.meal_name);
@@ -109,23 +115,30 @@ const ChartLine = () => {
       });
   }, []);
   return (
-    <div style={{width:"50%",height:"50%"}}>
-      <Line
-        data={chartData}
-        options={{
-          title: {
-            display: true,
-            text: "معدل المبيعات شهريا",
-            fontSize: 20,
-          },
-          legend: {
-            display: true,
-            position: "right",
-          },
-        }}
-      />
-    </div>
+  <div>
+
+      {
+        <>
+          {
+            <Bar className="cchart"
+              data={chartData}
+              options={{
+                title: {
+                  display: true,
+                  text: "معدل التسجيل في الموقع ",
+                  fontSize: 20,
+                },
+                legend: {
+                  display: true,
+                  position: "right",
+                },
+              }}
+            />
+          }
+        </>
+      }
+</div>
   );
 };
 
-export default ChartLine
+export default ChartBar;
