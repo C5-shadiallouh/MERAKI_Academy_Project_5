@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { setMeals } from "../../redux/reducers/meals";
 import { setComments, addNewComment } from "../../redux/reducers/comment";
-import { addRating } from "../../redux/reducers/rating/rating";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -12,14 +11,11 @@ import "./style.css";
 
 const MealPage = () => {
   const [clicked, setClicked] = useState(false);
-  // const [quantity, setQuantity] = useState("")
-  const [mealPrice, setMealPrice] = useState("");
-  const [counter, setCounter] = useState(1);
+  const [meal, setMeal] = useState([]);
+  const [message, setMessage] = useState(``);
   const [comment, setComment] = useState("");
-  const [value, setValue] = useState(0);
-  const [min, setMin] = useState(0);
-  const [max, setMax] = useState();
   const { id } = useParams();
+
   const dispatch = useDispatch();
   const {
     meals,
@@ -28,8 +24,6 @@ const MealPage = () => {
     allComments,
     ratings,
     ratingAvg,
-    total,
-    quantity,
   } = useSelector((state) => {
     return {
       token: state.auth.token,
@@ -38,23 +32,27 @@ const MealPage = () => {
       allComments: state.comments.allComments,
       ratings: state.ratings.ratings,
       ratingAvg: state.ratings.ratingAvg,
-      total: state.meals.total,
-      quantity: state.meals.quantity,
     };
   });
   const [rating, setRating] = useState(ratings); // initial rating value
   const handleRating = (rate) => {
     setRating(rate); // other logic
   };
-
-  const counterPluse = () => {
-    counter++;
-  };
-  const counterMinus = () => {
-    counter--;
-  };
-
-  const handleChange = (e) => {};
+  const addToCart=(meal_id,quantity,price)=>{
+    axios.post("http://localhost:5000/cart/add",{meal_id:meal_id,quantity:quantity,total:quantity*price},{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((result)=>{
+    console.log(result);
+    setMessage("تمت الإضافة إلى سلة الطعام بنجاح")
+    })
+    .catch((err)=>{
+      console.log(err);
+      setMessage("حصل خطأ أثناء الإضافة ... الرجاء إعادة المحاولة")
+    })
+    
+  } 
 
   const getAllComments = async (id) => {
     await axios
@@ -148,8 +146,8 @@ const MealPage = () => {
         ? meals.map((element) => {
             return (
               <div className="meal_comment">
-                <div className="meal_page">
-                  <img className="meal_img" src={element.image} />
+                {/* <div className="meal_page"> */}
+                  <div className="img"><img className="meal_img" src={element.image} /></div>
                   <div className="name_rate_cart">
                     <div className="meal_name_rating">
                       <h1 className="meal_name">{element.meal_name}</h1>
@@ -161,12 +159,9 @@ const MealPage = () => {
                           {ratingAvg ? ratingAvg / 20 : "not Rated"}
                         </p>
                       </div>
-                    </div>
+                    {/* </div> */}
 
                     <div className="cart_div">
-                      {/* <button className="add_minus_butt" onClick={counterMinus}>
-                        -
-                      </button> */}
                       <input
                         type={"number"}
                         min={1}
@@ -177,21 +172,15 @@ const MealPage = () => {
                         //   }else{handleChange}
                         // }}
                       />
-
-                      {/* <button className="add_minus_butt" onClick={counterPluse}>
-                        +
-                      </button> */}
                       <button className="add_minus_butt" onClick={()=>{
-                        
+                        dispatch(addToCart(meal.id,1,meal.meal_price))
                       }}>
                         إضافة إلى سلة الطعام
                       </button>
-
-                      {/* <label className="total"> {total? "مجموع طلبك =" quantity*mealPrice:"لا يوجد أي طعام في القائمة"}</label> */}
                     </div>
                   </div>
-                </div>
-                <div className="comment">
+
+                  <div className="comment">
                   <textarea
                     className="count_input"
                     placeholder="إضافة تعليق..."
@@ -210,6 +199,10 @@ const MealPage = () => {
                     إضافة تعليق
                   </button>
                 </div>
+
+
+                </div>
+                
               </div>
             );
           })
@@ -219,8 +212,8 @@ const MealPage = () => {
           {allComments.length
             ? allComments.map((element) => {
                 return (
-                  <div>
-                    <p className="commenter_name">:{element.firstName}&nbsp;{element.lastName}
+                  <div className="comment_commenter">
+                    <p className="commenter_name">{element.firstName}&nbsp;{element.lastName}:
                     </p>&nbsp;<p className="comment_in_scroll">{element.comment}</p>
                   </div>
                 );
