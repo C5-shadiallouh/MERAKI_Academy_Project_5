@@ -15,18 +15,18 @@ const total=(req,res)=>{
       });
     }
 
-    res.status(201).json({
+    return res.status(201).json({
       result
     });
   });
 }
 const addToCart = (req, res) => {
   const user_id = req.token.user_id;
-  const { meal_id,quantity,total } = req.body;
+  const { meal_id,quantity,one,total } = req.body;
 
-  const query = `INSERT INTO cart (meal_id,user_id,quantity,total) VALUES (?,?,?,?)`;
+  const query = `SELECT * FROM cart WHERE meal_id=? AND user_id =? AND is_deleted=0`;
 
-  const data = [meal_id,user_id,quantity,total];
+  const data = [meal_id,user_id,quantity];
 
   connection.query(query, data, (err, result) => {
     if (err) {
@@ -37,11 +37,39 @@ const addToCart = (req, res) => {
       });
     }
 
-    res.status(201).json({
-      success: true,
-      massage: "Add to Cart",
-      result,
-    });
+    if (result.length){
+      const query = `UPDATE cart SET quantity=CASE WHEN ${one==true} THEN quantity+1
+      ELSE ? END , total=CASE WHEN ${one==true} THEN total+?
+      ELSE ? END WHERE meal_id=? AND user_id =? AND is_deleted=0`;
+      const data = [quantity,total,total,meal_id,user_id,];
+      connection.query(query,data,(err,result)=>{
+        if (err) {
+          return res.status(500).json({
+            success: false,
+            massage: "Server error",
+            err: err,
+          });
+        }
+        return res.status(201).json(result)
+      })
+    }
+    else{
+    const query = `INSERT INTO cart (meal_id,user_id,quantity,total) VALUES(?,?,?,?)`;
+
+    const data = [meal_id,user_id,quantity,total];
+    connection.query(query,data,(err,result)=>{
+      if (err) {
+        return res.status(500).json({
+          success: false,
+          massage: "Server error",
+          err: err,
+        });
+      }
+       res.status(201).json(result)
+    })}
+
+
+    
   });
 };
 
