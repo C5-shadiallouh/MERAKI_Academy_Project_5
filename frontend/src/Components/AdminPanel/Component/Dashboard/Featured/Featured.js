@@ -5,7 +5,7 @@ export default function FeaturedInfo() {
   return (
     <div className="featured">
       <div className="featuredItem">
-        <span className="featuredTitle">Revanue</span>
+        <span className="featuredTitle">عدد الوجبات الحالية</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">$2,415</span>
           <span className="featuredMoneyRate">
@@ -15,7 +15,7 @@ export default function FeaturedInfo() {
         <span className="featuredSub">Compared to last month</span>
       </div>
       <div className="featuredItem">
-        <span className="featuredTitle">Sales</span>
+        <span className="featuredTitle">عدد السلات النشطة</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">$4,415</span>
           <span className="featuredMoneyRate">
@@ -36,7 +36,7 @@ export default function FeaturedInfo() {
       </div>
 
       <div className="featuredItem">
-        <span className="featuredTitle">Cost</span>
+        <span className="featuredTitle">عدد الاشخاص في الموقع</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">$2,225</span>
           <span className="featuredMoneyRate">

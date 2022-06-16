@@ -5,7 +5,8 @@ import { DeleteOutline } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 import { IconButton } from '@mui/material'
 import axios from 'axios'
-
+import SideBar from '../Component/Dashboard/SideBar/SideBar'
+import {AiOutlineEdit} from "react-icons/ai"
 
 
 const MealList = () => {
@@ -37,13 +38,13 @@ const MealList = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/user/" + params.row.id}>
-              <button className="userListEdit">Edit</button>
+            <Link to={"/edit-meals/" + params.row.id}>
+              <AiOutlineEdit className="userListEdit" style={{cursor:"pointer",fontSize:"20px" ,color:"green"}}/>
             </Link>
             <IconButton onClick={()=>{deleteUser(params.row.id)}}>
             <DeleteOutline
               className="userListDelete"
-              
+              style={{color:"red"}}
             
               
             />
@@ -54,7 +55,7 @@ const MealList = () => {
     },
     
     
-  
+
   ]
   useEffect(() => {
     axios.get("http://localhost:5000/meals", {
@@ -68,13 +69,16 @@ const MealList = () => {
   console.log(tableData)
 
   return (
-    <div style={{ height: 700, width: '100%' }}>
+    <div>
+      <SideBar/>
+    <div style={{ height: 700, width: '85.3%' ,position:"absolute" ,left:"0%"}}>
       <DataGrid
         rows={tableData}
         columns={columns}
         pageSize={12}
         disableSelectionOnClick
       />
+    </div>
     </div>
   )
 }

@@ -1,15 +1,13 @@
 //import useState hook to create menu collapse state
 
 import React, { useState } from "react";
-import TopBar from "./TopBar";
-import { Link, useNavigate  } from "react-router-dom";
+import {  useNavigate  } from "react-router-dom";
 import NewUsers from "./NewUsers/NewUsers"
 import {
   ProSidebar,
   Menu,
   MenuItem,
   SidebarHeader,
-  SidebarFooter,
   SidebarContent,
 } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
@@ -18,15 +16,16 @@ import { FaChartBar, FaUsers, FaProductHunt } from "react-icons/fa";
 import {
   FiHome,
   FiLogOut,
-  FiArrowLeftCircle,
-  FiArrowRightCircle,
+  FiUserPlus
 } from "react-icons/fi";
-import { BiCog } from "react-icons/bi";
+import {MdLocalPharmacy} from "react-icons/md"
 import ChartLine from "../../Charts/Line/Line";
 import FeaturedInfo from "./Featured/Featured";
-import WidgetSm from "./NewUsers/NewUsers";
+import { logout } from "../../../../redux/reducers/auth";
+import { useDispatch } from "react-redux";
 const Dashboard = () => {
   const navigate=useNavigate()
+  const dispatch=useDispatch()
   const [menuCollapse, setMenuCollapse] = useState(false);
 
   const menuIconClick = () => {
@@ -47,10 +46,38 @@ const Dashboard = () => {
             <MenuItem active={true} icon={<FiHome />}>
                 الصفحة الرئيسية
               </MenuItem>
-              <MenuItem icon={<FaChartBar />}>تحليل الموقع</MenuItem>
+              <MenuItem icon={<FaChartBar onClick={()=>{navigate("/chart")}}/>}>تحليل الموقع</MenuItem>
               <MenuItem icon={<FaUsers onClick={()=>{navigate("/users")}}/> }>المستخدمين</MenuItem>
               <MenuItem  icon={<FaProductHunt onClick={()=>{navigate("/meals")}} />}>الوجبات</MenuItem>
-              <MenuItem icon={<FiLogOut />}>تسجيل الخروج</MenuItem>
+              <MenuItem
+                icon={
+                  <FiUserPlus
+                    onClick={() => {
+                      navigate("/addUser");
+                    }}
+                  />
+                }
+              >
+                اضف مستخدم
+              </MenuItem>
+              
+              <MenuItem
+                icon={
+                  <MdLocalPharmacy
+                    onClick={() => {
+                      navigate("/addMeale");
+                    }}
+                  />
+                }
+              >
+                اضف وجبة
+              </MenuItem>
+            
+             
+              <MenuItem icon={<FiLogOut  onClick={() => {
+                  dispatch(logout());
+                  navigate("/");
+                }}/>}>تسجيل الخروج</MenuItem>
             </Menu>
           </SidebarContent>
             <Menu iconShape="square">

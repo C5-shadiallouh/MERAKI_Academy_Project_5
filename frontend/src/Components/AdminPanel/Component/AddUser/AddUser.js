@@ -8,9 +8,10 @@ import {
   addUser,
   setUser,
 } from "../../../../redux/reducers/users/usersReducer";
+import SideBar from "../Dashboard/SideBar/SideBar";
 const NewUser = () => {
   const dispatch = useDispatch();
-  const users = useSelector((state) => {
+  const {users} = useSelector((state) => {
     return {
       users: state.users.users,
     };
@@ -57,15 +58,15 @@ const NewUser = () => {
   };
 
   useEffect(()=>{
-    axios.get("http://localhost:5000/meals/").then((result)=>{
+    axios.get("http://localhost:5000/users/").then((result)=>{
       dispatch(setUser(result.data.result))
     }).catch((err)=>{
       console.log(err);
     })
   },[])
-  console.log(users.length);
   return (
     <div>
+      <SideBar/>
       <div className="newUser">
         <div>
           <h1 className="newUserTitle">اضافة مستخدم جديد</h1>

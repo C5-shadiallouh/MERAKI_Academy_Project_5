@@ -111,7 +111,7 @@ const Circle = () => {
       });
   }, []);
   return (
-    <div style={{width:"30%" ,height:"30%"}}>
+    <div className="circle" style={{width:"30%" ,height:"30%",position:"absolute",left:"0%"}}>
       <Pie
         data={chartData}
         options={{
@@ -126,7 +126,10 @@ const Circle = () => {
           },
         }}
       />
-
+      <br/>
+<h2 style={{position:"absolute" ,left:"20%"}}>تحليل كمية المبيعات</h2>
+<br/>
+<br/>
       <Doughnut
         data={chartData}
         options={{
@@ -141,7 +144,10 @@ const Circle = () => {
           },
         }}
       />
+      <br/>
+      <h2 style={{position:"absolute" ,left:"25%"}}>تحليل عدد الزوار</h2>
     </div>
+    
   );
 };
 

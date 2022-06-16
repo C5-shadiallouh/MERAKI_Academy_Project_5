@@ -3,9 +3,10 @@
     padding: 20px;
     position: absolute;
     right: 0rem;
-    height: 90rem;
-    width: 50rem;
+    height: 100rem;
+    width: 40rem;
     bottom: 0rem;
+    right: 8%;
   }
   
   .cchartTitle {

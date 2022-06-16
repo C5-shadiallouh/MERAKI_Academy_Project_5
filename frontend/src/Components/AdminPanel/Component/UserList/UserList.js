@@ -5,6 +5,7 @@ import { DeleteOutline } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 import { IconButton } from '@mui/material'
 import axios from 'axios'
+import SideBar from '../Dashboard/SideBar/SideBar'
 
 
 
@@ -56,6 +57,8 @@ const UserList = () => {
     
   
   ]
+
+
   useEffect(() => {
     axios.get("http://localhost:5000/users", {
       headers: {
@@ -68,13 +71,16 @@ const UserList = () => {
   console.log(tableData)
 
   return (
-    <div style={{ height: 700, width: '100%' }}>
+    <div>
+      <SideBar/>
+    <div style={{ height: 700, width: '85.3%' ,position:"absolute" ,left:"0%"}}>
       <DataGrid
         rows={tableData}
         columns={columns}
         pageSize={12}
         disableSelectionOnClick
       />
+    </div>
     </div>
   )
 }
