@@ -13,6 +13,10 @@ import Edit from "./Components/AdminPanel/Component/EditMeal.js/Edit";
 import MainPage from "./Components/MainPage";
 import UserList from "./Components/AdminPanel/Component/UserList/UserList";
 import MealList from "./Components/AdminPanel/MealList/MealList";
+import NewProduct from "./Components/AdminPanel/Component/AddProduct/AddProduct";
+import NewUser from "./Components/AdminPanel/Component/AddUser/AddUser";
+import ChartLine from "./Components/AdminPanel/Charts/Line/Line";
+import Analytic from "./Components/AdminPanel/Component/Analytic/Analytic";
 function App() {
   return <div className="App">
   <Navbar/>
@@ -26,9 +30,17 @@ function App() {
     <Route path="/cart" element={<Cart/>}/>
     <Route path="/adminpanel" element={<Dashboard/>}/>
     <Route path="/usersmanagment" element={<UsersManagement/>}/>
-    <Route path="/edit-meals" element={<Edit/>}/>
+    <Route path="/edit-meals/:id" element={<Edit/>}/>
     <Route path="/users" element={<UserList/>}/>
     <Route path="/meals" element={<MealList/>}/>
+    <Route path="/addMeale" element={<NewProduct/>}/>
+    <Route path="/addUser" element={<NewUser/>}/>
+    <Route path="/chart" element={<Analytic/>}/>
+
+
+    <Route path="/f" element={<ChartLine/>}/>
+
+
 
   </Routes>
   

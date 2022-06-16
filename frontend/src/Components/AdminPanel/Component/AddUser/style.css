@@ -76,7 +76,7 @@
   .newUser Button{
       width: 200px;
       border: none;
-      background-color: darkblue;
+      background-color: rgb(41, 232, 98);
       color: white;
       padding: 7px 10px;
       font-weight: 600;
@@ -95,7 +95,7 @@
     display: flex;
     position: absolute;
     top:4%;
-    right: 6%;
+    right: 22%;
   }
   
   .featuredItemuser {
@@ -139,7 +139,7 @@
   }
   
   .featuredSubuser{
-      font-size: 15px;
+      font-size: 40px;
       color: gray;
   }
 
