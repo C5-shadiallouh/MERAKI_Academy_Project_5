@@ -8,7 +8,7 @@ import axios from 'axios'
 
 
 
-const UserList = () => {
+const MealList = () => {
   const[isDeleted,setIsDeleted]=useState(false)
   const [tableData, setTableData] = useState([])
   const {token,user}=useSelector((state)=>{
@@ -19,7 +19,7 @@ const UserList = () => {
     }
   })
   const deleteUser=(id)=>{
-    axios.delete(`http://localhost:5000/users/delete/${id}`, {
+    axios.delete(`http://localhost:5000/meals/delete/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -27,12 +27,12 @@ const UserList = () => {
   }
   const columns = [
     { field: 'id', headerName: 'ID' },
-    { field: 'firstName', headerName: 'الاسم', width: 300 },
-    { field: 'lastName', headerName: 'اسم العائلة', width: 600 },
-    { field: 'email', headerName: 'البريد الالكتروني', width: 600 },
+    { field: 'meal_name', headerName: 'اسم الوجبة', width: 300 },
+    { field: 'meal_price', headerName: 'سعر الوجبة', width: 600 },
+    
     {
       field: "",
-      headerName: "تعديل - حذف المستخدم",
+      headerName: "تعديل - حذف الوجبة",
       width: 200,
       renderCell: (params) => {
         return (
@@ -57,7 +57,7 @@ const UserList = () => {
   
   ]
   useEffect(() => {
-    axios.get("http://localhost:5000/users", {
+    axios.get("http://localhost:5000/meals", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -79,4 +79,4 @@ const UserList = () => {
   )
 }
 
-export default UserList
+export default MealList
