@@ -17,6 +17,7 @@ import NewProduct from "./Components/AdminPanel/Component/AddProduct/AddProduct"
 import NewUser from "./Components/AdminPanel/Component/AddUser/AddUser";
 import ChartLine from "./Components/AdminPanel/Charts/Line/Line";
 import Analytic from "./Components/AdminPanel/Component/Analytic/Analytic";
+import PAyment from "./Components/CheckoutForm";
 function App() {
   return <div className="App">
   <Navbar/>
@@ -36,6 +37,7 @@ function App() {
     <Route path="/addMeale" element={<NewProduct/>}/>
     <Route path="/addUser" element={<NewUser/>}/>
     <Route path="/chart" element={<Analytic/>}/>
+    <Route path="/pay" element={<PAyment/>}/>
 
 
     <Route path="/f" element={<ChartLine/>}/>
