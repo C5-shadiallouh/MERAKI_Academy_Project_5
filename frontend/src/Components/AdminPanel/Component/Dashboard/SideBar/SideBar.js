@@ -25,7 +25,7 @@ const SideBar = () => {
 
   return (
     <>
-      <div id="sidebar">
+      <div id="sidebar" style={{height:"100vh", zIndex:"1"}}>
         <ProSidebar collapsed={menuCollapse}>
           <SidebarHeader></SidebarHeader>
           <SidebarContent>

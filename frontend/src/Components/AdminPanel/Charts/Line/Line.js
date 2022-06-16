@@ -1,10 +1,15 @@
-
-import React, {useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./style.css"
+import "./style.css";
 import { Line } from "react-chartjs-2";
-import {Chart,LinearScale,CategoryScale,PointElement,LineElement} from 'chart.js'; 
-Chart.register(CategoryScale,LinearScale,PointElement,LineElement);
+import {
+  Chart,
+  LinearScale,
+  CategoryScale,
+  PointElement,
+  LineElement,
+} from "chart.js";
+Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
 
 const ChartLine = () => {
   const [chartData, setChartData] = useState({
@@ -86,9 +91,6 @@ const ChartLine = () => {
             },
           ],
         });
-
-        console.log(name);
-        console.log(price);
       })
       .catch((err) => {
         alert(err);
@@ -115,4 +117,4 @@ const ChartLine = () => {
   );
 };
 
-export default ChartLine
+export default ChartLine;
