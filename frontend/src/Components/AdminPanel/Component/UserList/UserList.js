@@ -29,8 +29,8 @@ const UserList = () => {
   const columns = [
     { field: 'id', headerName: 'ID' },
     { field: 'firstName', headerName: 'الاسم', width: 300 },
-    { field: 'lastName', headerName: 'اسم العائلة', width: 600 },
-    { field: 'email', headerName: 'البريد الالكتروني', width: 600 },
+    { field: 'lastName', headerName: 'اسم العائلة', width: 300 },
+    { field: 'email', headerName: 'البريد الالكتروني', width: 300 },
     {
       field: "",
       headerName: "تعديل - حذف المستخدم",

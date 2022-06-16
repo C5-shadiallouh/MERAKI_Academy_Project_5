@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 const login = (req,res)=>{
     const {email,password} = req.body
-    const query = "SELECT * FROM users WHERE email=?"
+    const query = "SELECT * FROM users WHERE email=? AND is_deleted =0"
     const data = [email]
     connection.query(query,data,(err,result)=>{
         if (err)

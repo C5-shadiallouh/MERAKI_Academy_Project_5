@@ -105,8 +105,8 @@ const Login = () => {
     console.log("Login:");
     try {
       const res = await axios.post("http://localhost:5000/login", {
-        email,
-        password,
+        email :email,
+        password :password
       });
       if (res) {
         setMessage("");
@@ -129,6 +129,7 @@ const Login = () => {
       <div className="login">
         <h2 className="active"> تسجيل الدخول : </h2>
         <form>
+          
 
           <span className="inputs">الإيميل :</span>
         <input
@@ -153,7 +154,9 @@ const Login = () => {
 
         
 
-        <button className="login_button" onClick={login}>تسجيل الدخول</button>
+        <button className="login_button" onClick={(e)=>{
+          e.preventDefault()
+          login()}}>تسجيل الدخول</button>
 
         <br />
         <br />
