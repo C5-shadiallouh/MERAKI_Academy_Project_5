@@ -84,11 +84,9 @@ const Dashboard = () => {
               
             </Menu>
         </ProSidebar>
-        <div >
           <FeaturedInfo/>
           <ChartLine />
           <NewUsers/>
-        </div>
       </div>
     </>
   );

@@ -115,12 +115,12 @@ const ChartBar = () => {
       });
   }, []);
   return (
-  <div>
+  <div  className="ccchart">
 
       {
         <>
           {
-            <Bar className="cchart"
+            <Bar
               data={chartData}
               options={{
                 title: {

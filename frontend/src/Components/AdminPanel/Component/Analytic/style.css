@@ -1,3 +1,28 @@
 .analytic{
     background-color: black;
+overflow: hidden;}
+
+@media screen and (max-width: 1463px) {
+   .analytic{
+    display: flex;
+    flex-direction: column;
+   }
+   
+   .ccline{
+    flex-direction: column;
+    position: absolute;
+    top: 0%;
+   }
+   .ccbar{
+    flex-direction: column;
+    position: absolute;
+    bottom: 0%;
+   }
+}
+
+.ccline{
+    position: absolute;
+    bottom: 0%;
+    height:25% ;
+    width: 50%;
 }

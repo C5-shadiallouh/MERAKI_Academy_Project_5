@@ -114,7 +114,6 @@ const NewUser = () => {
         </div>
       </div>
       < div className="cchart">
-        <ChartBar/>
       </div>
     </div>
   );
