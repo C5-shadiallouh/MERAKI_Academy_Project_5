@@ -1,8 +1,9 @@
 //import useState hook to create menu collapse state
 
 import React, { useState } from "react";
-import TopBar from "../TopBar";
-import LatestOrder from "../LatestOrder/LatestOrder"
+import TopBar from "./TopBar";
+import { Link, useNavigate  } from "react-router-dom";
+import NewUsers from "./NewUsers/NewUsers"
 import {
   ProSidebar,
   Menu,
@@ -22,9 +23,10 @@ import {
 } from "react-icons/fi";
 import { BiCog } from "react-icons/bi";
 import ChartLine from "../../Charts/Line/Line";
-import FeaturedInfo from "../Featured/Featured";
-import WidgetSm from "../LatestOrder/LatestOrder";
-const SideBar = () => {
+import FeaturedInfo from "./Featured/Featured";
+import WidgetSm from "./NewUsers/NewUsers";
+const Dashboard = () => {
+  const navigate=useNavigate()
   const [menuCollapse, setMenuCollapse] = useState(false);
 
   const menuIconClick = () => {
@@ -33,42 +35,36 @@ const SideBar = () => {
 
   return (
     <>
-      <TopBar />
+     
       <div id="sidebar">
         <ProSidebar collapsed={menuCollapse}>
           <SidebarHeader>
-            <div className="logotext">
-              <p>{menuCollapse ? "Logo" : "Big Logo"}</p>
-            </div>
-            <div className="closemenu" onClick={menuIconClick}>
-              {menuCollapse ? <FiArrowLeftCircle /> : <FiArrowRightCircle />}
-            </div>
+            
+            
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
-              <MenuItem active={true} icon={<FiHome />}>
+            <MenuItem active={true} icon={<FiHome />}>
                 الصفحة الرئيسية
               </MenuItem>
               <MenuItem icon={<FaChartBar />}>تحليل الموقع</MenuItem>
-              <MenuItem icon={<FaUsers />}>المستخدمين</MenuItem>
-              <MenuItem icon={<FaProductHunt />}>الوجبات</MenuItem>
-              <MenuItem icon={<BiCog />}>اعدادات</MenuItem>
-            </Menu>
-          </SidebarContent>
-          <SidebarFooter>
-            <Menu iconShape="square">
+              <MenuItem icon={<FaUsers onClick={()=>{navigate("/users")}}/> }>المستخدمين</MenuItem>
+              <MenuItem  icon={<FaProductHunt onClick={()=>{navigate("/meals")}} />}>الوجبات</MenuItem>
               <MenuItem icon={<FiLogOut />}>تسجيل الخروج</MenuItem>
             </Menu>
-          </SidebarFooter>
+          </SidebarContent>
+            <Menu iconShape="square">
+              
+            </Menu>
         </ProSidebar>
         <div >
           <FeaturedInfo/>
           <ChartLine />
-          <LatestOrder/>
+          <NewUsers/>
         </div>
       </div>
     </>
   );
 };
 
-export default SideBar;
+export default Dashboard;

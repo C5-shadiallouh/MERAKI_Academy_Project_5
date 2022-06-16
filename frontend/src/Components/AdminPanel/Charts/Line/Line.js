@@ -96,7 +96,7 @@ const ChartLine = () => {
   }, []);
   return (
     <div className="chart">
-      <h3>معدل</h3>
+      <h3>أسعار الوجبات</h3>
       <Line
         data={chartData}
         options={{
