@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { setCart, setQuantity, setTotal } from "../../redux/reducers/cart/cart";
 import "./style.css";
 
@@ -18,11 +18,11 @@ const Cart = () => {
       };
     }
   );
+  const navigate =useNavigate()
   const [show, setShow] = useState("");
   const [el_id, setEl_id] = useState("");
   const [state, setState] = useState(false);
   const total = () => {
-    console.log(token);
     axios
       .get(`http://localhost:5000/cart/total`, {
         headers: {
@@ -166,9 +166,11 @@ const Cart = () => {
           </table>
 
           {totalAmount ? (
-            <div>
+            <div className="totalPay">
               <h1>المبلغ الاجمالي: {totalAmount} دينار</h1>
-              <button>الدفع</button>
+              <button onClick={()=>{
+                navigate("/pay")
+              }}>الدفع</button>
             </div>
           ) : (
             ""

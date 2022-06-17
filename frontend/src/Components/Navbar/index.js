@@ -106,7 +106,8 @@ const Navbar = () => {
               ) : (
                 ""
               )}
-              {isAdmin ? (
+            
+              {localStorage.getItem("isAdmin")=="true" ? (
                 <div className="links">
                   <Link
                     to={"/adminpanel"}

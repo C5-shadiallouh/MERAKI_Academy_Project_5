@@ -5,3 +5,13 @@
   background: #e8e8e8;
   transition: 0.3s;
 }
+.totalPay{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-top: 5vh;
+}
+.totalPay button{
+  margin-right:5vw;
+}

@@ -49,17 +49,7 @@ const Dashboard = () => {
               <MenuItem icon={<FaChartBar onClick={()=>{navigate("/chart")}}/>}>تحليل الموقع</MenuItem>
               <MenuItem icon={<FaUsers onClick={()=>{navigate("/users")}}/> }>المستخدمين</MenuItem>
               <MenuItem  icon={<FaProductHunt onClick={()=>{navigate("/meals")}} />}>الوجبات</MenuItem>
-              <MenuItem
-                icon={
-                  <FiUserPlus
-                    onClick={() => {
-                      navigate("/addUser");
-                    }}
-                  />
-                }
-              >
-                اضف مستخدم
-              </MenuItem>
+              
               
               <MenuItem
                 icon={

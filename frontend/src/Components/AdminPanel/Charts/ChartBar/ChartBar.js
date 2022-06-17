@@ -35,11 +35,15 @@ const ChartBar = () => {
   useEffect(() => {
     let name = [];
     axios
-      .get(`http://localhost:5000/meals`)
+      .get(`http://localhost:5000/users`,{
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((result) => {
         result.data.result.map((element) => {
           console.log(element);
-          name.push(element.meal_name);
+          name.push(element.firstName);
         });
         setChartData({
           labels:["","max"],

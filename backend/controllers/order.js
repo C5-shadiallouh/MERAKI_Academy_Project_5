@@ -13,11 +13,20 @@ const createOrder = (req,res) => {
         err: err,
       });
     }
-    res.status(201).json({
-      success: true,
-      massage: "create order",
-      result,
-    });
+    const query= 'UPDATE cart set order_id=? , is_deleted=1 WHERE user_id=? AND is_deleted=0'
+    const data =[result.insertId,user_id]
+    connection.query(query, data, (err, result) => {
+      if (err) {
+          console.log(err)
+        return res.status(500).json({
+          success: false,
+          massage: "Server error",
+          err: err,
+        });
+      }
+    res.status(201).json(result)
+    
+    })
   });
 };
 
@@ -53,23 +62,10 @@ const updateOrder = (req,res) => {
 };
 
 const getOrder = (req,res) => {
-  const { user_id } = req.body
-  const query = `SELECT * from orders WHERE  user_id=?`;
-  const data = [user_id];
-  connection.query(query, data, (err, result) => {
+  const query = `SELECT * from cart WHERE  is_deleted=1 AND order_id != null`;
+  connection.query(query, (err, result) => {
       console.log(result)
-    if (result.length !== 0) {
-      return res.status(200).json({
-        success: true,
-        message: "All the orders",
-        result,
-      });
-    }
-
-    res.status(404).json({
-      message: `there is not any order`,
-    });
-  });
+  })
 };
 
 module.exports = {

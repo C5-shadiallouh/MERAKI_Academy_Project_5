@@ -33,13 +33,13 @@ const UserList = () => {
     { field: 'email', headerName: 'البريد الالكتروني', width: 300 },
     {
       field: "",
-      headerName: "تعديل - حذف المستخدم",
+      headerName: "تعديل المستخدم",
       width: 200,
       renderCell: (params) => {
         return (
           <>
             <Link to={"/user/" + params.row.id}>
-              <button className="userListEdit">Edit</button>
+              
             </Link>
             <IconButton onClick={()=>{deleteUser(params.row.id)}}>
             <DeleteOutline

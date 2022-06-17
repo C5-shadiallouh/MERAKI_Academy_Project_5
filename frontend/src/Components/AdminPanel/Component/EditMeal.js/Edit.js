@@ -13,7 +13,7 @@ import SideBar from "../Dashboard/SideBar/SideBar";
 
 const Edit = () => {
   const { id } = useParams();
-  const meals = useSelector((state) => {
+  const meals = useSelector((state) => { 
     return {
       meals: state.meals.meals,
     };

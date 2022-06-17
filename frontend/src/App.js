@@ -17,6 +17,8 @@ import NewProduct from "./Components/AdminPanel/Component/AddProduct/AddProduct"
 import NewUser from "./Components/AdminPanel/Component/AddUser/AddUser";
 import Analytic from "./Components/AdminPanel/Component/Analytic/Analytic";
 import PAyment from "./Components/CheckoutForm";
+import Footer from "./Components/Footer/Footer";
+import About from "./Components/About";
 function App() {
   return <div className="App">
   <Navbar/>
@@ -31,18 +33,21 @@ function App() {
     <Route path="/adminpanel" element={<Dashboard/>}/>
     <Route path="/usersmanagment" element={<UsersManagement/>}/>
     <Route path="/edit-meals/:id" element={<Edit/>}/>
+    <Route path="/edit-users/:id" element={<Edit/>}/>
+
     <Route path="/users" element={<UserList/>}/>
     <Route path="/meals" element={<MealList/>}/>
     <Route path="/addMeale" element={<NewProduct/>}/>
     <Route path="/addUser" element={<NewUser/>}/>
     <Route path="/chart" element={<Analytic/>}/>
     <Route path="/pay" element={<PAyment/>}/>
-
+    <Route path="/aboutus" element={<About/>}/>
 
 
 
 
   </Routes>
+  <Footer/>
   
   
   </div>;
