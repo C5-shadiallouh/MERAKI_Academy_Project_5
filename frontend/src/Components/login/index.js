@@ -7,7 +7,7 @@ import axios from "axios";
 //npm install react-google-login
 import { GoogleLogin } from "react-google-login";
 import { loggedin } from "../../redux/reducers/auth";
-import "./style.css"
+import "./style.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -29,86 +29,83 @@ const Login = () => {
   });
 
   const loginWithGoogle = async (response) => {
+    const result = axios
+      .get(`http://localhost:5000/users/${response.profileObj.email}`)
+      .then(async (result) => {
+        if (result.data.result.length) {
+          try {
+            const res = await axios.post("http://localhost:5000/login", {
+              email: response.profileObj.email,
+              password: response.profileObj.googleId,
+            });
+            if (res) {
+              setMessage("");
 
-    const result = axios.get(`http://localhost:5000/users/${response.profileObj.email}`)
-    .then(async(result)=>{ 
-      if(result.data.result.length)
-      {
-        try {
-     
-          const res = await axios.post("http://localhost:5000/login", {
-            email:response.profileObj.email,
-            password:response.profileObj.googleId,
-          });
-          if (res) {
-            setMessage("");
-    
-            dispatch(
-              loggedin({ token: res.data.token, isAdmin: res.data.isAdmin })
-            );
-            navigate("/");
-          } else throw Error;
-        }
-        catch (error) {
-          if (error.response && error.response.data) {
-           
-          }
-          setMessage("Error happened while Login, please try again");
-        }
-      }
-      else{
-        try {
-          // console.log(response.profileObj.givenName);
-          const res = await axios.post(`http://localhost:5000/register`, {
-            firstName: response.profileObj.givenName,
-            lastName: response.profileObj.familyName,
-            city: "jordan",
-            email: response.profileObj.email,
-            password: response.profileObj.googleId,
-            role_id: 2,
-          });
-          if (res) {
-            try {
-              const res = await axios.post("http://localhost:5000/login", {
-                email:response.profileObj.email,
-                password:response.profileObj.googleId,
-              });
-              if (res) {
-                setMessage("");
-        
-                dispatch(
-                  loggedin({ token: res.data.token, isAdmin: res.data.isAdmin })
-                );
-                navigate("/");
-              } else throw Error;
-            } catch (error) {
-              if (error.response && error.response.data) {
-                return setMessage(error.response.data.message);
-              }
-              setMessage("Error happened while Login, please try again");
+              dispatch(
+                loggedin({ token: res.data.token, isAdmin: res.data.isAdmin })
+              );
+              navigate("/");
+            } else throw Error;
+          } catch (error) {
+            if (error.response && error.response.data) {
             }
-          } else throw Error;
-        }
-        catch (error) {
-          if (error.response && error.response.data) {
-            return setMessage(error.response.data.message);
+            setMessage("Error happened while Login, please try again");
           }
-          setMessage("Error happened while Login, please try again");
+        } else {
+          try {
+            // console.log(response.profileObj.givenName);
+            const res = await axios.post(`http://localhost:5000/register`, {
+              firstName: response.profileObj.givenName,
+              lastName: response.profileObj.familyName,
+              city: "jordan",
+              email: response.profileObj.email,
+              password: response.profileObj.googleId,
+              role_id: 2,
+            });
+            if (res) {
+              try {
+                const res = await axios.post("http://localhost:5000/login", {
+                  email: response.profileObj.email,
+                  password: response.profileObj.googleId,
+                });
+                if (res) {
+                  setMessage("");
+
+                  dispatch(
+                    loggedin({
+                      token: res.data.token,
+                      isAdmin: res.data.isAdmin,
+                    })
+                  );
+                  navigate("/");
+                } else throw Error;
+              } catch (error) {
+                if (error.response && error.response.data) {
+                  return setMessage(error.response.data.message);
+                }
+                setMessage("Error happened while Login, please try again");
+              }
+            } else throw Error;
+          } catch (error) {
+            if (error.response && error.response.data) {
+              return setMessage(error.response.data.message);
+            }
+            setMessage("Error happened while Login, please try again");
+          }
         }
-      }
       })
-    .catch((err)=>{
-      console.log(err);
-    })
-    
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const login = async (e) => {
     // e.preventDefault();
     console.log("Login:");
+    console.log(email, password);
     try {
       const res = await axios.post("http://localhost:5000/login", {
-        email :email,
-        password :password
+        email: email,
+        password: password,
       });
       if (res) {
         setMessage("");
@@ -119,6 +116,8 @@ const Login = () => {
         navigate("/");
       } else throw Error;
     } catch (error) {
+      console.log("res");
+
       if (error.response && error.response.data) {
         return setMessage(error.response.data.message);
       }
@@ -130,62 +129,82 @@ const Login = () => {
     <>
       <div className="login">
         <h2 className="active"> تسجيل الدخول : </h2>
-        <form>
-          
-
+        <form onS>
           <span className="inputs">الإيميل :</span>
-        <input
-        className="text"
-          type="email"
-          placeholder="الإيميل ..."
-          onChange={(e) => {
-            if(e.target.value == " " || e.target.value =="" || !e.target.value.includes("@") || !e.target.value.includes(".com") ){return setMessageEmail(" @ / .com  يجب أن يحتوي الإيميل على ")}
-            else if(e.target.value != " " && e.target.value !="" && e.target.value.includes("@") && e.target.value.includes(".com")){setMessageEmail("")}
-           else{ setEmail(e.target.value)}}}
-        />
-        <p className="messageP">{messageEmail}</p>
-        
-        <br />
-        <span className="inputs">كلمة السر :</span>
-        <input
-        className="text                                                                 "
-          type="password"
-          placeholder="كلمة السر ..."
-          onChange={(e) =>{ 
-            
-            if(e.target.value.length<4 || e.target.value==" "||e.target.value==""){ return setMessage(" الرجاء إدخال كلمة سر صحيحة لا تقل عن 4 أحرف ")}
-            else if (e.target.value.length>4 && e.target.value!=" "&&e.target.value!=""){setMessage("")}
-            else{
-            setPassword(e.target.value)}}}
-        />
-        <p className="messageP">{message}</p>
-<br />
-        
-        <br />
+          <input
+            className="text"
+            type="email"
+            placeholder="الإيميل ..."
+            onChange={(e) => {
+              if (
+                e.target.value !== " " ||
+                e.target.value !== "" ||
+                e.target.value.includes("@") ||
+                e.target.value.includes(".com")
+              ) {
+                setEmail(e.target.value)
+                setMessageEmail("");
+                 
+              } else {
+                setMessageEmail(" @ / .com  يجب أن يحتوي الإيميل على ");
+                
+               
+              }
+            }}
+          />
+          <p className="messageP">{messageEmail}</p>
 
-        
+          <br />
+          <span className="inputs">كلمة السر :</span>
+          <input
+            className="text                                                                 "
+            type="password"
+            placeholder="كلمة السر ..."
+            onChange={(e) => {
+              if (
+                e.target.value.length < 4 ||
+                e.target.value == " " ||
+                e.target.value == ""
+              ) {
+                return setMessage(
+                  " الرجاء إدخال كلمة سر صحيحة لا تقل عن 4 أحرف "
+                );
+              } else {
+              /*  else if (e.target.value.length>4 && e.target.value!=" "&&e.target.value!=""){setMessage("")} */
+                setMessage("");
+                setPassword(e.target.value);
+              }
+            }}
+          />
+          <p className="messageP">{message}</p>
+          <br />
 
-        <button className="login_button" onClick={(e)=>{
-          e.preventDefault()
+          <br />
 
-          login()}}>تسجيل الدخول</button>
+          <button
+            className="login_button"
+            onClick={(e) => {
+              e.preventDefault();
 
-        <br />
-        <br />
-        <span className="googleLogin" ><GoogleLogin
-          clientId="171142303177-dlklu0me533t11g37ll28pjmd603vh8c.apps.googleusercontent.com"
-          
-          buttonText="الدخول بواسطة جوجل"
-          onSuccess={loginWithGoogle}
-          onFailure={loginWithGoogle}
-          cookiePolicy={"single_host_origin"}
-          
-        /></span>
-         
-         </form>
+              login();
+            }}
+          >
+            تسجيل الدخول
+          </button>
+
+          <br />
+          <br />
+          <span className="googleLogin">
+            <GoogleLogin
+              clientId="171142303177-dlklu0me533t11g37ll28pjmd603vh8c.apps.googleusercontent.com"
+              buttonText="الدخول بواسطة جوجل"
+              onSuccess={loginWithGoogle}
+              onFailure={loginWithGoogle}
+              cookiePolicy={"single_host_origin"}
+            />
+          </span>
+        </form>
       </div>
-
-     
     </>
   );
 };

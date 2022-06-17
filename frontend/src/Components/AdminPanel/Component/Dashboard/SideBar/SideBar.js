@@ -9,7 +9,7 @@ import {
 } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import "./style.css";
-import { FaChartBar, FaUsers, FaProductHunt } from "react-icons/fa";
+import { FaChartBar, FaUsers, FaProductHunt,FaFileInvoiceDollar } from "react-icons/fa";
 import { FiUserPlus } from "react-icons/fi";
 import {
   FiHome,
@@ -49,6 +49,18 @@ const SideBar = () => {
               >
                 المستخدمين
               </MenuItem>
+              <MenuItem
+                icon={
+                  <FaUsers
+                    onClick={() => {
+                      navigate("/orders");
+                    }}
+                  />
+                }
+              >
+                الطلبات الواردة
+              </MenuItem>
+              
              
               <MenuItem
                 icon={

@@ -55,6 +55,7 @@ CREATE TABLE orders (
     user_id INT NOT NULL,
     is_deleted TINYINT DEFAULT 0,
     is_approved TINYINT DEFAULT 0,
+    total FLOAT DEFAULT 0,
 
     FOREIGN KEY (user_id) REFERENCES users(id),
     PRIMARY KEY (id)

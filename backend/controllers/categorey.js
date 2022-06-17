@@ -13,12 +13,12 @@ const addCategory=(req,res)=>{
     })
 }
 const getCategories=(req,res)=>{
-    const query = 'SELECT * FROM category'
+    const query = 'SELECT * FROM category where is_deleted=0'
     connection.query(query,(err,result)=>{
         if(err){
             return res.json(err)
         }
-        res.status(201).json({success:true,Message:"added new category",categories:result}) 
+        res.status(201).json({success:true,Message:"all category",categories:result}) 
     })
 }
 
