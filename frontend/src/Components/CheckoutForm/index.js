@@ -28,7 +28,6 @@ export default function PAyment() {
         }
       )
       .then((result) => {
-        console.log(result);
         setClientSecret(result.data.clientSecret);
       })
       .catch((err) => {

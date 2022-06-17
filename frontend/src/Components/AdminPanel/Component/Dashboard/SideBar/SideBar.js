@@ -49,17 +49,7 @@ const SideBar = () => {
               >
                 المستخدمين
               </MenuItem>
-              <MenuItem
-                icon={
-                  <FiUserPlus
-                    onClick={() => {
-                      navigate("/addUser");
-                    }}
-                  />
-                }
-              >
-                اضف مستخدم
-              </MenuItem>
+             
               <MenuItem
                 icon={
                   <FaProductHunt

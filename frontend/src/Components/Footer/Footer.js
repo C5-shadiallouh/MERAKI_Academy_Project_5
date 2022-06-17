@@ -8,8 +8,9 @@ import "./style.css";
 const Footer = () => {
   return (
     <div class="main-footer">
-      <div class="logoinfo" data-aos="fade-up">
-        <h2>مطعم عبد حمادة</h2>
+      {localStorage.getItem("isAdmin")=="false" || localStorage.getItem("isAdmin")==null?
+      <>     <div class="logoinfo" data-aos="fade-up">
+        <h2>مطعم عبد حماده</h2>
         <p>مؤسس مطاعم فلسطين من عام 1956</p>
 
         <div class="contact-details">
@@ -20,7 +21,7 @@ const Footer = () => {
           </li>
           <li>
             <div class="fa fa-envelope"></div>
-            <a href="#">abedhamada@gmail.com</a>
+            <a href="#">abed.hamada.rest@gmail.com</a>
           </li>
         </div>
       </div>
@@ -64,8 +65,9 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <footer>&copy; Your Copyright 2021 All Rights Reserved</footer>
+      <footer>&copy;All Rights Reserved Abed Hamada Restaurants</footer></>:""}
     </div>
+ 
   );
 };
 export default Footer;

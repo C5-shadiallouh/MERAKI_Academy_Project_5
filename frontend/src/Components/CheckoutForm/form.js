@@ -4,11 +4,12 @@ import {
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
+import axios from "axios";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
-
+  const token=localStorage.getItem("token")
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,7 +29,7 @@ export default function CheckoutForm() {
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
       switch (paymentIntent.status) {
         case "succeeded":
-          setMessage("Payment succeeded!");
+          setMessage("تمت عملية الدفع بنجاح");
           break;
         case "processing":
           setMessage("Your payment is processing.");
@@ -45,6 +46,21 @@ export default function CheckoutForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    axios.post(
+      "http://localhost:5000/order/create",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((result) => {
+      
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
     if (!stripe || !elements) {
       // Stripe.js has not yet loaded.
@@ -58,7 +74,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000",
+        return_url: "http://localhost:3000/pay",
       },
     });
 
