@@ -12,11 +12,11 @@ import {
 } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import "./style.css";
-import { FaChartBar, FaUsers, FaProductHunt } from "react-icons/fa";
+import { FaChartBar, FaUsers, FaProductHunt,FaFileInvoiceDollar } from "react-icons/fa";
 import {
   FiHome,
   FiLogOut,
-  FiUserPlus
+  
 } from "react-icons/fi";
 import {MdLocalPharmacy} from "react-icons/md"
 import Circle from "../../Charts/Circle/Circle"
@@ -48,6 +48,17 @@ const Dashboard = () => {
               </MenuItem>
               <MenuItem icon={<FaChartBar onClick={()=>{navigate("/chart")}}/>}>تحليل الموقع</MenuItem>
               <MenuItem icon={<FaUsers onClick={()=>{navigate("/users")}}/> }>المستخدمين</MenuItem>
+              <MenuItem
+                icon={
+                  <FaFileInvoiceDollar
+                    onClick={() => {
+                      navigate("/orders");
+                    }}
+                  />
+                }
+              >
+                الطلبات الواردة
+              </MenuItem>
               <MenuItem  icon={<FaProductHunt onClick={()=>{navigate("/meals")}} />}>الوجبات</MenuItem>
               
               
@@ -75,7 +86,7 @@ const Dashboard = () => {
             </Menu>
         </ProSidebar>
           <FeaturedInfo/>
-          <Circle/>
+          <div className="cir"><Circle/></div>
 
           <NewUsers/>
       </div>

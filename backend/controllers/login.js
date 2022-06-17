@@ -30,7 +30,8 @@ const login = (req,res)=>{
                 })
             )
         }
-        return res.status(404).json({success:false,message:"Email doesn't Exist"})
+        else{
+        return res.status(404).json({success:false,message:"Email doesn't Exist"})}
     })
 }
 module.exports = {login}

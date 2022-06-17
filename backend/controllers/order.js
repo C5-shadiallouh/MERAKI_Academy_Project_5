@@ -2,8 +2,9 @@ const connection = require(`../models/db`);
 
 const createOrder = (req,res) => {
   const user_id  = req.token.user_id;
-  const query = `INSERT INTO orders (user_id) VALUES (?)`;
-  const data = [user_id];
+  const {total}=req.body
+  const query = `INSERT INTO orders (user_id,total) VALUES (?,?)`;
+  const data = [user_id,total];
   connection.query(query, data, (err, result) => {
     if (err) {
         console.log(err)
@@ -62,9 +63,28 @@ const updateOrder = (req,res) => {
 };
 
 const getOrder = (req,res) => {
-  const query = `SELECT * from cart WHERE  is_deleted=1 AND order_id != null`;
+  const role_id =req.token.role_id
+  const query = `SELECT cart.* , meals.*,orders.* from meals INNER JOIN cart ON cart.meal_id =meals.id   
+  INNER JOIN orders ON cart.order_id = orders.id WHERE   cart.is_deleted=1 AND cart.order_id != 'NULL'`;
   connection.query(query, (err, result) => {
-      console.log(result)
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        massage: "Server error",
+        err: err,
+      });
+    }
+    if(role_id=="1")
+    {
+      return res.status(500).json(result) 
+    }
+    else{
+      return res.status(404).json({
+        success: false,
+        massage: "forbidden",
+        err: err,
+      });
+    }
   })
 };
 

@@ -5,13 +5,20 @@ import {
   useElements
 } from "@stripe/react-stripe-js";
 import axios from "axios";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setTotal } from "../../redux/reducers/cart/cart";
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   const token=localStorage.getItem("token")
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch=useDispatch()
+  const {total}=useSelector((state)=>{
+    return{
+      total:state.carts.totalAmount
+    }
+  })
 
   useEffect(() => {
     if (!stripe) {
@@ -48,7 +55,7 @@ export default function CheckoutForm() {
     e.preventDefault();
     axios.post(
       "http://localhost:5000/order/create",
-      {},
+      {total},
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -56,7 +63,7 @@ export default function CheckoutForm() {
       }
     )
     .then((result) => {
-      
+      dispatch(setTotal(0))
     })
     .catch((err) => {
       console.log(err);

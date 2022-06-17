@@ -97,6 +97,7 @@ const Cart = () => {
   useEffect(() => {
     getCart();
     total();
+    
   }, [state, totalQuantity, totalAmount]);
   return (
     <div>
@@ -179,7 +180,7 @@ const Cart = () => {
       ) : (
         <div className="empty">
           <p>السلة فارغة </p>
-          <Link to={"/"}>
+          <Link to={"/menu"}>
             <p>ابدأ التسوق من هنا</p>
           </Link>
         </div>

@@ -14,7 +14,7 @@ const [messagefName, setMessagefName] = useState("")
 const [messagelName, setMessagelName] = useState("")
 const [messageCity, setMessageCity] = useState("")
 const [message2,setMessage2]=useState(``)
-
+const [messagePass,setMessagePass]=useState(``)
 
 
 const [status,setStatus]=useState(``)
@@ -110,11 +110,11 @@ return (
                 className="text"
                 placeholder="كلمة السر ..."
                 onChange={(e) =>{
-                  if(e.target.value.length<4 || e.target.value==" "||e.target.value==""){ return setMessage(" الرجاء إدخال كلمة سر صحيحة لا تقل عن 4 أحرف ")}
+                  if(e.target.value.length<4 || e.target.value==" "||e.target.value==""){ return setMessagePass(" الرجاء إدخال كلمة سر صحيحة لا تقل عن 4 أحرف ")}
             else if (e.target.value.length>4 && e.target.value!=" "&&e.target.value!=""){setMessage("")}
                      else{   setPassword(e.target.value)}}}
               />
-              <p className="messageP">{message}</p>
+              <p className="messageP">{messagePass}</p>
               <br />
 
               <button className="login_button">تسجيل</button>

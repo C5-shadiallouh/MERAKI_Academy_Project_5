@@ -6,7 +6,7 @@ const orderRouter=express.Router()
 
 
 orderRouter.post(`/create`,authentication,createOrder)
-orderRouter.get(`/get`,getOrder)
+orderRouter.get(`/get`,authentication,getOrder)
 orderRouter.put(`/edit`,updateOrder)
 
 

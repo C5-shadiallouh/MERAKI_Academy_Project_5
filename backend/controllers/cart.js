@@ -119,16 +119,15 @@ const getCart = (req, res) => {
       });
     }
     
-    if (result.length !== 0) {
+    
       return res.status(200).json({
         success: true,
         message: "All the Meals",
         result,
       });
-    }
+    
 
-    res.status(404).json(
-      result);
+    
   });
 };
 const getAllCart = (req, res) => {
