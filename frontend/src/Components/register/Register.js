@@ -13,6 +13,8 @@ const [messageEmail, setMessageEmail] = useState("")
 const [messagefName, setMessagefName] = useState("")
 const [messagelName, setMessagelName] = useState("")
 const [messageCity, setMessageCity] = useState("")
+const [message2,setMessage2]=useState(``)
+
 
 
 const [status,setStatus]=useState(``)
@@ -34,7 +36,7 @@ try{
     role_id:2
 
 })
-if (res) {
+if (res && firstName.replaceAll(" ","").length !=0 &&lastName.replaceAll(" ","").length !=0 && city.replaceAll(" ","").length !=0 && email.includes("@",".com") && password.length>4) {
     setStatus(true);
     setMessage("The user has been created successfully");
   } else throw Error;

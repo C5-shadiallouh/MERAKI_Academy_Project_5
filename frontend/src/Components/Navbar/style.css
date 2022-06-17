@@ -44,6 +44,12 @@ nav .menu {
   font-size: 110%;
   text-decoration: none;
 }
+.dropdown p {
+color: #19302E;  
+}
+.dropdown .dropbtn{
+  color: white;
+}
 .without_search{
 
   display: flex;

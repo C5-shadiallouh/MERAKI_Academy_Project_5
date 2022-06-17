@@ -172,13 +172,14 @@ const Login = () => {
 
         <br />
         <br />
-        <span className="googleLogin"><GoogleLogin
+        <span className="googleLogin" ><GoogleLogin
           clientId="171142303177-dlklu0me533t11g37ll28pjmd603vh8c.apps.googleusercontent.com"
           
           buttonText="الدخول بواسطة جوجل"
           onSuccess={loginWithGoogle}
           onFailure={loginWithGoogle}
           cookiePolicy={"single_host_origin"}
+          
         /></span>
          
          </form>
