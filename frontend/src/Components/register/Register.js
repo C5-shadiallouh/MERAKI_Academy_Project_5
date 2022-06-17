@@ -9,6 +9,12 @@ const[email,setEmail]=useState(``)
 const [password,setPassword]=useState(``)
 const [city,setCity]=useState(``)
 const [message,setMessage]=useState(``)
+const [messageEmail, setMessageEmail] = useState("")
+const [messagefName, setMessagefName] = useState("")
+const [messagelName, setMessagelName] = useState("")
+const [messageCity, setMessageCity] = useState("")
+
+
 const [status,setStatus]=useState(``)
 
 const {isLoggedIn}=useSelector((state)=>{
@@ -56,47 +62,57 @@ return (
                 className="text"
                 placeholder="الإسم الأول ..."
                 onChange={(e) =>{
-            if(e.target.value==" "){return setMessage("الرجاء إدخال الإسم الأول")}
+            if(e.target.value==" " || e.target.value.includes(" ")){return setMessagefName("  الرجاء إدخال الإسم الأول من مقطع واحد")}
+            else if(e.target.value!=" " && !e.target.value.includes(" ")){return setMessagefName("")}
                else{   
                   setFirstName(e.target.value)}}}
               />
+              <p>{messagefName}</p>
               <br />
+              
               <input
                 type="text"
                 className="text"
                 placeholder="الإسم الأخير ..."
                 onChange={(e) =>{
-                  if(e.target.value==" "){return setMessage("الرجاء إدخال الإسم الأخير")}
+                  if(e.target.value==" " || e.target.value.includes(" ")){return setMessagelName("  الرجاء إدخال الإسم الأخير من مقطع واحد")}
+            else if(e.target.value!=" " && !e.target.value.includes(" ")){return setMessagelName("")}
                      else{   setLastName(e.target.value)}}}
               />
+              <p>{messagelName}</p>
               <br />
               <input
                 type="text"
                 className="text"
                 placeholder="المدينة ..."
                 onChange={(e) => {
-                  if(e.target.value==" "){return setMessage("الرجاء إدخال إسم المدينة")}
+                  if(e.target.value==" "){return setMessageCity("الرجاء إدخال إسم المدينة")}
+                 else if(e.target.value!=" "){return setMessageCity("")}
                      else{  setCity(e.target.value)}}}
               />
               <br />
-             
+             <p>{messageCity}</p>
               <input
                 type="email"
                 className="text"
                 placeholder="الإيميل ..."
                 onChange={(e) => {
-                  if(e.target.value==" "){return setMessage("الرجاء إدخال الإيميل")}
+                  if(e.target.value == " " || e.target.value =="" || !e.target.value.includes("@") || !e.target.value.includes(".com") ){return setMessageEmail(" @ / .com  يجب أن يحتوي الإيميل على ")}
+                  else if(e.target.value != " " && e.target.value !="" && e.target.value.includes("@") && e.target.value.includes(".com")){setMessageEmail("")}
                      else{  setEmail(e.target.value)}}}
               />
+              <p>{messageEmail}</p>
               <br />
               <input
                 type="password"
                 className="text"
                 placeholder="كلمة السر ..."
                 onChange={(e) =>{
-                  if(e.target.value==" "){return setMessage("الرجاء إدخال كلمة السر")}
+                  if(e.target.value.length<4 || e.target.value==" "||e.target.value==""){ return setMessage(" الرجاء إدخال كلمة سر صحيحة لا تقل عن 4 أحرف ")}
+            else if (e.target.value.length>4 && e.target.value!=" "&&e.target.value!=""){setMessage("")}
                      else{   setPassword(e.target.value)}}}
               />
+              <p>{message}</p>
               <br />
 
               <button className="login_button">تسجيل</button>
