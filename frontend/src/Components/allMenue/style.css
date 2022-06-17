@@ -4,12 +4,14 @@ table {
     margin-left: 5vw;
     margin-right: 5vw;
     margin-top: 5vh;
+    margin-bottom: 10vh;
   }
   
   td, th {
     border: 1px solid #dddddd;
     text-align: center;
     padding: 8px;
+    font-size: 1.2em;
     
   }
   tr:nth-child(odd) {
@@ -19,4 +21,28 @@ table {
   tr:nth-child(even) {
     background-color: #252222;
     color: #70b269;
+  }
+  .addToCart{
+    padding: 1.3em;
+    font-size: 12px;
+    font-weight: 500;
+    color: #70b269;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgb(0 0 0 / 10%);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    width: 70%;
+  }
+  .scale {
+    
+    transition: transform .2s; /* Animation */
+    
+    
+    margin: 0 auto;
+  }
+  .scale:hover{
+    transform: scale(1.2);
   }

@@ -100,7 +100,7 @@ const Cart = () => {
   }, [state, totalQuantity, totalAmount]);
   return (
     <div>
-      <h3>سلة التسوق</h3>
+      <h3 className="cartTilte">سلة التسوق</h3>
       {carts.length && isLoggedIn ? (
         <div>
           <table>
@@ -145,7 +145,7 @@ const Cart = () => {
                           );
                         }}
                       />
-                      <button
+                      <button className="addToCart inCart"
                         onClick={() => {
                           removeFromCart(element.id);
                         }}
@@ -168,7 +168,7 @@ const Cart = () => {
           {totalAmount ? (
             <div className="totalPay">
               <h1>المبلغ الاجمالي: {totalAmount} دينار</h1>
-              <button onClick={()=>{
+              <button className="addToCart pay" onClick={()=>{
                 navigate("/pay")
               }}>الدفع</button>
             </div>
@@ -177,7 +177,7 @@ const Cart = () => {
           )}
         </div>
       ) : (
-        <div>
+        <div className="empty">
           <p>السلة فارغة </p>
           <Link to={"/"}>
             <p>ابدأ التسوق من هنا</p>

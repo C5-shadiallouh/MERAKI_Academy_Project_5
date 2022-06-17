@@ -18,7 +18,7 @@ import NewUser from "./Components/AdminPanel/Component/AddUser/AddUser";
 import Analytic from "./Components/AdminPanel/Component/Analytic/Analytic";
 import PAyment from "./Components/CheckoutForm";
 import Footer from "./Components/Footer/Footer";
-import About from "./Components/About";
+import About from "./Components/About/index";
 function App() {
   return <div className="App">
   <Navbar/>

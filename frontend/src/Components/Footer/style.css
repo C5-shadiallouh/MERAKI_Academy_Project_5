@@ -3,9 +3,11 @@
     display: flex;
     justify-content: space-evenly;
     background-color: #19302E;
-    position:  bottom fixed;
-    height: 20%;
-    
+    position:fixed;
+    height: 10%;
+     left: 0;
+   bottom: 0;
+   width: 100%;
 }
 .main-footer ul{
     list-style: none;
@@ -72,6 +74,9 @@ footer a{
         text-decoration: none;
         color: #ffffff;
         font-size: 22px;
+}
+.logobox{
+    margin-top:-10% ;
 }
 .com ul li{
     padding: 5px 0;

@@ -81,12 +81,12 @@ const GetMealByCategory = () => {
           return (
             <tr>
               <td><Link to={`/meals/${meal.id}`} onClick={()=>{dispatch(changePage(1))}}>
-                <img src={meal.image} alt="" key={meal.id} width={"150px"}/>
+                <img className="scale" src={meal.image} alt="" key={meal.id} width={"150px"}/>
               </Link></td>
               <td key={meal.meal_name}>{meal.meal_name}</td>
               <td key={meal.meal_price}>{meal.meal_price}</td>
               
-              <td><button onClick={()=>{addToCart(meal.id,1,meal.meal_price)}}>اضافة الى سلة المشتريات</button></td>
+              <td><button className="addToCart" onClick={()=>{addToCart(meal.id,1,meal.meal_price)}}>اضافة الى سلة المشتريات</button></td>
               {message}
             </tr>
           );
@@ -102,6 +102,7 @@ const GetMealByCategory = () => {
             onClick={() => {
               if (page < meal.length) {
                 dispatch(changePage(page + 1));
+                window.scrollTo(0, 10);
               }
             }}
           >
@@ -115,6 +116,7 @@ const GetMealByCategory = () => {
                     to=""
                     onClick={() => {
                       dispatch(changePage(index + 1));
+                      window.scrollTo(0, 10);
                     }}
                   >
                     {index + 1}
@@ -127,6 +129,7 @@ const GetMealByCategory = () => {
             onClick={() => {
               if (page > 1) {
                 dispatch(changePage(page - 1));
+                window.scrollTo(0, 10);
               }
             }}
           >
