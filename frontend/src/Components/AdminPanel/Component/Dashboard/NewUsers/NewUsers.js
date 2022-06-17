@@ -37,7 +37,7 @@ useEffect(() => {
       
       <ul className="widgetSmList">
       {user.length?user.map((element)=>{
-         return(<li className="widgetSmListItem">
+         return(<li className="widgetSmListItem"key={element.id}>
          <FaUserAlt/>
          <div className="widgetSmUser">
            <span className="widgetSmUsername">{element.firstName} {element.lastName}</span>

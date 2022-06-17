@@ -7,7 +7,6 @@ import { IconButton } from '@mui/material'
 import axios from 'axios'
 import SideBar from '../Component/Dashboard/SideBar/SideBar'
 import {AiOutlineEdit} from "react-icons/ai"
-import Confirmation from '../Confirmation/Confirmation'
 
 const MealList = () => {
   const[isDeleted,setIsDeleted]=useState(false)
@@ -55,7 +54,7 @@ isLoading:false})
               
             />
             </IconButton>
-          {Confirmation.isLoading &&<Confirmation message={Confirmation.message}/>}  
+          
           </>
         );
       },

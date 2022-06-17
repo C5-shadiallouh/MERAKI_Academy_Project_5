@@ -26,15 +26,15 @@ const AllMenue = (req, res) => {
     }
   );
 
-  const addToCart = (meal_id, quantity, price,one) => {
+  const addToCart = (meal_id, quantity, price, one) => {
     axios
       .post(
         "http://localhost:5000/cart/add",
         {
           one: one,
           meal_id: meal_id,
-          quantity: one==true? 1:quantity,
-          total: quantity * price, 
+          quantity: one == true ? 1 : quantity,
+          total: quantity * price,
         },
         {
           headers: {
@@ -44,11 +44,15 @@ const AllMenue = (req, res) => {
       )
       .then((result) => {
         setSucceed(!succeed);
+        dispatch(setMessage("تم اضافة الوجبة الى سلة المشتريات"));
+
+        
       })
       .catch((err) => {
-        console.log(err);
+        setFailed(!failed);
+        dispatch(setMessage("الرجاء تسجيل الدخول "));
       });
-    dispatch(setMessage("تم اضافة الوجبة الى سلة المشتريات"));
+   
   };
 
   useEffect(() => {
@@ -65,7 +69,7 @@ const AllMenue = (req, res) => {
         setMeal(result.data.result);
       })
       .catch((err) => {});
-  }, [page, succeed]);
+  }, [page, succeed,failed ]);
 
   return (
     <div>
@@ -79,6 +83,15 @@ const AllMenue = (req, res) => {
       <h1 style={{ marginRight: "42%", marginTop: "1%" }}>جميع الأصناف</h1>
 
       <table>
+        <thead>
+          <tr>
+            <th>صورة الصنف</th>
+            <th>الصنف</th>
+
+            <th>السعر الافرادي للصنف</th>
+            <th>اضافة الى سلة المشتريات</th>
+          </tr>
+        </thead>
         <tbody>
           {meals.length &&
             meals.map((meal, index) => {
@@ -105,7 +118,7 @@ const AllMenue = (req, res) => {
                     <button
                       onClick={() => {
                         console.log(meal.id);
-                        addToCart(meal.id,1, meal.meal_price,true);
+                        addToCart(meal.id, 1, meal.meal_price, true);
                       }}
                     >
                       اضافة الى سلة المشتريات

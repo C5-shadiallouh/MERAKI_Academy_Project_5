@@ -34,9 +34,7 @@ const Circle = () => {
     axios
       .get(`http://localhost:5000/meals`)
       .then((result) => {
-        console.log(result);
         result.data.result.map((element) => {
-          console.log(element);
           name.push(element.meal_name);
           price.push(element.category_id);
         });
@@ -104,8 +102,6 @@ const Circle = () => {
           ],
         });
 
-        console.log(name);
-        console.log(price);
       })
       .catch((err) => {
         alert(err);

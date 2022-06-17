@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { Rating } from "react-simple-star-rating";
 import { setRatings, getRating } from "../../redux/reducers/rating/rating";
 import "./style.css";
+import { SettingsPowerRounded } from "@material-ui/icons";
 
 const MealPage = () => {
   const [clicked, setClicked] = useState(false);
@@ -15,6 +16,7 @@ const MealPage = () => {
   const [message, setMessage] = useState(``);
   const [comment, setComment] = useState("");
   const { id } = useParams();
+  const [ableCommnet,setAbleCommnet]=useState(false)
 
   const dispatch = useDispatch();
   const {
@@ -34,9 +36,30 @@ const MealPage = () => {
       ratingAvg: state.ratings.ratingAvg,
     };
   });
+  const[err,SetErr]=useState("")
   const [rating, setRating] = useState(ratings); // initial rating value
+  const [avg,setAvg]= useState(0)
   const handleRating = (rate) => {
     setRating(rate); // other logic
+    if (rate > 0) {
+      axios
+        .post(
+          `http://localhost:5000/meals/rating/${id}`,
+          { rate: rate },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((result) => {
+          console.log(rate);
+          console.log(result);
+        })
+        .catch((error) => {
+          console.log("error");
+        });
+    }
   };
   const addToCart=(meal_id,quantity,price)=>{
     axios.post("http://localhost:5000/cart/add",{meal_id:meal_id,quantity:quantity,total:quantity*price},{
@@ -88,11 +111,12 @@ const MealPage = () => {
         );
       })
       .catch((error) => {
-        console.log(error);
+       setAbleCommnet(true)
       });
   };
 
   useEffect(() => {
+    
     axios
       .get(`http://localhost:5000/meals/id/${id}`)
       .then((result) => {
@@ -103,43 +127,28 @@ const MealPage = () => {
       });
 
     getAllComments(id);
-    if (rating > 0) {
-      axios
-        .post(
-          `http://localhost:5000/meals/rating/${id}`,
-          { rate: rating },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((result) => {
-          console.log(rating);
-          console.log(result);
-        })
-        .catch((error) => {
-          console.log("error");
-        });
-    }
+    
     axios
-      .get(`http://localhost:5000/meals/getrating/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(`http://localhost:5000/meals/rating/${id}`, )
       .then((result) => {
-        if (result.data.length) {
-          dispatch(setRatings(result.data[0].rate));
+        console.log(result.data.result[0].AverageRate);
+        if (result.data.result[0].AverageRate != null) {
+          dispatch(getRating(result.data.result[0].AverageRate));
         }
       });
-    axios.get(`http://localhost:5000/meals/rating/${id}`).then((result) => {
-      console.log(result.data.result[0]);
-      if (result.data.result.length) {
-        dispatch(getRating(result.data.result[0].AverageRate));
+    axios.get(`http://localhost:5000/meals/rating/user/${id}`,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((result) => {
+      console.log(result.data[0].rate);
+      if (result.data.length) {
+        dispatch(setRatings(Number(result.data[0].rate)));
       }
-    });
-  }, [clicked]);
+      console.log("RATTTING",ratings);
+    })
+    .catch(err=> SetErr("Login to add rating"))
+  }, [clicked,rating,ratingAvg,ratings]);
   return (
     <div className="page">
       {meals.length
@@ -159,7 +168,7 @@ const MealPage = () => {
                           {ratingAvg ? ratingAvg / 20 : "not Rated"}
                         </p>
                       </div>
-                    {/* </div> */}
+                      <p style={{"color":"red","textAlign":"center"}}>{err}</p>
 
                     <div className="cart_div">
                       <input
@@ -172,7 +181,8 @@ const MealPage = () => {
                         //   }else{handleChange}
                         // }}
                       />
-                      <button className="add_minus_butt" onClick={()=>{
+                      <button                       disabled={{ableCommnet}}
+ className="add_minus_butt" onClick={()=>{
                         dispatch(addToCart(meal.id,1,meal.meal_price))
                       }}>
                         إضافة إلى سلة الطعام
@@ -190,6 +200,8 @@ const MealPage = () => {
                   />
 
                   <button
+                                    disabled={{ableCommnet}}
+
                     className="add_minus_butt"
                     onClick={() => {
                       addComment(element.id);
