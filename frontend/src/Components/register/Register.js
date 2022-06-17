@@ -33,6 +33,7 @@ if (res) {
     setMessage("The user has been created successfully");
   } else throw Error;
 } catch (error) {
+  console.log(error);
   setStatus(false);
   if (error.response && error.response.data) {
     return setMessage(error.response.data.message);
@@ -54,21 +55,28 @@ return (
                 type="text"
                 className="text"
                 placeholder="الإسم الأول ..."
-                onChange={(e) => setFirstName(e.target.value)}
+                onChange={(e) =>{
+            if(e.target.value==" "){return setMessage("الرجاء إدخال الإسم الأول")}
+               else{   
+                  setFirstName(e.target.value)}}}
               />
               <br />
               <input
                 type="text"
                 className="text"
                 placeholder="الإسم الأخير ..."
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={(e) =>{
+                  if(e.target.value==" "){return setMessage("الرجاء إدخال الإسم الأخير")}
+                     else{   setLastName(e.target.value)}}}
               />
               <br />
               <input
                 type="text"
                 className="text"
                 placeholder="المدينة ..."
-                onChange={(e) => setCity(e.target.value)}
+                onChange={(e) => {
+                  if(e.target.value==" "){return setMessage("الرجاء إدخال إسم المدينة")}
+                     else{  setCity(e.target.value)}}}
               />
               <br />
              
@@ -76,14 +84,18 @@ return (
                 type="email"
                 className="text"
                 placeholder="الإيميل ..."
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  if(e.target.value==" "){return setMessage("الرجاء إدخال الإيميل")}
+                     else{  setEmail(e.target.value)}}}
               />
               <br />
               <input
                 type="password"
                 className="text"
                 placeholder="كلمة السر ..."
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) =>{
+                  if(e.target.value==" "){return setMessage("الرجاء إدخال كلمة السر")}
+                     else{   setPassword(e.target.value)}}}
               />
               <br />
 

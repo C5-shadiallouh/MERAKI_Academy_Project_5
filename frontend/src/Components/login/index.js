@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [messageEmail, setMessageEmail] = useState("");
+
   const [status, setStatus] = useState(false);
 
   const navigate = useNavigate();
@@ -49,7 +51,7 @@ const Login = () => {
         }
         catch (error) {
           if (error.response && error.response.data) {
-            return setMessage(error.response.data.message);
+           
           }
           setMessage("Error happened while Login, please try again");
         }
@@ -136,9 +138,12 @@ const Login = () => {
         className="text"
           type="email"
           placeholder="الإيميل ..."
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            if(e.target.value == " " || e.target.value =="" || !e.target.value.includes("@") || !e.target.value.includes(".com") ){return setMessageEmail(" @ / .com  يجب أن يحتوي الإيميل على ")}
+            else if(e.target.value != " " && e.target.value !="" && e.target.value.includes("@") && e.target.value.includes(".com")){setMessageEmail("")}
+           else{ setEmail(e.target.value)}}}
         />
-        
+        <p>{messageEmail}</p>
         
         <br />
         <span className="inputs">كلمة السر :</span>
@@ -146,8 +151,14 @@ const Login = () => {
         className="text                                                                 "
           type="password"
           placeholder="كلمة السر ..."
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) =>{ 
+            
+            if(e.target.value.length<4 || e.target.value==" "||e.target.value==""){ return setMessage(" الرجاء إدخال كلمة سر صحيحة لا تقل عن 4 أحرف ")}
+            else if (e.target.value.length>4 && e.target.value!=" "&&e.target.value!=""){setMessage("")}
+            else{
+            setPassword(e.target.value)}}}
         />
+        <p>{message}</p>
 <br />
         
         <br />
@@ -156,6 +167,7 @@ const Login = () => {
 
         <button className="login_button" onClick={(e)=>{
           e.preventDefault()
+
           login()}}>تسجيل الدخول</button>
 
         <br />
@@ -168,12 +180,11 @@ const Login = () => {
           onFailure={loginWithGoogle}
           cookiePolicy={"single_host_origin"}
         /></span>
+         
          </form>
       </div>
 
-      {status
-        ? message && <div className="SuccessMessage">{message}</div>
-        : message && <div className="ErrorMessage">{message}</div>}
+     
     </>
   );
 };
