@@ -5,28 +5,42 @@ import { setMeals } from "../../redux/reducers/meals";
 import { useParams } from "react-router-dom";
 import { changePage } from "../../redux/reducers/page/pageReducer";
 import { Link } from "react-router-dom";
+import Alert from "../Alert/Alert";
+import Error from "../Error/Error";
+import { setMessage } from "../../redux/reducers/message/message";
 
 const GetMealByCategory = () => {
+  const [succeed, setSucceed] = useState(false);
+  const [failed, setFailed] = useState(false);
   const [meal, setMeal] = useState([]);
-  const [message, setMessage] = useState(``);
   const { name } = useParams();
   const dispatch = useDispatch();
-  const { meals, page,token } = useSelector((state) => {
-    return {
-      meals: state.meals.meals,
-      page: state.page.page,
-      token:state.auth.token
-    };
-  });
+  const { meals, page, token, message, totalQuantity } = useSelector(
+    (state) => {
+      return {
+        meals: state.meals.meals,
+        page: state.page.page,
+        token: state.auth.token,
+        message: state.message.message,
+        totalQuantity: state.carts.totalQuantity,
+      };
+    }
+  );
   const addToCart=(meal_id,quantity,price)=>{
     axios.post("http://localhost:5000/cart/add",{meal_id:meal_id,quantity:quantity,total:quantity*price},{
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }).then((result)=>{
-    console.log(result);
+    }).then((result) => {
+      setSucceed(!succeed);
+      dispatch(setMessage("تم اضافة الوجبة الى سلة المشتريات"));
+
+      
     })
-    .catch((err)=>{console.log(err);})
+    .catch((err) => {
+      setFailed(!failed);
+      dispatch(setMessage("الرجاء تسجيل الدخول "));
+    });
     
   } 
 
@@ -50,9 +64,15 @@ const GetMealByCategory = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [page,name]);
+  }, [page,name,succeed,failed]);
   return (
     <div key={"cc"}>
+      <div style={succeed ? { display: "block" } : { display: "none" }}>
+        <Alert />
+      </div>
+      <div style={failed ? { display: "block" } : { display: "none" }}>
+        <Error />
+      </div>
       <h1 style={{"marginRight":"42%","marginTop":"1%"}}>{name}</h1>
       <table>
        
@@ -75,8 +95,8 @@ const GetMealByCategory = () => {
       <div style={{ display: "none" }}>
         {meal?(meal.length = Math.ceil(meal.length / 20)):""}
       </div>
-      <div class="center">
-        <div class="pagination">
+      <div className="center">
+        <div className="pagination">
           <Link
             to="#"
             onClick={() => {

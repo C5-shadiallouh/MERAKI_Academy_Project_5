@@ -5,20 +5,24 @@ import {
 import { RiProductHuntFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {  setMeals } from "../../../../../redux/reducers/meals/index";
 import {MdLocalPharmacy} from "react-icons/md"
 import {BsFillCartCheckFill} from "react-icons/bs"
 import {FaUsers,FaMoneyBillAlt} from "react-icons/fa"
+import cart from "../../../../../redux/reducers/cart/cart";
 
 
 export default function FeaturedInfo() {
   const dispatch = useDispatch();
+  const [allCart,setAllCart]=useState("")
 
-  const { meals,users } = useSelector((state) => {
+  const { meals,users,carts,token } = useSelector((state) => {
     return {
       meals: state.meals.meals,
-      users:state.users.users
+      users:state.users.users,
+      carts:state.carts.carts,
+      token:state.auth.token
     };
   });
   useEffect(() => {
@@ -30,15 +34,30 @@ export default function FeaturedInfo() {
       .catch((err) => {
         console.log(err);
       });
+      axios.get("http://localhost:5000/users/",{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((result)=>{
+        dispatch(setUser(result.data.result))
+      }).catch((err)=>{
+        console.log(err);
+      })
+      axios.get("http://localhost:5000/cart/all",{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((result)=>{
+        setAllCart(result.data.result.length)
+        console.log(allCart);
+      }).catch((err)=>{
+        console.log(err);
+      })
+      
+      
   }, []);
 
-  useEffect(()=>{
-    axios.get("http://localhost:5000/users/").then((result)=>{
-      dispatch(setUser(result.data.result))
-    }).catch((err)=>{
-      console.log(err);
-    })
-  },[])
+  
   return (
     <div className="featured">
       <div className="featuredItem">
@@ -59,7 +78,7 @@ export default function FeaturedInfo() {
         <div className="featuredMoneyContainer">
         <br/>
           <br/>
-          <span className="featuredMoney">2سلة</span>
+          <span className="featuredMoney">{allCart}</span>
           <br/>
           <br/>
           <span className="featuredMoneyRate">

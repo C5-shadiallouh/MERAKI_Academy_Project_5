@@ -20,6 +20,7 @@ const Cart = () => {
   );
   const [show, setShow] = useState("");
   const [el_id, setEl_id] = useState("");
+  const [state, setState] = useState(false);
   const total = () => {
     console.log(token);
     axios
@@ -49,6 +50,7 @@ const Cart = () => {
       )
       .then((result) => {
         dispatch(setQuantity(quantity));
+        
       })
       .catch((err) => {
         console.log(err);
@@ -58,7 +60,7 @@ const Cart = () => {
     axios
       .delete(
         `http://localhost:5000/cart/delete/${id}`,
-        
+
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -66,15 +68,14 @@ const Cart = () => {
         }
       )
       .then((result) => {
-        dispatch(setQuantity(quantity));
+        dispatch(setTotal(total));
+        
       })
       .catch((err) => {
-        console.log(err);
+        dispatch(setCart([]));
       });
   };
-  
-
-  useEffect(() => {
+  const getCart = () => {
     axios
       .get(`http://localhost:5000/cart`, {
         headers: {
@@ -82,13 +83,21 @@ const Cart = () => {
         },
       })
       .then((result) => {
-        if (result.data.result) dispatch(setCart(result.data.result));
+        if(result.data.success)
+        dispatch(setCart(result.data.result));
+        else if (result.data.message == "there is not any meal"){
+          dispatch(setCart([]));
+        }
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  useEffect(() => {
+    getCart();
     total();
-  }, [totalQuantity,carts]);
+  }, [state, totalQuantity, totalAmount]);
   return (
     <div>
       <h3>سلة التسوق</h3>
@@ -105,7 +114,6 @@ const Cart = () => {
               </tr>
               {carts.map((element) => {
                 return (
-                  
                   <tr key={element.id}>
                     <td>
                       <img src={element.image} width="100px" />
@@ -113,18 +121,19 @@ const Cart = () => {
                     <td>{element.meal_name}</td>
                     <td>
                       <input
-                      className="quantity_input"
+                        className="quantity_input"
                         type={"number"}
                         min={1}
                         defaultValue={element.quantity}
                         onChange={(e) => {
-                          
-                          if (e.target.value.includes("-")|| e.target.value=="0") {
+                          if (
+                            e.target.value.includes("-") ||
+                            e.target.value == "0"
+                          ) {
                             setEl_id(element.id);
-                          return setShow("لا يمكنك ادخال قيمة سالبة");
-                          }
-                          else{
-                            setShow("")
+                            return setShow("لا يمكنك ادخال قيمة سالبة");
+                          } else {
+                            setShow("");
                           }
 
                           dispatch(setQuantity(e.target.value));
@@ -136,26 +145,26 @@ const Cart = () => {
                           );
                         }}
                       />
-                      <button onClick={()=>{
-                        removeFromCart(element.id)
-                      }}>حذف من سلة المشتريات</button>
+                      <button
+                        onClick={() => {
+                          removeFromCart(element.id);
+                        }}
+                      >
+                        حذف من سلة المشتريات
+                      </button>
                       {element.id == el_id ? <p> {show} </p> : ""}
                     </td>
                     <td>{element.meal_price}</td>
 
                     <td>
-                      {(element.meal_price * element.quantity).toFixed(2)
-                      }
+                      {(element.meal_price * element.quantity).toFixed(2)}
                     </td>
-                    
                   </tr>
-                  
                 );
               })}
             </tbody>
-           
           </table>
-          
+
           {totalAmount ? (
             <div>
               <h1>المبلغ الاجمالي: {totalAmount} دينار</h1>

@@ -11,7 +11,7 @@ const {isAdmin}=useSelector((state)=>{
 })
     return(
     <div className="mainpage">
-{isAdmin ? (<SideBar/>):("")}
+
    
     </div>
 )
