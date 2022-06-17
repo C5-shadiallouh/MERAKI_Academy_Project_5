@@ -275,22 +275,53 @@ const addRate = (req, res) => {
   const meal_id = req.params.id;
   console.log(req.token);
   const rater = req.token.user_id;
-  const rate = req.body;
-  const query = `INSERT INTO rating (rating, rater, meal_id) VALUES (?,?,?);`;
-  const data = [rate, rater, meal_id];
+  const rate = req.body.rate;
+  const query = `SELECT *  FROM rating Where meal_id=? AND rater=?;`;
+
+  
+  const data = [meal_id,rater];
   connection.query(query, data, (err, result) => {
     if (err) {
-      res.status(500).json({
+     return res.status(500).json({
         success: false,
         massage: "Server error",
         err: err,
       });
     }
-    res.status(200).json({
-      success: true,
-      massage: "rate added",
-      result: result,
-    });
+   
+    if(!result.length)
+   {
+    console.log("Aaaaaaaaaaaaaaaaaaa");
+    const query = `INSERT INTO rating (rate, rater, meal_id) VALUES (?,?,?);`;
+    const data = [rate, rater, meal_id];
+    connection.query(query, data, (err, result) => {
+      if (err) {
+        return res.status(500).json({
+          success: false,
+          massage: "Server error",
+          err: err,
+        });
+      }
+      res.status(201).json(result)
+    
+    })
+   }
+   else{
+    const query = `UPDATE rating set rate=? WHERE rater=? AND meal_id=? `;
+    const data = [rate, rater, meal_id];
+    connection.query(query, data, (err, result) => {
+      if (err) {
+        return res.status(500).json({
+          success: false,
+          massage: "Server error",
+          err: err,
+        });
+      }
+      res.status(201).json(result)
+    
+    })
+
+   }
   });
 };
 
@@ -358,7 +389,7 @@ const updateRate = (req, res) => {
 
 const getRates = (req, res) => {
   const meal_id = req.params.id;
-  const query = `SELECT AVG(rate) AS AverageRate FROM rating;`;
+  const query = `SELECT AVG(rate) AS AverageRate FROM rating Where meal_id=?;`;
   const data = [meal_id];
   connection.query(query, data, (err, result) => {
     if (err) {
@@ -374,6 +405,25 @@ const getRates = (req, res) => {
       message: "All the rates",
       result,
     });
+  });
+};
+const getterRates = (req, res) => {
+  const meal_id = req.params.id;
+  const user_id = req.token.user_id
+  const query = `SELECT *  FROM rating Where meal_id=? AND rater=?;`;
+  const data = [meal_id,user_id];
+  connection.query(query, data, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+        err,
+      });
+    }
+
+    res.status(200).json(
+      result
+    );
   });
 };
 
@@ -393,4 +443,5 @@ module.exports = {
   deleteRate,
   getRates,
   updateRate,
+  getterRates,
 };

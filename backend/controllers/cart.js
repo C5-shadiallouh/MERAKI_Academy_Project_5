@@ -107,7 +107,8 @@ const deleteFromCart = (req, res) => {
 
 const getCart = (req, res) => {
   const user_id=req.token.user_id
-  const query = `SELECT meals.meal_name,meals.meal_price,meals.image ,cart.quantity,cart.id FROM meals INNER JOIN cart ON cart.meal_id=meals.id  WHERE cart.is_deleted=0 AND user_id=?;`;
+  const query = `SELECT meals.meal_name,meals.meal_price,meals.image ,cart.* FROM cart INNER JOIN meals ON cart.meal_id=meals.id WHERE
+   cart.is_deleted=0 and user_id=?`;
   const data=[user_id]
   connection.query(query,data, (err, result) => {
     if (err) {
@@ -117,7 +118,7 @@ const getCart = (req, res) => {
         err,
       });
     }
-
+    
     if (result.length !== 0) {
       return res.status(200).json({
         success: true,
@@ -126,9 +127,33 @@ const getCart = (req, res) => {
       });
     }
 
-    res.status(404).json({
-      message: `there is not any meal`,
-    });
+    res.status(404).json(
+      result);
+  });
+};
+const getAllCart = (req, res) => {
+  const role_id =req.token.role_id
+  console.log(role_id);
+  const query = `SELECT * FROM cart WHERE is_deleted=0`;
+  connection.query(query, (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+        err,
+      });
+    }
+    
+    if (result.length !== 0 && role_id==1) {
+      return res.status(200).json({
+        success: true,
+        message: "All the Meals",
+        result,
+      });
+    }
+
+    res.status(404).json(
+      result);
   });
 };
 
@@ -247,7 +272,8 @@ module.exports = {
   deleteFromCart,
   removeAll,
   updateById,
-  total
+  total,
+  getAllCart
 
   /* subTotal */
 };
