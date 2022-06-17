@@ -15,7 +15,6 @@ import UserList from "./Components/AdminPanel/Component/UserList/UserList";
 import MealList from "./Components/AdminPanel/MealList/MealList";
 import NewProduct from "./Components/AdminPanel/Component/AddProduct/AddProduct";
 import NewUser from "./Components/AdminPanel/Component/AddUser/AddUser";
-import ChartLine from "./Components/AdminPanel/Charts/Line/Line";
 import Analytic from "./Components/AdminPanel/Component/Analytic/Analytic";
 function App() {
   return <div className="App">
@@ -38,7 +37,6 @@ function App() {
     <Route path="/chart" element={<Analytic/>}/>
 
 
-    <Route path="/f" element={<ChartLine/>}/>
 
 
 

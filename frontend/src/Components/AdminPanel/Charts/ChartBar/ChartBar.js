@@ -34,22 +34,20 @@ const ChartBar = () => {
 
   useEffect(() => {
     let name = [];
-    let price = [];
     axios
       .get(`http://localhost:5000/meals`)
       .then((result) => {
         result.data.result.map((element) => {
           console.log(element);
           name.push(element.meal_name);
-          price.push(element.meal_price);
         });
         setChartData({
-          labels: name,
+          labels:["","max"],
 
           datasets: [
             {
-              label: "السعر",
-              data: price,
+              label: "عدد الاشخاص في الموقع",
+              data:  [0,name.length],
               backgroundColor: [
                 "rgba(255, 99, 132, 0.2)",
                 "rgba(54, 162, 235, 0.2)",
@@ -107,20 +105,21 @@ const ChartBar = () => {
           ],
         });
 
-        console.log(name);
-        console.log(price);
+       
       })
       .catch((err) => {
         alert(err);
       });
   }, []);
   return (
-  <div>
+  <div  className="ccchart">
+      <h3> عدد زوار الموقع</h3>
+
 
       {
         <>
           {
-            <Bar className="cchart"
+            <Bar
               data={chartData}
               options={{
                 title: {

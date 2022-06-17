@@ -110,3 +110,10 @@ nav .menu{
       border-radius: 50%;
       cursor: pointer;
   }
+  @media screen and (max-width: 1073px) {
+ 
+  
+    .topbar{
+     width:20px
+  }
+  }

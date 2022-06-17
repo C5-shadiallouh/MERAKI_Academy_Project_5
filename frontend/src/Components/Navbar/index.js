@@ -152,7 +152,7 @@ const Navbar = () => {
       </div>
       
     </nav>
- </div> ): (<div className="topbar">
+ </div> ): (<div className="topbar" style={{width:"80%",position:"absolute", left:"0%"}}>
       <div className="topbarWrapper">
         <div className="topLeft">
           

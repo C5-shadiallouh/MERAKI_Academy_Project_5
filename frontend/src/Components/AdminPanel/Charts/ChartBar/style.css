@@ -1,15 +1,59 @@
-.cchart {
-    margin: 20px;
-    padding: 20px;
-    position: absolute;
-    right: 0rem;
-    height: 100rem;
-    width: 40rem;
-    bottom: 0rem;
-    right: 8%;
-  }
-  
-  .cchartTitle {
-    margin-bottom: 20px;
-  }
+.ccchart {
+  margin: 20px;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  position: absolute;
+  left: 0rem;
+  bottom:-9%;
+  height: 30rem;
+  width: 37rem;
+}
 
+.cchartTitle {
+  margin-bottom: 20px;
+}
+
+/* media */
+@media screen and (max-width: 1454px) {
+ 
+  
+  .ccchart{
+   position:absolute;
+ top: 0%;
+ left: 0%;
+}
+}
+
+@media screen and (max-width: 827px) {
+ 
+  
+  .ccchart{
+   position:absolute;
+ top: 0%;
+ left: 0%;
+ width:30rem ;
+}
+}
+
+@media screen and (max-width: 1438px) {
+ 
+  
+  .ccchart{
+   position:absolute;
+ top: 10%;
+ left: 25%;
+ width:30rem ;
+}
+}
+
+@media screen and (max-width: 1044px) {
+ 
+  
+  .ccchart{
+   position:absolute;
+ top: 10%;
+ left: 0%;
+ width:30rem ;
+}
+}

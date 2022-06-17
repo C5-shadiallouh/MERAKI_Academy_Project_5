@@ -19,6 +19,7 @@
   position: absolute;
   right: 12rem;
 }
+/* media */
   .in{
     height: 1rem;
     width: 18rem;
@@ -94,8 +95,10 @@
   .featureduser {
     display: flex;
     position: absolute;
-    top:4%;
+    top:8%;
     right: 22%;
+    background-size: cover;
+    box-shadow: 0px 30px 60px -5px #000;
   }
   
   .featuredItemuser {
@@ -144,3 +147,29 @@
   }
 
   
+  @media only screen and (max-width: 1351px) {
+    .featureduser{
+      position: absolute;
+      top:60%;
+      right: 50%;
+    }
+    .newUser{
+      position: absolute;
+      right: 50%;
+    }
+    
+ }
+
+ @media only screen and (max-width: 941px) {
+  .newUser{
+    position: absolute;
+    left:20%;
+    right: 50%;
+  }
+  .featureduser{
+    position: absolute;
+    left: 0%;
+    width: 80%;
+  }
+  
+}

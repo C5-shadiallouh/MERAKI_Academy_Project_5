@@ -19,7 +19,7 @@ import {
   FiUserPlus
 } from "react-icons/fi";
 import {MdLocalPharmacy} from "react-icons/md"
-import ChartLine from "../../Charts/Line/Line";
+import Circle from "../../Charts/Circle/Circle"
 import FeaturedInfo from "./Featured/Featured";
 import { logout } from "../../../../redux/reducers/auth";
 import { useDispatch } from "react-redux";
@@ -84,11 +84,10 @@ const Dashboard = () => {
               
             </Menu>
         </ProSidebar>
-        <div >
           <FeaturedInfo/>
-          <ChartLine />
+          <Circle/>
+
           <NewUsers/>
-        </div>
       </div>
     </>
   );

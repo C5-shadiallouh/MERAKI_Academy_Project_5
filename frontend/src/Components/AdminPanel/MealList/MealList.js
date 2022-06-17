@@ -7,11 +7,13 @@ import { IconButton } from '@mui/material'
 import axios from 'axios'
 import SideBar from '../Component/Dashboard/SideBar/SideBar'
 import {AiOutlineEdit} from "react-icons/ai"
-
+import Confirmation from '../Confirmation/Confirmation'
 
 const MealList = () => {
   const[isDeleted,setIsDeleted]=useState(false)
   const [tableData, setTableData] = useState([])
+  const [confirmation,setConfirmation]=useState({message:"",
+isLoading:false})
   const {token,user}=useSelector((state)=>{
     return{
       token:state.auth.token,
@@ -20,6 +22,10 @@ const MealList = () => {
     }
   })
   const deleteUser=(id)=>{
+    setConfirmation({
+      message:"هل انت متأكد من عملية الحذف؟",
+      isLoading:true
+    })
     axios.delete(`http://localhost:5000/meals/delete/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -49,6 +55,7 @@ const MealList = () => {
               
             />
             </IconButton>
+          {Confirmation.isLoading &&<Confirmation message={Confirmation.message}/>}  
           </>
         );
       },
