@@ -118,6 +118,20 @@ nav .menu{
 .dropdown{
   padding-top: 5%;
   
+  .topAvatar{
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+  }
+  @media screen and (max-width: 1073px) {
+ 
+  
+    .topbar{
+     width:20px
+  }
+  }
+
 
 
 }

@@ -2,7 +2,7 @@ import ChartBar from "../../Charts/ChartBar/ChartBar";
 import { Publish } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import "./style.css";
-import {RiProductHuntFill} from "react-icons/ri"
+import { RiProductHuntFill } from "react-icons/ri";
 
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -55,9 +55,12 @@ const Edit = () => {
     <div>
       <SideBar />
 
-      <div className="newUser">
+      <div className="newmeal">
         <div>
-          <h1 className="newUserTitle"> التسلسلي تعديل بيانات الوجبة ذات الرقم {id} </h1>
+          <h1 className="newUserTitle">
+            {" "}
+            التسلسلي تعديل بيانات الوجبة ذات الرقم {id}{" "}
+          </h1>
         </div>
         <form className="newUserForm" onSubmit={handleEditMeal}>
           <div className="newUserItem">
@@ -101,6 +104,7 @@ const Edit = () => {
         </form>
       </div>
 
+
       <div className="featureduser">
         <div className="featuredItemuser">
           <span className="featuredTitleuser"> عدد الوجبات الاجمالي</span>
@@ -112,8 +116,7 @@ const Edit = () => {
           <span className="featuredSubuser">{meals.length} وجبة</span>
         </div>
       </div>
-      <div className="cchart">
-      </div>
+     
     </div>
   );
 };

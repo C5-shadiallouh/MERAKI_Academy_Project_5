@@ -1,9 +1,10 @@
-import {React,useState,useEffect} from "react";
+import "./style.css"
+
+import { React, useState, useEffect } from "react";
 import axios from "axios";
 import { Pie, Doughnut } from "react-chartjs-2";
-import {Chart, ArcElement} from 'chart.js'
+import { Chart, ArcElement } from "chart.js";
 Chart.register(ArcElement);
-
 /* const state = {
   labels: ["January", "February", "March", "April", "May"],
   datasets: [
@@ -37,15 +38,15 @@ const Circle = () => {
         result.data.result.map((element) => {
           console.log(element);
           name.push(element.meal_name);
-          price.push(element.meal_price);
+          price.push(element.category_id);
         });
         setChartData({
-          labels: name,
+          labels: ["فلافل","حمص","فتة شامية"],
 
           datasets: [
             {
               label: "السعر",
-              data: price,
+              data: [30,50,20],
               backgroundColor: [
                 "rgba(255, 99, 132, 0.2)",
                 "rgba(54, 162, 235, 0.2)",
@@ -111,9 +112,14 @@ const Circle = () => {
       });
   }, []);
   return (
-    <div className="circle" style={{width:"30%" ,height:"30%",position:"absolute",left:"0%"}}>
+    <div className="circlen" style={{position:"absolute",right:"19rem" ,bottom:"17rem" ,height:"10rem"}}
+     
+    >
+      <h2 style={{ position: "absolute", left: "20%" }}>الاصناف الاكثر مبيعا</h2>
+      <br/>
+      <br/>
       <Pie
-        data={chartData}
+        data={chartData} className="ccn" style={{height:"25rem", width:"25rem"}}
         options={{
           title: {
             display: true,
@@ -122,32 +128,13 @@ const Circle = () => {
           },
           legend: {
             display: true,
-            position: "right",
           },
         }}
       />
-      <br/>
-<h2 style={{position:"absolute" ,left:"20%"}}>تحليل كمية المبيعات</h2>
-<br/>
-<br/>
-      <Doughnut
-        data={chartData}
-        options={{
-          title: {
-            display: true,
-            text: "معدل التسجيل في الموقع  ",
-            fontSize: 20,
-          },
-          legend: {
-            display: true,
-            position: "right",
-          },
-        }}
-      />
-      <br/>
-      <h2 style={{position:"absolute" ,left:"25%"}}>تحليل عدد الزوار</h2>
+      <br />
+      
+      
     </div>
-    
   );
 };
 

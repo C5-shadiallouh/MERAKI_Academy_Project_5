@@ -3,14 +3,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { addNewMeal, setMeals } from "../../../../redux/reducers/meals/index";
-import ChartBar from "../../Charts/ChartBar/ChartBar";
 import { RiProductHuntFill } from "react-icons/ri";
 import {
-  CalendarToday,
-  LocationSearching,
-  MailOutline,
-  PermIdentity,
-  PhoneAndroid,
+
   Publish,
 } from "@material-ui/icons";
 import SideBar from "../Dashboard/SideBar/SideBar";
@@ -118,7 +113,7 @@ const NewProduct=()=> {
           <span className="featuredSubuser">{meals.length} وجبة</span>
         </div>
       </div>
-      
+
     </div>
   );
 };

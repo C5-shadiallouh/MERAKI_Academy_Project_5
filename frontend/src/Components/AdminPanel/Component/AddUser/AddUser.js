@@ -3,7 +3,6 @@ import "./style.css";
 import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import ChartBar from "../../Charts/ChartBar/ChartBar";
 import {
   addUser,
   setUser,
@@ -113,8 +112,7 @@ const NewUser = () => {
           <span className="featuredSubuser">{users.length}</span>
         </div>
       </div>
-      < div className="cchart">
-      </div>
+
     </div>
   );
 };

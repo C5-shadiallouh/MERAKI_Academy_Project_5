@@ -52,7 +52,6 @@ const Navbar = () => {
             }}
           />
         </div>
-
         <nav>
           <div className="menu">
             <div className="dropdown">

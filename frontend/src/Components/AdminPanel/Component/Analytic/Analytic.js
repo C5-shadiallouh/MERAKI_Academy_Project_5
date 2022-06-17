@@ -7,6 +7,7 @@ const Analytic=()=>{
     return (
         <div  className="analytic">
             <SideBar/>
+
             <div className="ccline">
             <ChartLine/>
             </div>
@@ -17,3 +18,4 @@ const Analytic=()=>{
     )
 }
 export default Analytic
+/* media */
