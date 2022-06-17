@@ -103,6 +103,20 @@ const Edit = () => {
           <button className="newUserButton">اضافة</button>
         </form>
       </div>
+
+
+      <div className="featureduser">
+        <div className="featuredItemuser">
+          <span className="featuredTitleuser"> عدد الوجبات الاجمالي</span>
+          <div className="featuredMoneyContaineruser">
+            <span className="featuredMoneyuser">
+              <RiProductHuntFill />
+            </span>
+          </div>
+          <span className="featuredSubuser">{meals.length} وجبة</span>
+        </div>
+      </div>
+     
     </div>
   );
 };

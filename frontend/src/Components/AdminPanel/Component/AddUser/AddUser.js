@@ -112,7 +112,7 @@ const NewUser = () => {
           <span className="featuredSubuser">{users.length}</span>
         </div>
       </div>
-      
+
     </div>
   );
 };

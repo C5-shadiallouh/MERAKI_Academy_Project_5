@@ -113,7 +113,9 @@ const ChartBar = () => {
   }, []);
   return (
   <div  className="ccchart">
+
       <h3> عدد زوار الموقع</h3>
+
 
 
       {

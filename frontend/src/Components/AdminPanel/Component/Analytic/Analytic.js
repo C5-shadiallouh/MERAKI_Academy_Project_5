@@ -7,7 +7,7 @@ const Analytic=()=>{
     return (
         <div  className="analytic">
             <SideBar/>
-            <div className="mmm"><h2>hksnsn</h2></div>
+
             <div className="ccline">
             <ChartLine/>
             </div>

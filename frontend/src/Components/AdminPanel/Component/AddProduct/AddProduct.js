@@ -113,8 +113,7 @@ const NewProduct=()=> {
           <span className="featuredSubuser">{meals.length} وجبة</span>
         </div>
       </div>
-      < div className="cchart">
-      </div>
+
     </div>
   );
 };
