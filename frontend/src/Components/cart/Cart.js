@@ -21,6 +21,7 @@ const Cart = () => {
   const [show, setShow] = useState("");
   const [el_id, setEl_id] = useState("");
   const total = () => {
+    console.log(token);
     axios
       .get(`http://localhost:5000/cart/total`, {
         headers: {
@@ -53,6 +54,25 @@ const Cart = () => {
         console.log(err);
       });
   };
+  const removeFromCart = (id, quantity, total) => {
+    axios
+      .delete(
+        `http://localhost:5000/cart/delete/${id}`,
+        
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((result) => {
+        dispatch(setQuantity(quantity));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  
 
   useEffect(() => {
     axios
@@ -68,7 +88,7 @@ const Cart = () => {
         console.log(err);
       });
     total();
-  }, [totalQuantity]);
+  }, [totalQuantity,carts]);
   return (
     <div>
       <h3>سلة التسوق</h3>
@@ -99,8 +119,7 @@ const Cart = () => {
                         defaultValue={element.quantity}
                         onChange={(e) => {
                           
-                          if (e.target.value.includes("-")|| e.target.value==0) {
-                            console.log("dsdsds");
+                          if (e.target.value.includes("-")|| e.target.value=="0") {
                             setEl_id(element.id);
                           return setShow("لا يمكنك ادخال قيمة سالبة");
                           }
@@ -117,6 +136,9 @@ const Cart = () => {
                           );
                         }}
                       />
+                      <button onClick={()=>{
+                        removeFromCart(element.id)
+                      }}>حذف من سلة المشتريات</button>
                       {element.id == el_id ? <p> {show} </p> : ""}
                     </td>
                     <td>{element.meal_price}</td>

@@ -3,7 +3,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import CheckoutForm from "./form";
-
+import "./style.css"
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
 // This is a public sample test API key.
@@ -45,7 +45,7 @@ export default function PAyment() {
   };
 
   return (
-    <div className="App">
+    <div className="card">
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm />
