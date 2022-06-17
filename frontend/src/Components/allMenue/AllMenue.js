@@ -82,7 +82,7 @@ const AllMenue = (req, res) => {
 
       <h1 style={{ marginRight: "42%", marginTop: "1%" }}>جميع الأصناف</h1>
 
-      <table>
+      <table className="menu">
         <thead>
           <tr>
             <th>صورة الصنف</th>
@@ -97,14 +97,14 @@ const AllMenue = (req, res) => {
             meals.map((meal, index) => {
               return (
                 <tr key={meal.id}>
-                  <td key={`tabledata${meal.id}`}>
+                  <td  key={`tabledata${meal.id}`}>
                     <Link
                       to={`/meals/${meal.id}`}
                       onClick={() => {
                         dispatch(changePage(1));
                       }}
                     >
-                      <img
+                      <img className="scale"
                         src={meal.image}
                         alt=""
                         key={meal.id}
@@ -115,7 +115,7 @@ const AllMenue = (req, res) => {
                   <td key={meal.meal_name}>{meal.meal_name}</td>
                   <td key={meal.meal_price}>{meal.meal_price}</td>
                   <td>
-                    <button
+                    <button className="addToCart"
                       onClick={() => {
                         console.log(meal.id);
                         addToCart(meal.id, 1, meal.meal_price, true);
@@ -140,6 +140,7 @@ const AllMenue = (req, res) => {
             onClick={() => {
               if (page < meal.length) {
                 dispatch(changePage(page + 1));
+                window.scrollTo(0, 10);
               }
             }}
           >
@@ -154,6 +155,8 @@ const AllMenue = (req, res) => {
                     to=""
                     onClick={() => {
                       dispatch(changePage(index + 1));
+                      window.scrollTo(0, 10);
+
                     }}
                   >
                     {index + 1}
@@ -166,6 +169,8 @@ const AllMenue = (req, res) => {
             onClick={() => {
               if (page > 1) {
                 dispatch(changePage(page - 1));
+                window.scrollTo(0, 10);
+
               }
             }}
           >
