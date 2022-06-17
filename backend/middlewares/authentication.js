@@ -8,6 +8,7 @@ const authentication = (req, res, next) => {
   jwt.verify(token, process.env.SECRET, (err, result) => {
     if (err) {
       return res.status(403).json(err);
+      
     }
     req.token = result;
     next();

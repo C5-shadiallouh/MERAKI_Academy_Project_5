@@ -75,10 +75,11 @@ const addToCart = (req, res) => {
 
 const deleteFromCart = (req, res) => {
   const { id} = req.params;
+  const token =req.token.user_id
 
-  const query = `UPDATE cart SET is_deleted=1 WHERE  id = ? `;
+  const query = `UPDATE cart SET is_deleted=1 WHERE  id = ? AND user_id=? `;
 
-  const data = [id];
+  const data = [id,token];
 
   connection.query(query, data, (err, result) => {
     console.log(result)
@@ -105,8 +106,10 @@ const deleteFromCart = (req, res) => {
 };
 
 const getCart = (req, res) => {
-  const query = `SELECT meals.meal_name,meals.meal_price,meals.image ,cart.quantity,cart.id FROM meals RIGHT JOIN cart ON cart.meal_id=meals.id  WHERE meals.is_deleted=0 ;`;
-  connection.query(query, (err, result) => {
+  const user_id=req.token.user_id
+  const query = `SELECT meals.meal_name,meals.meal_price,meals.image ,cart.quantity,cart.id FROM meals INNER JOIN cart ON cart.meal_id=meals.id  WHERE cart.is_deleted=0 AND user_id=?;`;
+  const data=[user_id]
+  connection.query(query,data, (err, result) => {
     if (err) {
       return res.status(500).json({
         success: false,

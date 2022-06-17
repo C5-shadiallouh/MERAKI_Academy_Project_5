@@ -17,10 +17,10 @@ const cartRouter = express.Router();
 /* cartRouter.put(`/subtotal`, subTotal);
  */ cartRouter.put(`/totalPrice`, totalPrice);
 cartRouter.post(`/add`, authentication, addToCart);
-cartRouter.get(`/`, getCart);
+cartRouter.get(`/`,authentication, getCart);
 cartRouter.delete(`/removeAll`,authentication, removeAll);
 cartRouter.put(`/update/:id`,authentication,updateById)
 cartRouter.get(`/total`,authentication,total)
-cartRouter.delete(`/delete/:id`, deleteFromCart);
+cartRouter.delete(`/delete/:id`,authentication, deleteFromCart);
 
 module.exports = cartRouter;
