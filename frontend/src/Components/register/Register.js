@@ -67,7 +67,7 @@ return (
                else{   
                   setFirstName(e.target.value)}}}
               />
-              <p>{messagefName}</p>
+              <p className="messageP">{messagefName}</p>
               <br />
               
               <input
@@ -79,7 +79,7 @@ return (
             else if(e.target.value!=" " && !e.target.value.includes(" ")){return setMessagelName("")}
                      else{   setLastName(e.target.value)}}}
               />
-              <p>{messagelName}</p>
+              <p className="messageP">{messagelName}</p>
               <br />
               <input
                 type="text"
@@ -91,7 +91,7 @@ return (
                      else{  setCity(e.target.value)}}}
               />
               <br />
-             <p>{messageCity}</p>
+             <p className="messageP">{messageCity}</p>
               <input
                 type="email"
                 className="text"
@@ -101,7 +101,7 @@ return (
                   else if(e.target.value != " " && e.target.value !="" && e.target.value.includes("@") && e.target.value.includes(".com")){setMessageEmail("")}
                      else{  setEmail(e.target.value)}}}
               />
-              <p>{messageEmail}</p>
+              <p className="messageP">{messageEmail}</p>
               <br />
               <input
                 type="password"
@@ -112,7 +112,7 @@ return (
             else if (e.target.value.length>4 && e.target.value!=" "&&e.target.value!=""){setMessage("")}
                      else{   setPassword(e.target.value)}}}
               />
-              <p>{message}</p>
+              <p className="messageP">{message}</p>
               <br />
 
               <button className="login_button">تسجيل</button>

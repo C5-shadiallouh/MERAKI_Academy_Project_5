@@ -43,7 +43,7 @@ const Filter = () => {
       {filtered.length
         ? filtered.map((element) => {
             return (
-              <p
+              <p className="searchRes"
                 onClick={() => {
                     setInputVal("")
                   navigate(`/meals/${element.id}`);

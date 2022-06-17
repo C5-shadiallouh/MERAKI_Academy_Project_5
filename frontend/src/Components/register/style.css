@@ -49,7 +49,10 @@
      opacity: 0.6;
      }
   
-  
+  p.messageP{
+    font-size: 15px;
+    color: rgb(182, 63, 63);
+  }
   
   .login_button {
     background-color: #70b269;

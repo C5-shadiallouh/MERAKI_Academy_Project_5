@@ -143,7 +143,7 @@ const Login = () => {
             else if(e.target.value != " " && e.target.value !="" && e.target.value.includes("@") && e.target.value.includes(".com")){setMessageEmail("")}
            else{ setEmail(e.target.value)}}}
         />
-        <p>{messageEmail}</p>
+        <p className="messageP">{messageEmail}</p>
         
         <br />
         <span className="inputs">كلمة السر :</span>
@@ -158,7 +158,7 @@ const Login = () => {
             else{
             setPassword(e.target.value)}}}
         />
-        <p>{message}</p>
+        <p className="messageP">{message}</p>
 <br />
         
         <br />
