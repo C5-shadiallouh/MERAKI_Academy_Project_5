@@ -13,16 +13,16 @@ const AddMeal = () => {
   const [status, setStatus] = useState(false);
 
   const handleAddMeale = () => {
-    
-   
-    
     try {
-      const res = axios.post(`http://localhost:5000/meals/addmeal`, {
-        meal_name,
-        meal_price,
-        image,
-        category,
-      });
+      const res = axios.post(
+        `https://abedhamadarestaurant.herokuapp.com/meals/addmeal`,
+        {
+          meal_name,
+          meal_price,
+          image,
+          category,
+        }
+      );
       if (res) {
         setStatus(true);
         setMessage("تم اضافة وجبة جديدة الى القائمة");
@@ -73,7 +73,8 @@ const AddMeal = () => {
         <input
           placeholder="image"
           type={"file"}
-          accept="image/png, image/jpeg, image/jpg" name="image" 
+          accept="image/png, image/jpeg, image/jpg"
+          name="image"
           onChange={(e) => {
             setImage(e.target.value);
           }}

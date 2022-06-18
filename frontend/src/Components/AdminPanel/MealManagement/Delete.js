@@ -20,7 +20,9 @@ const MealManagement = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/meals/paginated?p=${page}`)
+      .get(
+        `https://abedhamadarestaurant.herokuapp.com/meals/paginated?p=${page}`
+      )
       .then((result) => {
         dispatch(setMeals(result.data.products));
       })
@@ -28,7 +30,7 @@ const MealManagement = () => {
         setMessage(err.sqlMessage);
       });
     axios
-      .get("http://localhost:5000/meals")
+      .get("https://abedhamadarestaurant.herokuapp.com/meals")
       .then((result) => {
         setMeal(result.data.result);
       })
@@ -39,7 +41,7 @@ const MealManagement = () => {
 
   const handleRemoveFromCart = (id) => {
     axios
-      .delete(`http://localhost:5000/meals/delete/${id}`)
+      .delete(`https://abedhamadarestaurant.herokuapp.com/meals/delete/${id}`)
       .then((result) => {
         dispatch(deleteMeal(id));
       })

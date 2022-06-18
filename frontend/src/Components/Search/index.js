@@ -14,53 +14,53 @@ const Filter = () => {
   });
   const [filtered, setFiltered] = useState([]);
   const [inputVal, setInputVal] = useState("");
-  const [filteredMeals,setFilteredMeals]=useState([])
-  const [isClicked,setIsCLicked]=useState(false)
+  const [filteredMeals, setFilteredMeals] = useState([]);
+  const [isClicked, setIsCLicked] = useState(false);
   useEffect(() => {
-    axios.get("http://localhost:5000/meals").then((result) => {
-        setFilteredMeals(result.data.result)
-    });
+    axios
+      .get("https://abedhamadarestaurant.herokuapp.com/meals")
+      .then((result) => {
+        setFilteredMeals(result.data.result);
+      });
   }, [isClicked]);
   return (
     <div className="dropdown">
       <div className="dropInput">
-           
-      <input
-      className="search_input"
-      placeholder="إبحث هنا ..."
-        value={inputVal}
-        onChange={(e) => {
-          setInputVal(e.target.value);
-          setFiltered(
-            filteredMeals.filter((element) => {
-              if (e.target.value != "")
-                return element.meal_name.includes(e.target.value);
-            })
-          );
-        }}
-      />
-    <div className="searchResult">
-      {filtered.length
-        ? filtered.map((element) => {
-            return (
-              <p className="searchRes"
-                onClick={() => {
-                    setInputVal("")
-                  navigate(`/meals/${element.id}`);
-                  window.location.reload(false);
-
-                  setFiltered("")
-                  
-                  
-                }}
-              >
-                {element.meal_name}
-              </p>
+        <input
+          className="search_input"
+          placeholder="إبحث هنا ..."
+          value={inputVal}
+          onChange={(e) => {
+            setInputVal(e.target.value);
+            setFiltered(
+              filteredMeals.filter((element) => {
+                if (e.target.value != "")
+                  return element.meal_name.includes(e.target.value);
+              })
             );
-          })
-        : ""}
+          }}
+        />
+        <div className="searchResult">
+          {filtered.length
+            ? filtered.map((element) => {
+                return (
+                  <p
+                    className="searchRes"
+                    onClick={() => {
+                      setInputVal("");
+                      navigate(`/meals/${element.id}`);
+                      window.location.reload(false);
+
+                      setFiltered("");
+                    }}
+                  >
+                    {element.meal_name}
+                  </p>
+                );
+              })
+            : ""}
         </div>
-    </div>
+      </div>
     </div>
   );
 };

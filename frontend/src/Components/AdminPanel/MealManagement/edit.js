@@ -1,5 +1,5 @@
 import axios from "axios";
-import {  useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { updateMeal } from "../../../redux/reducers/meals";
@@ -16,11 +16,14 @@ const Edit = () => {
 
   const handleEditMeal = () => {
     try {
-      const res = axios.put(`http://localhost:5000/meals/update/${id}`, {
-        meal_name,
-        meal_price,
-        image,
-      });
+      const res = axios.put(
+        `https://abedhamadarestaurant.herokuapp.com/meals/update/${id}`,
+        {
+          meal_name,
+          meal_price,
+          image,
+        }
+      );
       if (res) {
         setStatus(true);
         setMessage("تم تعديل الوجبة   ");
@@ -39,7 +42,7 @@ const Edit = () => {
       }
       setMessage("حدث خطأ ..الرجاء المحاولة مرة اخرى");
     }
-  }; 
+  };
 
   return (
     <div>

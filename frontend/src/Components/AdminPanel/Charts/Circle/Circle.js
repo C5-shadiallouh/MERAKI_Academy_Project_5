@@ -1,4 +1,4 @@
-import "./style.css"
+import "./style.css";
 
 import { React, useState, useEffect } from "react";
 import axios from "axios";
@@ -32,19 +32,19 @@ const Circle = () => {
     let name = [];
     let price = [];
     axios
-      .get(`http://localhost:5000/meals`)
+      .get(`https://abedhamadarestaurant.herokuapp.com/meals`)
       .then((result) => {
         result.data.result.map((element) => {
           name.push(element.meal_name);
           price.push(element.category_id);
         });
         setChartData({
-          labels: ["فلافل","حمص","فتة شامية"],
+          labels: ["فلافل", "حمص", "فتة شامية"],
 
           datasets: [
             {
               label: "السعر",
-              data: [30,50,20],
+              data: [30, 50, 20],
               backgroundColor: [
                 "rgba(255, 99, 132, 0.2)",
                 "rgba(54, 162, 235, 0.2)",
@@ -101,21 +101,30 @@ const Circle = () => {
             },
           ],
         });
-
       })
       .catch((err) => {
         alert(err);
       });
   }, []);
   return (
-    <div className="circlen" style={{position:"absolute",right:"19rem" ,bottom:"17rem" ,height:"10rem"}}
-     
+    <div
+      className="circlen"
+      style={{
+        position: "absolute",
+        right: "19rem",
+        bottom: "17rem",
+        height: "10rem",
+      }}
     >
-      <h2 style={{ position: "absolute", left: "20%" }}>الاصناف الاكثر مبيعا</h2>
-      <br/>
-      <br/>
+      <h2 style={{ position: "absolute", left: "20%" }}>
+        الاصناف الاكثر مبيعا
+      </h2>
+      <br />
+      <br />
       <Pie
-        data={chartData} className="ccn" style={{height:"25rem", width:"25rem"}}
+        data={chartData}
+        className="ccn"
+        style={{ height: "25rem", width: "25rem" }}
         options={{
           title: {
             display: true,
@@ -128,8 +137,6 @@ const Circle = () => {
         }}
       />
       <br />
-      
-      
     </div>
   );
 };

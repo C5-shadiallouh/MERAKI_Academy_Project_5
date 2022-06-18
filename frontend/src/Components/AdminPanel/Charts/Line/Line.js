@@ -20,7 +20,7 @@ const ChartLine = () => {
     let name = [];
     let price = [];
     axios
-      .get(`http://localhost:5000/meals`)
+      .get(`https://abedhamadarestaurant.herokuapp.com/meals`)
       .then((result) => {
         console.log(result);
         result.data.result.map((element) => {
@@ -118,4 +118,3 @@ const ChartLine = () => {
 };
 
 export default ChartLine;
-

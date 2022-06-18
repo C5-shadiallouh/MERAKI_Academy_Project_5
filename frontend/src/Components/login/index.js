@@ -30,14 +30,19 @@ const Login = () => {
 
   const loginWithGoogle = async (response) => {
     const result = axios
-      .get(`http://localhost:5000/users/${response.profileObj.email}`)
+      .get(
+        `https://abedhamadarestaurant.herokuapp.com/users/${response.profileObj.email}`
+      )
       .then(async (result) => {
         if (result.data.result.length) {
           try {
-            const res = await axios.post("http://localhost:5000/login", {
-              email: response.profileObj.email,
-              password: response.profileObj.googleId,
-            });
+            const res = await axios.post(
+              "https://abedhamadarestaurant.herokuapp.com/login",
+              {
+                email: response.profileObj.email,
+                password: response.profileObj.googleId,
+              }
+            );
             if (res) {
               setMessage("");
 
@@ -54,20 +59,26 @@ const Login = () => {
         } else {
           try {
             // console.log(response.profileObj.givenName);
-            const res = await axios.post(`http://localhost:5000/register`, {
-              firstName: response.profileObj.givenName,
-              lastName: response.profileObj.familyName,
-              city: "jordan",
-              email: response.profileObj.email,
-              password: response.profileObj.googleId,
-              role_id: 2,
-            });
+            const res = await axios.post(
+              `https://abedhamadarestaurant.herokuapp.com/register`,
+              {
+                firstName: response.profileObj.givenName,
+                lastName: response.profileObj.familyName,
+                city: "jordan",
+                email: response.profileObj.email,
+                password: response.profileObj.googleId,
+                role_id: 2,
+              }
+            );
             if (res) {
               try {
-                const res = await axios.post("http://localhost:5000/login", {
-                  email: response.profileObj.email,
-                  password: response.profileObj.googleId,
-                });
+                const res = await axios.post(
+                  "https://abedhamadarestaurant.herokuapp.com/login",
+                  {
+                    email: response.profileObj.email,
+                    password: response.profileObj.googleId,
+                  }
+                );
                 if (res) {
                   setMessage("");
 
@@ -103,10 +114,13 @@ const Login = () => {
     console.log("Login:");
     console.log(email, password);
     try {
-      const res = await axios.post("http://localhost:5000/login", {
-        email: email,
-        password: password,
-      });
+      const res = await axios.post(
+        "https://abedhamadarestaurant.herokuapp.com/login",
+        {
+          email: email,
+          password: password,
+        }
+      );
       if (res) {
         setMessage("");
 
@@ -142,13 +156,10 @@ const Login = () => {
                 e.target.value.includes("@") ||
                 e.target.value.includes(".com")
               ) {
-                setEmail(e.target.value)
+                setEmail(e.target.value);
                 setMessageEmail("");
-                 
               } else {
                 setMessageEmail(" @ / .com  يجب أن يحتوي الإيميل على ");
-                
-               
               }
             }}
           />
@@ -170,7 +181,7 @@ const Login = () => {
                   " الرجاء إدخال كلمة سر صحيحة لا تقل عن 4 أحرف "
                 );
               } else {
-              /*  else if (e.target.value.length>4 && e.target.value!=" "&&e.target.value!=""){setMessage("")} */
+                /*  else if (e.target.value.length>4 && e.target.value!=" "&&e.target.value!=""){setMessage("")} */
                 setMessage("");
                 setPassword(e.target.value);
               }

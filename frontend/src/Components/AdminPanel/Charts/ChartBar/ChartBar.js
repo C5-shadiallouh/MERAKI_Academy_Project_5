@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./style.css"
+import "./style.css";
 
 import { Bar } from "react-chartjs-2";
 import {
@@ -35,7 +35,7 @@ const ChartBar = () => {
   useEffect(() => {
     let name = [];
     axios
-      .get(`http://localhost:5000/users`,{
+      .get(`https://abedhamadarestaurant.herokuapp.com/users`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -46,12 +46,12 @@ const ChartBar = () => {
           name.push(element.firstName);
         });
         setChartData({
-          labels:["","max"],
+          labels: ["", "max"],
 
           datasets: [
             {
               label: "عدد الاشخاص في الموقع",
-              data:  [0,name.length],
+              data: [0, name.length],
               backgroundColor: [
                 "rgba(255, 99, 132, 0.2)",
                 "rgba(54, 162, 235, 0.2)",
@@ -108,19 +108,14 @@ const ChartBar = () => {
             },
           ],
         });
-
-       
       })
       .catch((err) => {
         alert(err);
       });
   }, []);
   return (
-  <div  className="ccchart">
-
+    <div className="ccchart">
       <h3> عدد زوار الموقع</h3>
-
-
 
       {
         <>
@@ -142,7 +137,7 @@ const ChartBar = () => {
           }
         </>
       }
-</div>
+    </div>
   );
 };
 
