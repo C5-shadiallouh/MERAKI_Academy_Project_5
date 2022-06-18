@@ -15,7 +15,7 @@ const AddMeal = () => {
   const handleAddMeale = () => {
     try {
       const res = axios.post(
-        `https://abedhamadarestaurant.herokuapp.com/meals/addmeal`,
+        `https://abedhamadarests.herokuapp.com/meals/addmeal`,
         {
           meal_name,
           meal_price,

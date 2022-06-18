@@ -26,17 +26,14 @@ const Register = () => {
   //this fuction to add new user
   const addNewUser = () => {
     try {
-      const res = axios.post(
-        `https://abedhamadarestaurant.herokuapp.com/register`,
-        {
-          firstName,
-          lastName,
-          city,
-          email,
-          password,
-          role_id: 2,
-        }
-      );
+      const res = axios.post(`https://abedhamadarests.herokuapp.com/register`, {
+        firstName,
+        lastName,
+        city,
+        email,
+        password,
+        role_id: 2,
+      });
       if (
         res &&
         firstName.replaceAll(" ", "").length != 0 &&

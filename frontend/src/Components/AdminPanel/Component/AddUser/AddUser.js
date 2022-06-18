@@ -25,17 +25,14 @@ const NewUser = () => {
   const [status, setStatus] = useState(``);
   const addNewUser = () => {
     try {
-      const res = axios.post(
-        `https://abedhamadarestaurant.herokuapp.com/register`,
-        {
-          firstName,
-          lastName,
-          city,
-          email,
-          password,
-          role_id: 2,
-        }
-      );
+      const res = axios.post(`https://abedhamadarests.herokuapp.com/register`, {
+        firstName,
+        lastName,
+        city,
+        email,
+        password,
+        role_id: 2,
+      });
       if (res) {
         setStatus(true);
         setMessage("The user has been created successfully");
@@ -61,7 +58,7 @@ const NewUser = () => {
 
   useEffect(() => {
     axios
-      .get("https://abedhamadarestaurant.herokuapp.com/users/")
+      .get("https://abedhamadarests.herokuapp.com/users/")
       .then((result) => {
         dispatch(setUser(result.data.result));
       })

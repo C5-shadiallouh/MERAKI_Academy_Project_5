@@ -19,7 +19,7 @@ export default function PAyment() {
     // Create PaymentIntent as soon as the page loads
     axios
       .post(
-        "https://abedhamadarestaurant.herokuapp.com/create-payment-intent",
+        "https://abedhamadarests.herokuapp.com/create-payment-intent",
         {},
         {
           headers: {

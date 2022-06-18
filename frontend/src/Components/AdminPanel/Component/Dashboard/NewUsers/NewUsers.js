@@ -18,7 +18,7 @@ const NewUsers = () => {
   const [users, setUsers] = useState([]);
   const getAllUsers = () => {
     axios
-      .get("https://abedhamadarestaurant.herokuapp.com/users", {
+      .get("https://abedhamadarests.herokuapp.com/users", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -29,7 +29,7 @@ const AllMenue = (req, res) => {
   const addToCart = (meal_id, quantity, price, one) => {
     axios
       .post(
-        "https://abedhamadarestaurant.herokuapp.com/cart/add",
+        "https://abedhamadarests.herokuapp.com/cart/add",
         {
           one: one,
           meal_id: meal_id,
@@ -54,16 +54,14 @@ const AllMenue = (req, res) => {
 
   useEffect(() => {
     axios
-      .get(
-        `https://abedhamadarestaurant.herokuapp.com/meals/paginated?p=${page}`
-      )
+      .get(`https://abedhamadarests.herokuapp.com/meals/paginated?p=${page}`)
       .then((result) => {
         console.group(result);
         dispatch(setMeals(result.data.products));
       })
       .catch((err) => {});
     axios
-      .get("https://abedhamadarestaurant.herokuapp.com/meals")
+      .get("https://abedhamadarests.herokuapp.com/meals")
       .then((result) => {
         setMeal(result.data.result);
       })

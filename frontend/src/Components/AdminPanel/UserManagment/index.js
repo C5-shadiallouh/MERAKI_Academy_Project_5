@@ -21,7 +21,7 @@ const UsersManagement = () => {
 
   const getAllUsers = () => {
     axios
-      .get("https://abedhamadarestaurant.herokuapp.com/users", {
+      .get("https://abedhamadarests.herokuapp.com/users", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -35,7 +35,7 @@ const UsersManagement = () => {
   };
   const deleteUser = (id) => {
     axios
-      .delete(`https://abedhamadarestaurant.herokuapp.com/users/delete/${id}`, {
+      .delete(`https://abedhamadarests.herokuapp.com/users/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,7 +49,7 @@ const UsersManagement = () => {
   };
   const changeRole = (id) => {
     axios.put(
-      `https://abedhamadarestaurant.herokuapp.com/users/updaterole/${id}`,
+      `https://abedhamadarests.herokuapp.com/users/updaterole/${id}`,
       { role_id },
       {
         headers: {

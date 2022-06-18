@@ -28,7 +28,7 @@ const Edit = () => {
   const handleEditMeal = () => {
     try {
       const res = axios.put(
-        `https://abedhamadarestaurant.herokuapp.com/meals/update/${id}`,
+        `https://abedhamadarests.herokuapp.com/meals/update/${id}`,
         {
           meal_name,
           meal_price,

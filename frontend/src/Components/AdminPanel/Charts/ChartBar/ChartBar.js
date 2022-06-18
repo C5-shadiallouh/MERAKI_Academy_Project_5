@@ -35,7 +35,7 @@ const ChartBar = () => {
   useEffect(() => {
     let name = [];
     axios
-      .get(`https://abedhamadarestaurant.herokuapp.com/users`, {
+      .get(`https://abedhamadarests.herokuapp.com/users`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

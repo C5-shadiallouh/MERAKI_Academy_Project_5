@@ -17,11 +17,9 @@ const Filter = () => {
   const [filteredMeals, setFilteredMeals] = useState([]);
   const [isClicked, setIsCLicked] = useState(false);
   useEffect(() => {
-    axios
-      .get("https://abedhamadarestaurant.herokuapp.com/meals")
-      .then((result) => {
-        setFilteredMeals(result.data.result);
-      });
+    axios.get("https://abedhamadarests.herokuapp.com/meals").then((result) => {
+      setFilteredMeals(result.data.result);
+    });
   }, [isClicked]);
   return (
     <div className="dropdown">

@@ -20,7 +20,7 @@ const ChartLine = () => {
     let name = [];
     let price = [];
     axios
-      .get(`https://abedhamadarestaurant.herokuapp.com/meals`)
+      .get(`https://abedhamadarests.herokuapp.com/meals`)
       .then((result) => {
         console.log(result);
         result.data.result.map((element) => {

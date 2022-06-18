@@ -49,7 +49,7 @@ const MealPage = () => {
     if (rate > 0) {
       axios
         .post(
-          `https://abedhamadarestaurant.herokuapp.com/meals/rating/${id}`,
+          `https://abedhamadarests.herokuapp.com/meals/rating/${id}`,
           { rate: rate },
           {
             headers: {
@@ -69,7 +69,7 @@ const MealPage = () => {
   const addToCart = (meal_id, quantity, price, one) => {
     axios
       .post(
-        "https://abedhamadarestaurant.herokuapp.com/cart/add",
+        "https://abedhamadarests.herokuapp.com/cart/add",
         {
           one: one,
           meal_id,
@@ -93,7 +93,7 @@ const MealPage = () => {
 
   const getAllComments = async (id) => {
     await axios
-      .get(`https://abedhamadarestaurant.herokuapp.com/comment/${id}`)
+      .get(`https://abedhamadarests.herokuapp.com/comment/${id}`)
       .then((result) => {
         dispatch(setComments(result.data.result));
       })
@@ -104,7 +104,7 @@ const MealPage = () => {
   const addComment = async (id) => {
     await axios
       .post(
-        `https://abedhamadarestaurant.herokuapp.com/comment/${id}`,
+        `https://abedhamadarests.herokuapp.com/comment/${id}`,
         {
           comment,
         },
@@ -131,7 +131,7 @@ const MealPage = () => {
 
   useEffect(() => {
     axios
-      .get(`https://abedhamadarestaurant.herokuapp.com/meals/id/${id}`)
+      .get(`https://abedhamadarests.herokuapp.com/meals/id/${id}`)
       .then((result) => {
         dispatch(setMeals(result.data.result));
       })
@@ -142,7 +142,7 @@ const MealPage = () => {
     getAllComments(id);
 
     axios
-      .get(`https://abedhamadarestaurant.herokuapp.com/meals/rating/${id}`)
+      .get(`https://abedhamadarests.herokuapp.com/meals/rating/${id}`)
       .then((result) => {
         console.log(result.data.result[0].AverageRate);
         if (result.data.result[0].AverageRate != null) {
@@ -150,14 +150,11 @@ const MealPage = () => {
         }
       });
     axios
-      .get(
-        `https://abedhamadarestaurant.herokuapp.com/meals/rating/user/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .get(`https://abedhamadarests.herokuapp.com/meals/rating/user/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((result) => {
         console.log(result.data[0].rate);
         if (result.data.length) {

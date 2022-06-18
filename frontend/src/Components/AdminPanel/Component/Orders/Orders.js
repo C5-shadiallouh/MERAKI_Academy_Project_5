@@ -18,7 +18,7 @@ const UserList = () => {
   });
   const deleteUser = (id) => {
     axios
-      .delete(`https://abedhamadarestaurant.herokuapp.com/users/delete/${id}`, {
+      .delete(`https://abedhamadarests.herokuapp.com/users/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -55,7 +55,7 @@ const UserList = () => {
 
   useEffect(() => {
     axios
-      .get("https://abedhamadarestaurant.herokuapp.com/users", {
+      .get("https://abedhamadarests.herokuapp.com/users", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

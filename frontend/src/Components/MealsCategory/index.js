@@ -29,7 +29,7 @@ const GetMealByCategory = () => {
   const addToCart = (meal_id, quantity, price) => {
     axios
       .post(
-        "https://abedhamadarestaurant.herokuapp.com/cart/add",
+        "https://abedhamadarests.herokuapp.com/cart/add",
         { meal_id: meal_id, quantity: quantity, total: quantity * price },
         {
           headers: {
@@ -50,7 +50,7 @@ const GetMealByCategory = () => {
   useEffect(() => {
     axios
       .get(
-        `https://abedhamadarestaurant.herokuapp.com/meals/pageInCategory?p=${page}&name=${name}`
+        `https://abedhamadarests.herokuapp.com/meals/pageInCategory?p=${page}&name=${name}`
       )
 
       .then((result) => {
@@ -61,9 +61,7 @@ const GetMealByCategory = () => {
         console.log(err);
       });
     axios
-      .get(
-        `https://abedhamadarestaurant.herokuapp.com/meals/category?name=${name}`
-      )
+      .get(`https://abedhamadarests.herokuapp.com/meals/category?name=${name}`)
 
       .then((result) => {
         setMeal(result.data.result);

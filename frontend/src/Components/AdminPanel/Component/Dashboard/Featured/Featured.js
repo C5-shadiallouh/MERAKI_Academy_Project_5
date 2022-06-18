@@ -24,7 +24,7 @@ export default function FeaturedInfo() {
   });
   useEffect(() => {
     axios
-      .get("https://abedhamadarestaurant.herokuapp.com/meals/")
+      .get("https://abedhamadarests.herokuapp.com/meals/")
       .then((result) => {
         dispatch(setMeals(result.data.result));
       })
@@ -32,7 +32,7 @@ export default function FeaturedInfo() {
         console.log(err);
       });
     axios
-      .get("https://abedhamadarestaurant.herokuapp.com/users/", {
+      .get("https://abedhamadarests.herokuapp.com/users/", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -44,7 +44,7 @@ export default function FeaturedInfo() {
         console.log(err);
       });
     axios
-      .get("https://abedhamadarestaurant.herokuapp.com/cart/all", {
+      .get("https://abedhamadarests.herokuapp.com/cart/all", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

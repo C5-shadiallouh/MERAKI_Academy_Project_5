@@ -23,7 +23,7 @@ const NewProduct = () => {
 
   useEffect(() => {
     axios
-      .get("https://abedhamadarestaurant.herokuapp.com/meals/")
+      .get("https://abedhamadarests.herokuapp.com/meals/")
       .then((result) => {
         dispatch(setMeals(result.data.result));
       })
@@ -34,7 +34,7 @@ const NewProduct = () => {
   const handleAddMeale = () => {
     try {
       const res = axios.post(
-        `https://abedhamadarestaurant.herokuapp.com/meals/addmeal`,
+        `https://abedhamadarests.herokuapp.com/meals/addmeal`,
         {
           meal_name,
           meal_price,

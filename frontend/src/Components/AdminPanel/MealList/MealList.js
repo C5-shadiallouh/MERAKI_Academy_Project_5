@@ -27,7 +27,7 @@ const MealList = () => {
       isLoading: true,
     });
     axios
-      .delete(`https://abedhamadarestaurant.herokuapp.com/meals/delete/${id}`, {
+      .delete(`https://abedhamadarests.herokuapp.com/meals/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -71,7 +71,7 @@ const MealList = () => {
   ];
   useEffect(() => {
     axios
-      .get("https://abedhamadarestaurant.herokuapp.com/meals", {
+      .get("https://abedhamadarests.herokuapp.com/meals", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -30,7 +30,7 @@ const Navbar = () => {
   );
   const getCategories = () => {
     axios
-      .get("https://abedhamadarestaurant.herokuapp.com/meals/allcategories")
+      .get("https://abedhamadarests.herokuapp.com/meals/allcategories")
       .then((result) => {
         dispatch(setCategories(result.data.categories));
       })

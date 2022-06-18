@@ -32,7 +32,7 @@ const Circle = () => {
     let name = [];
     let price = [];
     axios
-      .get(`https://abedhamadarestaurant.herokuapp.com/meals`)
+      .get(`https://abedhamadarests.herokuapp.com/meals`)
       .then((result) => {
         result.data.result.map((element) => {
           name.push(element.meal_name);

@@ -31,13 +31,13 @@ const Login = () => {
   const loginWithGoogle = async (response) => {
     const result = axios
       .get(
-        `https://abedhamadarestaurant.herokuapp.com/users/${response.profileObj.email}`
+        `https://abedhamadarests.herokuapp.com/users/${response.profileObj.email}`
       )
       .then(async (result) => {
         if (result.data.result.length) {
           try {
             const res = await axios.post(
-              "https://abedhamadarestaurant.herokuapp.com/login",
+              "https://abedhamadarests.herokuapp.com/login",
               {
                 email: response.profileObj.email,
                 password: response.profileObj.googleId,
@@ -60,7 +60,7 @@ const Login = () => {
           try {
             // console.log(response.profileObj.givenName);
             const res = await axios.post(
-              `https://abedhamadarestaurant.herokuapp.com/register`,
+              `https://abedhamadarests.herokuapp.com/register`,
               {
                 firstName: response.profileObj.givenName,
                 lastName: response.profileObj.familyName,
@@ -73,7 +73,7 @@ const Login = () => {
             if (res) {
               try {
                 const res = await axios.post(
-                  "https://abedhamadarestaurant.herokuapp.com/login",
+                  "https://abedhamadarests.herokuapp.com/login",
                   {
                     email: response.profileObj.email,
                     password: response.profileObj.googleId,
@@ -115,7 +115,7 @@ const Login = () => {
     console.log(email, password);
     try {
       const res = await axios.post(
-        "https://abedhamadarestaurant.herokuapp.com/login",
+        "https://abedhamadarests.herokuapp.com/login",
         {
           email: email,
           password: password,

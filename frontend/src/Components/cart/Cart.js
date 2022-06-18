@@ -24,7 +24,7 @@ const Cart = () => {
   const [state, setState] = useState(false);
   const total = () => {
     axios
-      .get(`https://abedhamadarestaurant.herokuapp.com/cart/total`, {
+      .get(`https://abedhamadarests.herokuapp.com/cart/total`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -40,7 +40,7 @@ const Cart = () => {
   const updateQuantity = (id, quantity, total) => {
     axios
       .put(
-        `https://abedhamadarestaurant.herokuapp.com/cart/update/${id}`,
+        `https://abedhamadarests.herokuapp.com/cart/update/${id}`,
         { quantity: quantity, total: total },
         {
           headers: {
@@ -58,7 +58,7 @@ const Cart = () => {
   const removeFromCart = (id, quantity, total) => {
     axios
       .delete(
-        `https://abedhamadarestaurant.herokuapp.com/cart/delete/${id}`,
+        `https://abedhamadarests.herokuapp.com/cart/delete/${id}`,
 
         {
           headers: {
@@ -75,7 +75,7 @@ const Cart = () => {
   };
   const getCart = () => {
     axios
-      .get(`https://abedhamadarestaurant.herokuapp.com/cart`, {
+      .get(`https://abedhamadarests.herokuapp.com/cart`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

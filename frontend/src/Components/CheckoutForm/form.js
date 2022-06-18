@@ -55,7 +55,7 @@ export default function CheckoutForm() {
     e.preventDefault();
     axios
       .post(
-        "https://abedhamadarestaurant.herokuapp.com/order/create",
+        "https://abedhamadarests.herokuapp.com/order/create",
         { total },
         {
           headers: {
