@@ -1,6 +1,6 @@
 import { FaUsers } from "react-icons/fa";
 import "./style.css";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import {
@@ -10,7 +10,7 @@ import {
 import SideBar from "../Dashboard/SideBar/SideBar";
 const NewUser = () => {
   const dispatch = useDispatch();
-  const {users} = useSelector((state) => {
+  const { users } = useSelector((state) => {
     return {
       users: state.users.users,
     };
@@ -25,14 +25,17 @@ const NewUser = () => {
   const [status, setStatus] = useState(``);
   const addNewUser = () => {
     try {
-      const res = axios.post(`http://localhost:5000/register`, {
-        firstName,
-        lastName,
-        city,
-        email,
-        password,
-        role_id: 2,
-      });
+      const res = axios.post(
+        `https://abedhamadarestaurant.herokuapp.com/register`,
+        {
+          firstName,
+          lastName,
+          city,
+          email,
+          password,
+          role_id: 2,
+        }
+      );
       if (res) {
         setStatus(true);
         setMessage("The user has been created successfully");
@@ -56,16 +59,19 @@ const NewUser = () => {
     }
   };
 
-  useEffect(()=>{
-    axios.get("http://localhost:5000/users/").then((result)=>{
-      dispatch(setUser(result.data.result))
-    }).catch((err)=>{
-      console.log(err);
-    })
-  },[])
+  useEffect(() => {
+    axios
+      .get("https://abedhamadarestaurant.herokuapp.com/users/")
+      .then((result) => {
+        dispatch(setUser(result.data.result));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <div>
-      <SideBar/>
+      <SideBar />
       <div className="newUser">
         <div>
           <h1 className="newUserTitle">اضافة مستخدم جديد</h1>
@@ -73,28 +79,59 @@ const NewUser = () => {
         <form className="newUserForm">
           <div className="newUserItem">
             <label className="lal">الاسم الاول</label>
-            <input type="text" placeholder="الاسم الاول" className="in" 
-            onChange={(e)=>{setFirstName(e.target.value)}}/>
+            <input
+              type="text"
+              placeholder="الاسم الاول"
+              className="in"
+              onChange={(e) => {
+                setFirstName(e.target.value);
+              }}
+            />
           </div>
           <div className="newUserItem">
             <label className="lal">الاسم الاخير</label>
-            <input type="text" placeholder="الاسم الاخير" className="in"
-            onChange={(e)=>{setLastName(e.target.value)}} />
+            <input
+              type="text"
+              placeholder="الاسم الاخير"
+              className="in"
+              onChange={(e) => {
+                setLastName(e.target.value);
+              }}
+            />
           </div>
           <div className="newUserItem">
             <label className="lal">الايميل</label>
-            <input type="email" placeholder="john@gmail.com" className="in"
-            onChange={(e)=>{setEmail(e.target.value)}} />
+            <input
+              type="email"
+              placeholder="john@gmail.com"
+              className="in"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
           </div>
           <div className="newUserItem">
             <label className="lal">كلمة المرور</label>
-            <input type="password" placeholder="كلمة المرور" className="in" onChange={(e)=>{setPassword(e.target.value)}}/>
+            <input
+              type="password"
+              placeholder="كلمة المرور"
+              className="in"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
           </div>
 
           <div className="newUserItem">
             <label className="lal">العنوان</label>
-            <input type="text" placeholder="اربد" className="in" 
-            onChange={(e)=>{setCity(e.target.value)}} />
+            <input
+              type="text"
+              placeholder="اربد"
+              className="in"
+              onChange={(e) => {
+                setCity(e.target.value);
+              }}
+            />
           </div>
 
           <button className="newUserButton">اضافة</button>
@@ -112,7 +149,6 @@ const NewUser = () => {
           <span className="featuredSubuser">{users.length}</span>
         </div>
       </div>
-
     </div>
   );
 };

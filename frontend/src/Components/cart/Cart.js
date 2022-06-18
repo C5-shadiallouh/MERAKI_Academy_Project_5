@@ -18,13 +18,13 @@ const Cart = () => {
       };
     }
   );
-  const navigate =useNavigate()
+  const navigate = useNavigate();
   const [show, setShow] = useState("");
   const [el_id, setEl_id] = useState("");
   const [state, setState] = useState(false);
   const total = () => {
     axios
-      .get(`http://localhost:5000/cart/total`, {
+      .get(`https://abedhamadarestaurant.herokuapp.com/cart/total`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -40,7 +40,7 @@ const Cart = () => {
   const updateQuantity = (id, quantity, total) => {
     axios
       .put(
-        `http://localhost:5000/cart/update/${id}`,
+        `https://abedhamadarestaurant.herokuapp.com/cart/update/${id}`,
         { quantity: quantity, total: total },
         {
           headers: {
@@ -50,7 +50,6 @@ const Cart = () => {
       )
       .then((result) => {
         dispatch(setQuantity(quantity));
-        
       })
       .catch((err) => {
         console.log(err);
@@ -59,7 +58,7 @@ const Cart = () => {
   const removeFromCart = (id, quantity, total) => {
     axios
       .delete(
-        `http://localhost:5000/cart/delete/${id}`,
+        `https://abedhamadarestaurant.herokuapp.com/cart/delete/${id}`,
 
         {
           headers: {
@@ -69,7 +68,6 @@ const Cart = () => {
       )
       .then((result) => {
         dispatch(setTotal(total));
-        
       })
       .catch((err) => {
         dispatch(setCart([]));
@@ -77,15 +75,14 @@ const Cart = () => {
   };
   const getCart = () => {
     axios
-      .get(`http://localhost:5000/cart`, {
+      .get(`https://abedhamadarestaurant.herokuapp.com/cart`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((result) => {
-        if(result.data.success)
-        dispatch(setCart(result.data.result));
-        else if (result.data.message == "there is not any meal"){
+        if (result.data.success) dispatch(setCart(result.data.result));
+        else if (result.data.message == "there is not any meal") {
           dispatch(setCart([]));
         }
       })
@@ -97,7 +94,6 @@ const Cart = () => {
   useEffect(() => {
     getCart();
     total();
-    
   }, [state, totalQuantity, totalAmount]);
   return (
     <div>
@@ -146,7 +142,8 @@ const Cart = () => {
                           );
                         }}
                       />
-                      <button className="addToCart inCart"
+                      <button
+                        className="addToCart inCart"
                         onClick={() => {
                           removeFromCart(element.id);
                         }}
@@ -169,9 +166,14 @@ const Cart = () => {
           {totalAmount ? (
             <div className="totalPay">
               <h1>المبلغ الاجمالي: {totalAmount} دينار</h1>
-              <button className="addToCart pay" onClick={()=>{
-                navigate("/pay")
-              }}>الدفع</button>
+              <button
+                className="addToCart pay"
+                onClick={() => {
+                  navigate("/pay");
+                }}
+              >
+                الدفع
+              </button>
             </div>
           ) : (
             ""

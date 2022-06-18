@@ -13,7 +13,7 @@ import SideBar from "../Dashboard/SideBar/SideBar";
 
 const Edit = () => {
   const { id } = useParams();
-  const meals = useSelector((state) => { 
+  const meals = useSelector((state) => {
     return {
       meals: state.meals.meals,
     };
@@ -27,11 +27,14 @@ const Edit = () => {
 
   const handleEditMeal = () => {
     try {
-      const res = axios.put(`http://localhost:5000/meals/update/${id}`, {
-        meal_name,
-        meal_price,
-        image,
-      });
+      const res = axios.put(
+        `https://abedhamadarestaurant.herokuapp.com/meals/update/${id}`,
+        {
+          meal_name,
+          meal_price,
+          image,
+        }
+      );
       if (res) {
         setStatus(true);
         setMessage("تم تعديل الوجبة   ");
@@ -104,7 +107,6 @@ const Edit = () => {
         </form>
       </div>
 
-
       <div className="featureduser">
         <div className="featuredItemuser">
           <span className="featuredTitleuser"> عدد الوجبات الاجمالي</span>
@@ -116,7 +118,6 @@ const Edit = () => {
           <span className="featuredSubuser">{meals.length} وجبة</span>
         </div>
       </div>
-     
     </div>
   );
 };

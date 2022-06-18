@@ -16,35 +16,29 @@ const MealPage = () => {
   const [message, setMessage] = useState(``);
   const [comment, setComment] = useState("");
   const { id } = useParams();
-  const [ableCommnet,setAbleCommnet]=useState(false)
+  const [ableCommnet, setAbleCommnet] = useState(false);
 
   const dispatch = useDispatch();
-  const {
-    meals,
-    token,
-    comments,
-    allComments,
-    ratings,
-    ratingAvg,
-  } = useSelector((state) => {
-    return {
-      token: state.auth.token,
-      meals: state.meals.meals,
-      comments: state.comments.comments,
-      allComments: state.comments.allComments,
-      ratings: state.ratings.ratings,
-      ratingAvg: state.ratings.ratingAvg,
-    };
-  });
-  const[err,SetErr]=useState("")
+  const { meals, token, comments, allComments, ratings, ratingAvg } =
+    useSelector((state) => {
+      return {
+        token: state.auth.token,
+        meals: state.meals.meals,
+        comments: state.comments.comments,
+        allComments: state.comments.allComments,
+        ratings: state.ratings.ratings,
+        ratingAvg: state.ratings.ratingAvg,
+      };
+    });
+  const [err, SetErr] = useState("");
   const [rating, setRating] = useState(ratings); // initial rating value
-  const [avg,setAvg]= useState(0)
+  const [avg, setAvg] = useState(0);
   const handleRating = (rate) => {
     setRating(rate); // other logic
     if (rate > 0) {
       axios
         .post(
-          `http://localhost:5000/meals/rating/${id}`,
+          `https://abedhamadarestaurant.herokuapp.com/meals/rating/${id}`,
           { rate: rate },
           {
             headers: {
@@ -61,25 +55,30 @@ const MealPage = () => {
         });
     }
   };
-  const addToCart=(meal_id,quantity,price)=>{
-    axios.post("http://localhost:5000/cart/add",{meal_id:meal_id,quantity:quantity,total:quantity*price},{
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((result)=>{
-    console.log(result);
-    setMessage("تمت الإضافة إلى سلة الطعام بنجاح")
-    })
-    .catch((err)=>{
-      console.log(err);
-      setMessage("حصل خطأ أثناء الإضافة ... الرجاء إعادة المحاولة")
-    })
-    
-  } 
+  const addToCart = (meal_id, quantity, price) => {
+    axios
+      .post(
+        "https://abedhamadarestaurant.herokuapp.com/cart/add",
+        { meal_id: meal_id, quantity: quantity, total: quantity * price },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((result) => {
+        console.log(result);
+        setMessage("تمت الإضافة إلى سلة الطعام بنجاح");
+      })
+      .catch((err) => {
+        console.log(err);
+        setMessage("حصل خطأ أثناء الإضافة ... الرجاء إعادة المحاولة");
+      });
+  };
 
   const getAllComments = async (id) => {
     await axios
-      .get(`http://localhost:5000/comment/${id}`)
+      .get(`https://abedhamadarestaurant.herokuapp.com/comment/${id}`)
       .then((result) => {
         dispatch(setComments(result.data.result));
       })
@@ -90,7 +89,7 @@ const MealPage = () => {
   const addComment = async (id) => {
     await axios
       .post(
-        `http://localhost:5000/comment/${id}`,
+        `https://abedhamadarestaurant.herokuapp.com/comment/${id}`,
         {
           comment,
         },
@@ -111,14 +110,13 @@ const MealPage = () => {
         );
       })
       .catch((error) => {
-       setAbleCommnet(true)
+        setAbleCommnet(true);
       });
   };
 
   useEffect(() => {
-    
     axios
-      .get(`http://localhost:5000/meals/id/${id}`)
+      .get(`https://abedhamadarestaurant.herokuapp.com/meals/id/${id}`)
       .then((result) => {
         dispatch(setMeals(result.data.result));
       })
@@ -127,28 +125,33 @@ const MealPage = () => {
       });
 
     getAllComments(id);
-    
+
     axios
-      .get(`http://localhost:5000/meals/rating/${id}`, )
+      .get(`https://abedhamadarestaurant.herokuapp.com/meals/rating/${id}`)
       .then((result) => {
         console.log(result.data.result[0].AverageRate);
         if (result.data.result[0].AverageRate != null) {
           dispatch(getRating(result.data.result[0].AverageRate));
         }
       });
-    axios.get(`http://localhost:5000/meals/rating/user/${id}`,{
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((result) => {
-      console.log(result.data[0].rate);
-      if (result.data.length) {
-        dispatch(setRatings(Number(result.data[0].rate)));
-      }
-      console.log("RATTTING",ratings);
-    })
-    .catch(err=> SetErr("Login to add rating"))
-  }, [clicked,rating,ratingAvg,ratings]);
+    axios
+      .get(
+        `https://abedhamadarestaurant.herokuapp.com/meals/rating/user/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((result) => {
+        console.log(result.data[0].rate);
+        if (result.data.length) {
+          dispatch(setRatings(Number(result.data[0].rate)));
+        }
+        console.log("RATTTING", ratings);
+      })
+      .catch((err) => SetErr("Login to add rating"));
+  }, [clicked, rating, ratingAvg, ratings]);
   return (
     <div className="page">
       {meals.length
@@ -156,19 +159,21 @@ const MealPage = () => {
             return (
               <div className="meal_comment">
                 {/* <div className="meal_page"> */}
-                  <div className="img"><img className="meal_img" src={element.image} /></div>
-                  <div className="name_rate_cart">
-                    <div className="meal_name_rating">
-                      <h1 className="meal_name">{element.meal_name}</h1>
+                <div className="img">
+                  <img className="meal_img" src={element.image} />
+                </div>
+                <div className="name_rate_cart">
+                  <div className="meal_name_rating">
+                    <h1 className="meal_name">{element.meal_name}</h1>
 
-                      <div className="rating">
-                        <Rating onClick={handleRating} ratingValue={ratings} />
-                        <p className="avg_rating">
-                          {" "}
-                          {ratingAvg ? ratingAvg / 20 : "not Rated"}
-                        </p>
-                      </div>
-                      <p style={{"color":"red","textAlign":"center"}}>{err}</p>
+                    <div className="rating">
+                      <Rating onClick={handleRating} ratingValue={ratings} />
+                      <p className="avg_rating">
+                        {" "}
+                        {ratingAvg ? ratingAvg / 20 : "not Rated"}
+                      </p>
+                    </div>
+                    <p style={{ color: "red", textAlign: "center" }}>{err}</p>
 
                     <div className="cart_div">
                       <input
@@ -181,40 +186,39 @@ const MealPage = () => {
                         //   }else{handleChange}
                         // }}
                       />
-                      <button                       disabled={{ableCommnet}}
- className="add_minus_butt" onClick={()=>{
-                        dispatch(addToCart(meal.id,1,meal.meal_price))
-                      }}>
+                      <button
+                        disabled={{ ableCommnet }}
+                        className="add_minus_butt"
+                        onClick={() => {
+                          dispatch(addToCart(meal.id, 1, meal.meal_price));
+                        }}
+                      >
                         إضافة إلى سلة الطعام
                       </button>
                     </div>
                   </div>
 
                   <div className="comment">
-                  <textarea
-                    className="count_input"
-                    placeholder="إضافة تعليق..."
-                    onChange={(e) => {
-                      setComment(e.target.value);
-                    }}
-                  />
+                    <textarea
+                      className="count_input"
+                      placeholder="إضافة تعليق..."
+                      onChange={(e) => {
+                        setComment(e.target.value);
+                      }}
+                    />
 
-                  <button
-                                    disabled={{ableCommnet}}
-
-                    className="add_minus_butt"
-                    onClick={() => {
-                      addComment(element.id);
-                      setClicked(!clicked);
-                    }}
-                  >
-                    إضافة تعليق
-                  </button>
+                    <button
+                      disabled={{ ableCommnet }}
+                      className="add_minus_butt"
+                      onClick={() => {
+                        addComment(element.id);
+                        setClicked(!clicked);
+                      }}
+                    >
+                      إضافة تعليق
+                    </button>
+                  </div>
                 </div>
-
-
-                </div>
-                
               </div>
             );
           })
@@ -225,8 +229,10 @@ const MealPage = () => {
             ? allComments.map((element) => {
                 return (
                   <div className="comment_commenter">
-                    <p className="commenter_name">{element.firstName}&nbsp;{element.lastName}:
-                    </p>&nbsp;<p className="comment_in_scroll">{element.comment}</p>
+                    <p className="commenter_name">
+                      {element.firstName}&nbsp;{element.lastName}:
+                    </p>
+                    &nbsp;<p className="comment_in_scroll">{element.comment}</p>
                   </div>
                 );
               })

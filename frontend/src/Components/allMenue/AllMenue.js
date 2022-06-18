@@ -29,7 +29,7 @@ const AllMenue = (req, res) => {
   const addToCart = (meal_id, quantity, price, one) => {
     axios
       .post(
-        "http://localhost:5000/cart/add",
+        "https://abedhamadarestaurant.herokuapp.com/cart/add",
         {
           one: one,
           meal_id: meal_id,
@@ -45,31 +45,30 @@ const AllMenue = (req, res) => {
       .then((result) => {
         setSucceed(!succeed);
         dispatch(setMessage("تم اضافة الوجبة الى سلة المشتريات"));
-
-        
       })
       .catch((err) => {
         setFailed(!failed);
         dispatch(setMessage("الرجاء تسجيل الدخول "));
       });
-   
   };
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/meals/paginated?p=${page}`)
+      .get(
+        `https://abedhamadarestaurant.herokuapp.com/meals/paginated?p=${page}`
+      )
       .then((result) => {
         console.group(result);
         dispatch(setMeals(result.data.products));
       })
       .catch((err) => {});
     axios
-      .get("http://localhost:5000/meals")
+      .get("https://abedhamadarestaurant.herokuapp.com/meals")
       .then((result) => {
         setMeal(result.data.result);
       })
       .catch((err) => {});
-  }, [page, succeed,failed ]);
+  }, [page, succeed, failed]);
 
   return (
     <div>
@@ -97,14 +96,15 @@ const AllMenue = (req, res) => {
             meals.map((meal, index) => {
               return (
                 <tr key={meal.id}>
-                  <td  key={`tabledata${meal.id}`}>
+                  <td key={`tabledata${meal.id}`}>
                     <Link
                       to={`/meals/${meal.id}`}
                       onClick={() => {
                         dispatch(changePage(1));
                       }}
                     >
-                      <img className="scale"
+                      <img
+                        className="scale"
                         src={meal.image}
                         alt=""
                         key={meal.id}
@@ -115,7 +115,8 @@ const AllMenue = (req, res) => {
                   <td key={meal.meal_name}>{meal.meal_name}</td>
                   <td key={meal.meal_price}>{meal.meal_price}</td>
                   <td>
-                    <button className="addToCart"
+                    <button
+                      className="addToCart"
                       onClick={() => {
                         console.log(meal.id);
                         addToCart(meal.id, 1, meal.meal_price, true);
@@ -156,7 +157,6 @@ const AllMenue = (req, res) => {
                     onClick={() => {
                       dispatch(changePage(index + 1));
                       window.scrollTo(0, 10);
-
                     }}
                   >
                     {index + 1}
@@ -170,7 +170,6 @@ const AllMenue = (req, res) => {
               if (page > 1) {
                 dispatch(changePage(page - 1));
                 window.scrollTo(0, 10);
-
               }
             }}
           >

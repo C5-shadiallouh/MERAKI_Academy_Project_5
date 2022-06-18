@@ -1,19 +1,14 @@
 import "./style.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addNewMeal, setMeals } from "../../../../redux/reducers/meals/index";
 import { RiProductHuntFill } from "react-icons/ri";
-import {
-
-  Publish,
-} from "@material-ui/icons";
+import { Publish } from "@material-ui/icons";
 import SideBar from "../Dashboard/SideBar/SideBar";
 
-
-const NewProduct=()=> {
-
-  const {meals} = useSelector((state) => {
+const NewProduct = () => {
+  const { meals } = useSelector((state) => {
     return {
       meals: state.meals.meals,
     };
@@ -26,22 +21,27 @@ const NewProduct=()=> {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
 
-  
-  useEffect(()=>{
-    axios.get("http://localhost:5000/meals/").then((result)=>{
-      dispatch(setMeals(result.data.result))
-    }).catch((err)=>{
-      console.log(err);
-    })
-  },[])
+  useEffect(() => {
+    axios
+      .get("https://abedhamadarestaurant.herokuapp.com/meals/")
+      .then((result) => {
+        dispatch(setMeals(result.data.result));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   const handleAddMeale = () => {
     try {
-      const res = axios.post(`http://localhost:5000/meals/addmeal`, {
-        meal_name,
-        meal_price,
-        image,
-        category,
-      });
+      const res = axios.post(
+        `https://abedhamadarestaurant.herokuapp.com/meals/addmeal`,
+        {
+          meal_name,
+          meal_price,
+          image,
+          category,
+        }
+      );
       if (res) {
         setStatus(true);
         setMessage("تم اضافة وجبة جديدة الى القائمة");
@@ -63,8 +63,8 @@ const NewProduct=()=> {
     }
   };
   return (
-<div>
-  <SideBar/>
+    <div>
+      <SideBar />
       <div className="newUser">
         <div>
           <h1 className="newUserTitle">اضافة وجبة جديد</h1>
@@ -72,33 +72,52 @@ const NewProduct=()=> {
         <form className="newUserForm" onSubmit={handleAddMeale}>
           <div className="newUserItem">
             <label className="lal">اسم الوجبة</label>
-            <input type="text" placeholder="اسم الوجبة" className="in" 
-            onChange={(e)=>{setName(e.target.value)}}/>
+            <input
+              type="text"
+              placeholder="اسم الوجبة"
+              className="in"
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            />
           </div>
           <div className="newUserItem">
             <label className="lal">سعر الوجبة</label>
-            <input type="text" placeholder="سعر الوجبة" className="in"
-            onChange={(e)=>{setPrice(e.target.value)}} />
+            <input
+              type="text"
+              placeholder="سعر الوجبة"
+              className="in"
+              onChange={(e) => {
+                setPrice(e.target.value);
+              }}
+            />
           </div>
           <div className="newUserItem">
             <label className="lal">الصنف</label>
-            <input type="text" placeholder="الصنف" className="in"
-            onChange={(e)=>{setCategory(e.target.value)}} />
+            <input
+              type="text"
+              placeholder="الصنف"
+              className="in"
+              onChange={(e) => {
+                setCategory(e.target.value);
+              }}
+            />
           </div>
           <div className="newUserItem  NNN">
-          <label className="lal">اضف صورة</label>
+            <label className="lal">اضف صورة</label>
 
-          <label htmlFor="file">
-                    <Publish className="userUpdateIcon" 
-                    onChange={(e) => {
-                      setImage(e.target.value);
-                      
-                    }}/>
-                  </label>
-                  <input type="file" id="file" style={{ display: "none" }} />
-                  </div>
+            <label htmlFor="file">
+              <Publish
+                className="userUpdateIcon"
+                onChange={(e) => {
+                  setImage(e.target.value);
+                }}
+              />
+            </label>
+            <input type="file" id="file" style={{ display: "none" }} />
+          </div>
 
-          <button className="newUserButton mmm" >اضافة</button>
+          <button className="newUserButton mmm">اضافة</button>
         </form>
       </div>
 
@@ -113,7 +132,6 @@ const NewProduct=()=> {
           <span className="featuredSubuser">{meals.length} وجبة</span>
         </div>
       </div>
-
     </div>
   );
 };

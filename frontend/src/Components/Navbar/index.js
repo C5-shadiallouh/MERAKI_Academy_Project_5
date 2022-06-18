@@ -30,7 +30,7 @@ const Navbar = () => {
   );
   const getCategories = () => {
     axios
-      .get("http://localhost:5000/meals/allcategories")
+      .get("https://abedhamadarestaurant.herokuapp.com/meals/allcategories")
       .then((result) => {
         dispatch(setCategories(result.data.categories));
       })
@@ -93,7 +93,7 @@ const Navbar = () => {
                   >
                     تسجيل مستخدم جديد
                   </Link>
-                  
+
                   <Link
                     to={"/login"}
                     onClick={() => {
@@ -106,8 +106,8 @@ const Navbar = () => {
               ) : (
                 ""
               )}
-            
-              {localStorage.getItem("isAdmin")=="true" ? (
+
+              {localStorage.getItem("isAdmin") == "true" ? (
                 <div className="links">
                   <Link
                     to={"/adminpanel"}

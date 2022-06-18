@@ -17,11 +17,11 @@ const UsersManagement = () => {
   });
   const [role_id, setRole_id] = useState("");
   const [isClicked, setIsCLicked] = useState(false);
-  const [meal_id,setMeal_id]= useState("")
-  
+  const [meal_id, setMeal_id] = useState("");
+
   const getAllUsers = () => {
     axios
-      .get("http://localhost:5000/users", {
+      .get("https://abedhamadarestaurant.herokuapp.com/users", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -35,7 +35,7 @@ const UsersManagement = () => {
   };
   const deleteUser = (id) => {
     axios
-      .delete(`http://localhost:5000/users/delete/${id}`, {
+      .delete(`https://abedhamadarestaurant.herokuapp.com/users/delete/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,7 +49,7 @@ const UsersManagement = () => {
   };
   const changeRole = (id) => {
     axios.put(
-      `http://localhost:5000/users/updaterole/${id}`,
+      `https://abedhamadarestaurant.herokuapp.com/users/updaterole/${id}`,
       { role_id },
       {
         headers: {
@@ -78,20 +78,52 @@ const UsersManagement = () => {
                 >
                   حذف المستخدم
                 </button>
-               {isClicked && meal_id == element.id ?<div>
-                 <input type="radio" id="Admin" name="role" value="Admin" onClick={()=>{setRole_id(1)} }/>
-  <label >مشرف</label><br></br>
-  <input type="radio" id="User" name="role" value="User" onClick={()=>{setRole_id(2)}}/>
-  <label >مستخدم</label>
-<button onClick={()=>{
-    setIsCLicked(!isClicked)
-changeRole(element.id)
-
-}}>حفظ</button>
-                </div>:""}
-                <button onClick={() => {setIsCLicked(!isClicked)
-                setMeal_id(element.id)
-                }}>تغيير الدور</button>   
+                {isClicked && meal_id == element.id ? (
+                  <div>
+                     {" "}
+                    <input
+                      type="radio"
+                      id="Admin"
+                      name="role"
+                      value="Admin"
+                      onClick={() => {
+                        setRole_id(1);
+                      }}
+                    />
+                      <label>مشرف</label>
+                    <br></br>
+                     {" "}
+                    <input
+                      type="radio"
+                      id="User"
+                      name="role"
+                      value="User"
+                      onClick={() => {
+                        setRole_id(2);
+                      }}
+                    />
+                      <label>مستخدم</label>
+                    <button
+                      onClick={() => {
+                        setIsCLicked(!isClicked);
+                        changeRole(element.id);
+                      }}
+                    >
+                      حفظ
+                    </button>
+                  </div>
+                ) : (
+                  ""
+                )}
+                <button
+                  onClick={() => {
+                    setIsCLicked(!isClicked);
+                    setMeal_id(element.id);
+                  }}
+                >
+                  تغيير الدور
+                </button>
+                   
               </div>
             );
           })
