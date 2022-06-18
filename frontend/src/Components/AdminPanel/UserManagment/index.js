@@ -91,8 +91,7 @@ const UsersManagement = () => {
                       }}
                     />
                       <label>مشرف</label>
-                    <br></br>
-                     {" "}
+                    <br></br> {" "}
                     <input
                       type="radio"
                       id="User"

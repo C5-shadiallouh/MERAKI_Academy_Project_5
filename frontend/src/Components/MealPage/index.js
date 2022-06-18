@@ -9,7 +9,9 @@ import { Rating } from "react-simple-star-rating";
 import { setRatings, getRating } from "../../redux/reducers/rating/rating";
 import "./style.css";
 import { SettingsPowerRounded } from "@material-ui/icons";
-
+import { setQuantity } from "../../redux/reducers/cart/cart";
+import Alert from "../Alert/Alert";
+import Error from "../Error/Error";
 const MealPage = () => {
   const [clicked, setClicked] = useState(false);
   const [meal, setMeal] = useState([]);
@@ -17,19 +19,28 @@ const MealPage = () => {
   const [comment, setComment] = useState("");
   const { id } = useParams();
   const [ableCommnet, setAbleCommnet] = useState(false);
-
+  const [succeed, setSucceed] = useState(false);
+  const [failed, setFailed] = useState(false);
   const dispatch = useDispatch();
-  const { meals, token, comments, allComments, ratings, ratingAvg } =
-    useSelector((state) => {
-      return {
-        token: state.auth.token,
-        meals: state.meals.meals,
-        comments: state.comments.comments,
-        allComments: state.comments.allComments,
-        ratings: state.ratings.ratings,
-        ratingAvg: state.ratings.ratingAvg,
-      };
-    });
+  const {
+    meals,
+    token,
+    comments,
+    allComments,
+    ratings,
+    ratingAvg,
+    totalQuantity,
+  } = useSelector((state) => {
+    return {
+      token: state.auth.token,
+      meals: state.meals.meals,
+      comments: state.comments.comments,
+      allComments: state.comments.allComments,
+      ratings: state.ratings.ratings,
+      ratingAvg: state.ratings.ratingAvg,
+      totalQuantity: state.carts.totalQuantity,
+    };
+  });
   const [err, SetErr] = useState("");
   const [rating, setRating] = useState(ratings); // initial rating value
   const [avg, setAvg] = useState(0);
@@ -55,11 +66,16 @@ const MealPage = () => {
         });
     }
   };
-  const addToCart = (meal_id, quantity, price) => {
+  const addToCart = (meal_id, quantity, price, one) => {
     axios
       .post(
         "https://abedhamadarestaurant.herokuapp.com/cart/add",
-        { meal_id: meal_id, quantity: quantity, total: quantity * price },
+        {
+          one: one,
+          meal_id,
+          quantity: one ? 1 : quantity,
+          total: quantity * price,
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -67,12 +83,11 @@ const MealPage = () => {
         }
       )
       .then((result) => {
-        console.log(result);
-        setMessage("تمت الإضافة إلى سلة الطعام بنجاح");
+        setSucceed(!succeed);
       })
       .catch((err) => {
         console.log(err);
-        setMessage("حصل خطأ أثناء الإضافة ... الرجاء إعادة المحاولة");
+        setFailed(!failed);
       });
   };
 
@@ -154,6 +169,12 @@ const MealPage = () => {
   }, [clicked, rating, ratingAvg, ratings]);
   return (
     <div className="page">
+      <div style={succeed ? { display: "block" } : { display: "none" }}>
+        <Alert />
+      </div>
+      <div style={failed ? { display: "block" } : { display: "none" }}>
+        <Error />
+      </div>
       {meals.length
         ? meals.map((element) => {
             return (
@@ -181,16 +202,25 @@ const MealPage = () => {
                         min={1}
                         className="count_order"
                         placeholder="العدد المطلوب"
-                        //   onChange={(e)=>{if(e.target.value.includes('-')){
-                        //     Math.abs(e,target.value)
-                        //   }else{handleChange}
-                        // }}
+                        onChange={(e) => {
+                          if (
+                            !e.target.value.includes("-") ||
+                            !e.target.value == "0"
+                          ) {
+                            dispatch(setQuantity(e.target.value));
+                            console.log(totalQuantity);
+                          }
+                        }}
                       />
                       <button
-                        disabled={{ ableCommnet }}
                         className="add_minus_butt"
                         onClick={() => {
-                          dispatch(addToCart(meal.id, 1, meal.meal_price));
+                          addToCart(
+                            element.id,
+                            totalQuantity,
+                            element.meal_price,
+                            false
+                          );
                         }}
                       >
                         إضافة إلى سلة الطعام
@@ -208,7 +238,6 @@ const MealPage = () => {
                     />
 
                     <button
-                      disabled={{ ableCommnet }}
                       className="add_minus_butt"
                       onClick={() => {
                         addComment(element.id);
