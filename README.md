@@ -76,7 +76,7 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
-- [NySQL](https://www.mysql.com/) - Database
+- [MySQL](https://www.mysql.com/) - Database
 - [Express JS](https://expressjs.com/) - Server Framework
 - [React JS](https://https://reactjs.org/) - Web Framework
 - [Redux](https://https://reactjs.org/) - Web Library including react
